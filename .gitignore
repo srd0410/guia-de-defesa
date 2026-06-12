@@ -1,0 +1,23 @@
+# dependências
+node_modules/
+
+# saída de build
+dist/
+.astro/
+
+# variáveis de ambiente / segredos
+.env
+.env.*
+!.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# config local do Claude (preview) — específico da máquina
+.claude/launch.json
+
+# sistema operacional
+.DS_Store
+Thumbs.db
