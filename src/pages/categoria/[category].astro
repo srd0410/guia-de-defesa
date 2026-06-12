@@ -9,7 +9,8 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.props;
-const posts = (await getCollection('posts', ({ data }) => !data.draft && data.category === category.slug))
+// Só publicados: não-rascunho e com data já alcançada (ver index.astro).
+const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date() && data.category === category.slug))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <BaseLayout

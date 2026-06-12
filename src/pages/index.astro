@@ -5,7 +5,10 @@ import PostCard from '../components/PostCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import { SITE, CATEGORIES } from '../consts';
 
-const posts = (await getCollection('posts', ({ data }) => !data.draft))
+// Mostra o post quando NÃO é rascunho E a data de publicação já chegou.
+// Assim: data futura agenda o post (aparece sozinho quando a data chega);
+// draft: true segura o post manualmente, independentemente da data.
+const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date()))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const [lead, ...rest] = posts;
