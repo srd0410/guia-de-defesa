@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Página não encontrada" description="Esta página não existe." path="/404/">
+  <section class="nf wrap">
+    <p class="eyebrow">Erro 404</p>
+    <h1>Essa rota não existe.</h1>
+    <p>O endereço pode ter mudado ou a página foi removida.</p>
+    <a class="btn" href="/">Voltar ao início</a>
+  </section>
+</BaseLayout>
+<style>
+  .nf { padding: 4rem 0; max-width: var(--measure); }
+  .nf .btn { margin-top: 1rem; }
+</style>

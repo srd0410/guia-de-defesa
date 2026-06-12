@@ -1,0 +1,91 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { getCategory } from '../consts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const cat = getCategory(post.data.category);
+const date = post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  path={`/${post.slug}/`}
+  type="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate ?? post.data.pubDate}
+  author={post.data.author}
+>
+  <article class="post wrap">
+    <nav class="crumbs" aria-label="Trilha">
+      <a href="/">Início</a> <span aria-hidden="true">/</span>
+      <a href={`/categoria/${cat?.slug}/`}>{cat?.name}</a>
+    </nav>
+
+    <header class="post-head">
+      <p class="eyebrow">{cat?.name}</p>
+      <h1>{post.data.title}</h1>
+      <p class="dek">{post.data.description}</p>
+      <div class="byline">
+        <span>{post.data.author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={post.data.pubDate.toISOString()}>{date}</time>
+        {updated && <><span aria-hidden="true">·</span><span>atualizado em {updated}</span></>}
+      </div>
+    </header>
+
+    {post.data.cover && (
+      <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
+    )}
+
+    {post.data.affiliate && <AffiliateDisclosure />}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <hr class="field-rule" />
+    <AdSlot slot="" />
+
+    {post.data.tags.length > 0 && (
+      <div class="tags">
+        {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
+      </div>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: var(--measure); padding-top: 2.2rem; }
+  .crumbs { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--steel); margin-bottom: 1.4rem; }
+  .crumbs a { color: var(--steel); text-decoration: none; }
+  .crumbs a:hover { color: var(--olive-dk); }
+  .post-head .eyebrow { color: var(--olive-dk); }
+  .post-head h1 { margin: 0.5rem 0 0.6rem; }
+  .dek { font-size: 1.2rem; color: var(--ink-soft); line-height: 1.5; }
+  .byline { font-family: var(--font-mono); font-size: 0.74rem; color: var(--steel); display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .cover { border-radius: var(--radius); margin: 1.8rem 0; border: 1px solid var(--line); }
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--steel); background: var(--paper-2); padding: 0.25rem 0.55rem; border-radius: 3px; }
+
+  /* tipografia do corpo do artigo */
+  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--olive); margin: 1.6rem 0; padding: 0.4rem 0 0.4rem 1.2rem;
+    color: var(--ink-soft); font-size: 1.12rem;
+  }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.3rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(code) { font-family: var(--font-mono); font-size: 0.9em; background: var(--paper-2); padding: 0.1em 0.35em; border-radius: 3px; }
+  .prose :global(img) { border-radius: var(--radius); margin: 1.5rem 0; }
+  .prose :global(strong) { font-weight: 600; }
+</style>

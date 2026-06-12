@@ -1,0 +1,124 @@
+/* =============================================================
+   GUIA DE DEFESA — sistema de design
+   Estética: manual de campo / brief de operador.
+   Display condensado, corpo legível, rótulos monoespaçados.
+   ============================================================= */
+
+:root {
+  /* Paleta — oliva / grafite / latão, sóbria */
+  --ink:      #16201b;   /* texto principal (quase preto, leve tom verde) */
+  --ink-soft: #3c4742;   /* texto secundário */
+  --paper:    #f7f5f0;   /* fundo de leitura (papel de campo) */
+  --paper-2:  #eeeae0;   /* blocos sutis */
+  --command:  #18241e;   /* chrome escuro (header/footer) */
+  --command-2:#22312a;   /* hover no chrome escuro */
+  --olive:    #687843;   /* acento de marca */
+  --olive-dk: #4f5d32;
+  --steel:    #5c6b6b;   /* meta / rótulos discretos */
+  --brass:    #b07d2b;   /* acento de sinal (use com parcimônia) */
+  --line:     #e2ded5;   /* hairlines */
+  --line-dk:  #34433b;   /* hairlines no chrome escuro */
+  --danger:   #9c3b2e;
+
+  /* Tipografia */
+  --font-display: 'Saira Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Escala / ritmo */
+  --measure: 42rem;       /* largura ideal de leitura */
+  --wrap: 72rem;          /* largura máxima do conteúdo geral */
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0 0 0.4em;
+}
+h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin-top: 1.8em; }
+h3 { font-size: clamp(1.25rem, 2.4vw, 1.5rem); margin-top: 1.5em; }
+
+a { color: var(--olive-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+a:hover { color: var(--brass); }
+
+p { margin: 0 0 1.1em; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Rótulo monoespaçado — assinatura do projeto (eyebrows, tags, meta) */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* Régua dupla estilo manual técnico */
+.field-rule {
+  border: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  height: 3px;
+  margin: 2.4rem 0;
+  opacity: 0.85;
+}
+
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+
+/* Foco visível para teclado */
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+/* Botão padrão */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  background: var(--olive);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn:hover { background: var(--olive-dk); color: #fff; }
+
+/* Skip link de acessibilidade */
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 100;
+  background: var(--command); color: #fff; padding: 0.6rem 1rem;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }

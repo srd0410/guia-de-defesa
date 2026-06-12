@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { SITE, CATEGORIES } from '../consts';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const [lead, ...rest] = posts;
+---
+<BaseLayout title={SITE.name} description={SITE.description} path="/" type="website">
+  <section class="masthead">
+    <div class="wrap">
+      <p class="eyebrow">Defesa · Equipamento · Prontidão</p>
+      <h1>{SITE.tagline}</h1>
+      <p class="lede">{SITE.description}</p>
+    </div>
+  </section>
+
+  <div class="wrap content">
+    {lead && (
+      <section aria-label="Em destaque">
+        <p class="eyebrow section-label">Última publicação</p>
+        <PostCard
+          url={`/${lead.slug}/`}
+          title={lead.data.title}
+          description={lead.data.description}
+          category={lead.data.category}
+          pubDate={lead.data.pubDate}
+          feature={true}
+        />
+      </section>
+    )}
+
+    <hr class="field-rule" />
+
+    <div class="layout">
+      <section class="stream" aria-label="Publicações recentes">
+        <p class="eyebrow section-label">Recentes</p>
+        {rest.length === 0 && !lead && (
+          <p class="empty">Ainda não há publicações. O primeiro artigo aparece aqui assim que for publicado.</p>
+        )}
+        {rest.map((p) => (
+          <PostCard
+            url={`/${p.slug}/`}
+            title={p.data.title}
+            description={p.data.description}
+            category={p.data.category}
+            pubDate={p.data.pubDate}
+          />
+        ))}
+      </section>
+
+      <aside class="rail" aria-label="Navegação por categoria">
+        <p class="eyebrow section-label">Seções</p>
+        <ul class="catlist">
+          {CATEGORIES.map((c) => (
+            <li><a href={`/categoria/${c.slug}/`}>{c.name}</a></li>
+          ))}
+        </ul>
+        <AdSlot slot="" />
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .masthead {
+    background: var(--command);
+    color: #fff;
+    padding: 3.2rem 0 3rem;
+    border-bottom: 3px solid var(--olive);
+  }
+  .masthead .eyebrow { color: var(--brass); }
+  .masthead h1 { color: #fff; max-width: 18ch; margin-top: 0.5rem; }
+  .lede { color: #cfd6cf; max-width: 52ch; margin-top: 0.8rem; }
+  .content { padding-top: 2.5rem; }
+  .section-label { margin-bottom: 1rem; }
+  .layout { display: grid; grid-template-columns: 1fr 16rem; gap: 3rem; }
+  .catlist { list-style: none; margin: 0 0 2rem; padding: 0; }
+  .catlist li { border-top: 1px solid var(--line); }
+  .catlist a {
+    display: block; padding: 0.6rem 0; text-decoration: none; color: var(--ink);
+    font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 0.01em;
+  }
+  .catlist a:hover { color: var(--olive-dk); }
+  .empty { color: var(--ink-soft); }
+  @media (max-width: 880px) {
+    .layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .rail { order: -1; }
+  }
+</style>

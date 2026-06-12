@@ -1,0 +1,119 @@
+---
+import { SITE, CATEGORIES } from '../consts';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
+      <span class="brand-mark" aria-hidden="true">||</span>
+      <span class="brand-name">{SITE.name}</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Categorias">
+      <ul>
+        {CATEGORIES.map((c) => (
+          <li>
+            <a href={`/categoria/${c.slug}/`}
+               aria-current={path.startsWith(`/categoria/${c.slug}`) ? 'page' : undefined}>
+              {c.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--command);
+    color: #fff;
+    border-bottom: 3px solid var(--olive);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    margin-right: auto;
+  }
+  .brand-mark {
+    font-family: var(--font-mono);
+    color: var(--brass);
+    font-weight: 700;
+    letter-spacing: -2px;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .primary-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .primary-nav a {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #cfd6cf;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  .primary-nav a:hover { color: #fff; }
+  .primary-nav a[aria-current='page'] {
+    color: #fff;
+    border-bottom-color: var(--brass);
+  }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0.4rem;
+  }
+  .nav-toggle span {
+    width: 22px; height: 2px; background: #fff; display: block;
+  }
+  @media (max-width: 820px) {
+    .nav-toggle { display: flex; }
+    .primary-nav {
+      flex-basis: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+    .primary-nav.open { max-height: 480px; }
+    .primary-nav ul { flex-direction: column; gap: 0; padding-bottom: 0.8rem; }
+    .primary-nav li { border-top: 1px solid var(--line-dk); }
+    .primary-nav a { display: block; padding: 0.7rem 0; }
+    .bar { flex-wrap: wrap; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>

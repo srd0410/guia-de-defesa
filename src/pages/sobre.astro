@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+<BaseLayout title="Sobre" description={`Sobre o ${SITE.name}: missão, princípios e responsabilidade editorial.`} path="/sobre/" type="website">
+  <article class="post wrap">
+    <p class="eyebrow">Sobre</p>
+    <h1>O que é o {SITE.name}</h1>
+    <div class="prose">
+      <p>O {SITE.name} reúne conteúdo sério sobre defesa pessoal, defesa residencial,
+      equipamentos e EDC, sobrevivencialismo e tiro — com um diferencial: explicar o
+      <strong>porquê</strong> por trás de cada técnica e escolha, com base em neurociência,
+      biomecânica e responsabilidade.</p>
+
+      <h2>Princípios editoriais</h2>
+      <ul>
+        <li><strong>Método antes de moda.</strong> Recomendamos o que tem fundamento, não o que está em alta.</li>
+        <li><strong>Transparência.</strong> Quando há link de afiliado, avisamos. Recomendação não é propaganda paga disfarçada.</li>
+        <li><strong>Responsabilidade.</strong> Conteúdo informativo e educativo. Não substitui orientação jurídica, médica ou profissional individualizada, nem incentiva uso ilegal de qualquer equipamento.</li>
+      </ul>
+
+      <h2>Contato</h2>
+      <p>Sugestões de pauta e parcerias: <em>(adicione aqui seu e-mail ou formulário).</em></p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: var(--measure); padding-top: 2.2rem; }
+  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
+  .prose :global(ul) { padding-left: 1.3rem; }
+  .prose :global(li) { margin-bottom: 0.5rem; }
+</style>

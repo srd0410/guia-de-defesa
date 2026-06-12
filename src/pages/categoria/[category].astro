@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { CATEGORIES, getCategory, SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { category: c } }));
+}
+
+const { category } = Astro.props;
+const posts = (await getCollection('posts', ({ data }) => !data.draft && data.category === category.slug))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout
+  title={category.name}
+  description={category.blurb}
+  path={`/categoria/${category.slug}/`}
+  type="website"
+>
+  <section class="cat-head">
+    <div class="wrap">
+      <p class="eyebrow">Seção</p>
+      <h1>{category.name}</h1>
+      <p class="blurb">{category.blurb}</p>
+    </div>
+  </section>
+
+  <div class="wrap stream">
+    {posts.length === 0 ? (
+      <p class="empty">Ainda não há artigos nesta seção. Em breve.</p>
+    ) : (
+      posts.map((p) => (
+        <PostCard
+          url={`/${p.slug}/`}
+          title={p.data.title}
+          description={p.data.description}
+          category={p.data.category}
+          pubDate={p.data.pubDate}
+        />
+      ))
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .cat-head { background: var(--command); color: #fff; padding: 2.8rem 0; border-bottom: 3px solid var(--olive); }
+  .cat-head .eyebrow { color: var(--brass); }
+  .cat-head h1 { color: #fff; margin-top: 0.4rem; }
+  .blurb { color: #cfd6cf; max-width: 56ch; margin-top: 0.6rem; }
+  .stream { max-width: var(--measure); padding-top: 1.5rem; }
+  .empty { color: var(--ink-soft); padding: 1.5rem 0; }
+</style>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  /** ID do vídeo (a parte depois de v= na URL do YouTube) */
+  id: string;
+  /** Título descritivo (acessibilidade + SEO) */
+  title: string;
+}
+const { id, title } = Astro.props;
+// Lite-embed: carrega só a miniatura; o player só entra ao clicar (performance).
+const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+---
+<div class="yt" data-id={id}>
+  <button class="yt-play" type="button" aria-label={`Reproduzir: ${title}`}>
+    <img src={thumb} alt={title} loading="lazy" />
+    <span class="yt-btn" aria-hidden="true">▶</span>
+  </button>
+  <figcaption class="yt-cap">{title}</figcaption>
+</div>
+
+<style>
+  .yt { margin: 1.8rem 0; }
+  .yt-play {
+    position: relative; display: block; width: 100%; padding: 0;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; cursor: pointer; background: #000; aspect-ratio: 16 / 9;
+  }
+  .yt-play img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
+  .yt-btn {
+    position: absolute; inset: 0; margin: auto; width: 68px; height: 68px;
+    display: grid; place-items: center; font-size: 1.6rem; color: #fff;
+    background: rgba(24,36,30,0.82); border-radius: 50%;
+    border: 2px solid #fff; padding-left: 5px;
+  }
+  .yt-cap { font-family: var(--font-mono); font-size: 0.74rem; color: var(--steel); margin-top: 0.5rem; }
+  .yt iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: var(--radius); }
+</style>
+
+<script>
+  document.querySelectorAll('.yt').forEach((el) => {
+    const btn = el.querySelector('.yt-play');
+    btn?.addEventListener('click', () => {
+      const id = (el as HTMLElement).dataset.id;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      btn.replaceWith(iframe);
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+---
+import { SITE } from '../consts';
+interface Props {
+  /** slot do AdSense (você cria no painel e cola o número aqui ou na chamada) */
+  slot?: string;
+  /** rótulo opcional acima do anúncio */
+  label?: boolean;
+}
+const { slot = '', label = true } = Astro.props;
+const enabled = Boolean(SITE.adsenseClientId && slot);
+---
+{enabled ? (
+  <div class="ad">
+    {label && <span class="ad-label">Publicidade</span>}
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client={SITE.adsenseClientId}
+         data-ad-slot={slot}
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+) : null}
+
+<style>
+  .ad { margin: 2rem 0; text-align: center; }
+  .ad-label {
+    display: block; font-family: var(--font-mono); font-size: 0.62rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--steel);
+    margin-bottom: 0.3rem;
+  }
+</style>
