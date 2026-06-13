@@ -105,7 +105,7 @@ força clareza e dá ao leitor um motivo para ler até a última linha de cada b
 1. **Frase 1 — tópico frasal.** Anuncia a ideia única daquele parágrafo. Direta.
 2. **Frases 2 e 3 — desenvolvimento.** Explicam, fundamentam, dão o mecanismo (biomecânica,
    neurociência, lei, física). Pode ir a uma 4ª frase quando o assunto exige aprofundamento.
-3. **Frase final — o "e daí?".** Fecha o parágrafo respondendo: *o que isso significa na
+3. **Frase final — o fechamento.** Fecha o parágrafo respondendo: *o que isso significa na
    prática? o que eu quero que o leitor conclua disso?* É a frase que transforma informação
    em entendimento.
 
@@ -115,12 +115,19 @@ força clareza e dá ao leitor um motivo para ler até a última linha de cada b
 > *(desenvolvimento)* Tudo o que vem depois — controle de recuo, velocidade de rechamada,
 > consistência de mira — nasce da qualidade desse encaixe inicial. Uma empunhadura baixa
 > some alguns centímetros de controle a cada disparo, e esse erro se multiplica sob estresse.
-> *(e daí?)* Na prática: se você só puder corrigir uma coisa no seu tiro hoje, comece pela
+> *(fechamento)* Na prática: se você só puder corrigir uma coisa no seu tiro hoje, comece pela
 > mão — é o ajuste de maior retorno e o mais barato de treinar.
 
 Não transforme isso numa fórmula rígida que engessa o texto. É um esqueleto de raciocínio,
-não uma camisa de força. Mas o "e daí?" ao fim do parágrafo é inegociável: parágrafo que
-não conclui nada é parágrafo que pode ser cortado.
+não uma camisa de força. Mas esse fechamento ao fim do parágrafo é inegociável: parágrafo
+que não conclui nada é parágrafo que pode ser cortado.
+
+> ⚠️ **"E daí?" é uma lente interna de revisão — NÃO é texto do artigo.** As anotações
+> *(tópico frasal)*, *(desenvolvimento)* e *(fechamento)* acima existem só para mostrar a
+> estrutura; **nunca escreva esses rótulos nem as palavras "E daí?" (ou "So what?") no
+> post**. Use a pergunta "e daí?" só na sua cabeça, para checar se o parágrafo fecha uma
+> ideia — o fechamento aparece como uma frase comum e fluida, que responde à pergunta sem
+> nunca citá-la.
 
 ---
 
@@ -265,7 +272,7 @@ Sugira o nome do arquivo ao usuário no formato:
 
 - [ ] Introdução fisga com situação real e promete ganho concreto
 - [ ] Cada seção tem conclusão parcial antes da próxima
-- [ ] Cada parágrafo tem tópico frasal + desenvolvimento + "e daí?"
+- [ ] Cada parágrafo tem tópico frasal + desenvolvimento + fechamento (lente "e daí?" aplicada — **sem a frase escrita no texto**)
 - [ ] Conclusão entrega aplicabilidade prática + como implementar (com exemplo se possível)
 - [ ] Inglês só onde é termo técnico consagrado; sem anglicismo gratuito
 - [ ] Pelo menos uma frase-síntese "compartilhável" em blockquote

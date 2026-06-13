@@ -24,7 +24,8 @@ A skill **motor-de-conteudo** (em `.claude/skills/`) gera os posts `.mdx` no pad
 editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave que ela aplica:
 
 - Arco introdução → desenvolvimento → conclusão, com ganho real de aplicabilidade
-- Parágrafo no padrão: tópico frasal → desenvolvimento → frase "e daí?" (conclusão)
+- Parágrafo no padrão: tópico frasal → desenvolvimento → fechamento (a lente interna "e daí?",
+  nunca escrita no texto)
 - Conclusões parciais ao fim de cada tópico
 - Termo técnico em inglês mantido só quando consagrado, com tradução entre aspas e
   parênteses na primeira ocorrência: `*dry fire*` ("tiro a seco")
