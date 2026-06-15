@@ -1,0 +1,54 @@
+---
+// Caixa de autor exibida ao final dos artigos — sinal de E-E-A-T.
+import { AUTHOR } from '../consts';
+---
+<aside class="author" aria-label="Sobre o autor">
+  <div class="author-mark" aria-hidden="true">||</div>
+  <div class="author-body">
+    <p class="eyebrow">Autor</p>
+    <p class="author-name">{AUTHOR.name}</p>
+    <ul class="creds">
+      {AUTHOR.credentials.map((c) => <li>{c}</li>)}
+    </ul>
+    <img class="seal" src={AUTHOR.seal.src} alt={AUTHOR.seal.alt} loading="lazy" />
+    <a class="author-link" href={AUTHOR.url}>Ver perfil do autor →</a>
+  </div>
+</aside>
+
+<style>
+  .author {
+    display: flex;
+    gap: 1.1rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    margin: 2.2rem 0 1rem;
+  }
+  .author-mark {
+    font-family: var(--font-mono);
+    color: var(--brass);
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .author-name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin: 0.2rem 0 0.5rem;
+  }
+  .creds { margin: 0 0 0.7rem; padding-left: 1.1rem; }
+  .creds li { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.15rem; }
+  .seal { height: 42px; width: auto; display: block; margin: 0 0 0.8rem; }
+  .author-link {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--brass);
+    text-decoration: none;
+  }
+</style>

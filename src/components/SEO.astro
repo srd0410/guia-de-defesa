@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../consts';
+import { SITE, AUTHOR } from '../consts';
 
 interface Props {
   title: string;
@@ -21,7 +21,7 @@ const {
 
 const canonical = new URL(path, SITE.url).href;
 const fullTitle = path === '/' ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
-const ogImage = image ? new URL(image, SITE.url).href : new URL('/og-default.png', SITE.url).href;
+const ogImage = image ? new URL(image, SITE.url).href : new URL('/logo-completo.jpg', SITE.url).href;
 
 const jsonLd = type === 'article'
   ? {
@@ -29,7 +29,14 @@ const jsonLd = type === 'article'
       '@type': 'Article',
       headline: title,
       description,
-      author: { '@type': 'Person', name: author ?? SITE.author },
+      author: {
+        '@type': 'Person',
+        name: author ?? AUTHOR.name,
+        jobTitle: AUTHOR.role,
+        description: AUTHOR.bio,
+        knowsAbout: AUTHOR.knowsAbout,
+        url: new URL(AUTHOR.url, SITE.url).href,
+      },
       publisher: { '@type': 'Organization', name: SITE.name },
       datePublished: publishedTime?.toISOString(),
       dateModified: (modifiedTime ?? publishedTime)?.toISOString(),

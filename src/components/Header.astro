@@ -5,7 +5,7 @@ const path = Astro.url.pathname;
 <header class="site-header">
   <div class="wrap bar">
     <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
-      <span class="brand-mark" aria-hidden="true">||</span>
+      <img class="brand-logo" src="/logo.jpg" alt="" width="52" height="52" />
       <span class="brand-name">{SITE.name}</span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu">
@@ -40,17 +40,17 @@ const path = Astro.url.pathname;
   }
   .brand {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
     color: #fff;
     margin-right: auto;
   }
-  .brand-mark {
-    font-family: var(--font-mono);
-    color: var(--brass);
-    font-weight: 700;
-    letter-spacing: -2px;
+  .brand-logo {
+    height: 52px;
+    width: 52px;
+    display: block;
+    border-radius: 4px;
   }
   .brand-name {
     font-family: var(--font-display);
