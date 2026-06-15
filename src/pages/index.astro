@@ -15,7 +15,8 @@ const [lead, ...rest] = posts;
 ---
 <BaseLayout title={SITE.name} description={SITE.description} path="/" type="website">
   <section class="masthead">
-    <div class="wrap">
+    <img class="masthead-emblem" src="/logo.jpg" alt="" aria-hidden="true" />
+    <div class="wrap masthead-inner">
       <p class="eyebrow">Defesa · Equipamento · Prontidão</p>
       <h1>{SITE.tagline}</h1>
       <p class="lede">{SITE.description}</p>
@@ -71,15 +72,41 @@ const [lead, ...rest] = posts;
 
 <style>
   .masthead {
-    background: var(--command);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 140% at 85% -10%, rgba(176,125,43,0.18), transparent 55%),
+      linear-gradient(165deg, var(--command-2) 0%, var(--command) 55%, #0e1712 100%);
     color: #fff;
-    padding: 3.2rem 0 3rem;
-    border-bottom: 3px solid var(--olive);
+    padding: 4.5rem 0 3.6rem;
+    border-bottom: 1px solid var(--brass);
+    box-shadow: inset 0 -4px 0 var(--olive);
   }
-  .masthead .eyebrow { color: var(--brass); }
-  .masthead h1 { color: #fff; max-width: 18ch; margin-top: 0.5rem; }
-  .lede { color: #cfd6cf; max-width: 52ch; margin-top: 0.8rem; }
-  .content { padding-top: 2.5rem; }
+  .masthead-emblem {
+    position: absolute;
+    right: -40px; top: 50%;
+    width: 360px; height: auto;
+    transform: translateY(-50%);
+    opacity: 0.16;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    user-select: none;
+  }
+  .masthead-inner { position: relative; z-index: 1; }
+  .masthead .eyebrow {
+    color: var(--brass);
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .masthead .eyebrow::before {
+    content: ""; width: 22px; height: 2px; background: var(--brass); display: inline-block;
+  }
+  .masthead h1 {
+    color: #fff; max-width: 20ch; margin-top: 0.8rem;
+    font-size: clamp(2.3rem, 5.5vw, 3.6rem);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+  }
+  .lede { color: #cfd6cf; max-width: 54ch; margin-top: 0.9rem; font-size: 1.12rem; }
+  .content { padding-top: 2.8rem; }
   .section-label { margin-bottom: 1rem; }
   .layout { display: grid; grid-template-columns: 1fr 16rem; gap: 3rem; }
   .catlist { list-style: none; margin: 0 0 2rem; padding: 0; }

@@ -11,12 +11,23 @@ interface Props {
 const { url, title, description, category, pubDate, feature = false } = Astro.props;
 const cat = getCategory(category);
 const date = pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+
+// Cor de acento por categoria (paleta terrosa/militar, dentro da identidade)
+const CAT_COLORS: Record<string, string> = {
+  'defesa-pessoal': '#b07d2b',
+  'defesa-residencial': '#687843',
+  'equipamentos': '#5c6b6b',
+  'sobrevivencialismo': '#9c5a2e',
+  'tiro': '#8a3b2e',
+  'ciencia-do-treinamento': '#3f6b63',
+  'fundamentos': '#8a7a52',
+};
+const accent = CAT_COLORS[category] ?? '#687843';
 ---
-<article class={`card ${feature ? 'feature' : ''}`}>
+<article class={`card ${feature ? 'feature' : ''}`} style={`--accent:${accent}`}>
   <a href={url} class="card-link">
     <div class="meta">
-      <span class="cat">{cat?.name ?? category}</span>
-      <span class="dot" aria-hidden="true">·</span>
+      <span class="chip">{cat?.name ?? category}</span>
       <time datetime={pubDate.toISOString()}>{date}</time>
     </div>
     <h3 class="title">{title}</h3>
@@ -26,20 +37,44 @@ const date = pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short
 </article>
 
 <style>
-  .card { border-top: 1px solid var(--line); padding: 1.5rem 0; }
-  .card-link { display: block; text-decoration: none; color: inherit; }
-  .meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-  .cat {
-    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--olive-dk); font-weight: 500;
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+    margin-bottom: 1rem;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
   }
-  .dot, time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel); }
-  .title { font-size: 1.5rem; margin: 0 0 0.4rem; transition: color 0.15s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22,32,27,0.10); }
+  .card-link { display: block; text-decoration: none; color: inherit; }
+  .meta { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
+  .chip {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    color: #fff; background: var(--accent);
+    padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap;
+  }
+  time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel); }
+  .title { font-size: 1.4rem; margin: 0 0 0.4rem; transition: color 0.15s ease; }
   .card-link:hover .title { color: var(--olive-dk); }
   .desc { color: var(--ink-soft); margin: 0 0 0.6rem; }
-  .more { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; color: var(--brass); }
+  .more {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em;
+    color: var(--brass); font-weight: 500;
+  }
 
-  .card.feature { border-top: 0; padding: 0 0 1.5rem; }
-  .card.feature .title { font-size: clamp(1.9rem, 4vw, 2.6rem); }
-  .card.feature .desc { font-size: 1.1rem; }
+  /* Destaque: painel escuro com a cara da marca */
+  .card.feature {
+    background:
+      radial-gradient(120% 140% at 90% -20%, rgba(176,125,43,0.16), transparent 55%),
+      linear-gradient(160deg, var(--command-2), var(--command));
+    border: 1px solid var(--line-dk);
+    border-left: 3px solid var(--brass);
+    padding: 2rem 2rem;
+  }
+  .card.feature .title { color: #fff; font-size: clamp(1.8rem, 4vw, 2.5rem); }
+  .card.feature .desc { color: #cfd6cf; font-size: 1.08rem; }
+  .card.feature time { color: #aeb8ae; }
+  .card.feature:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,0.25); }
 </style>
