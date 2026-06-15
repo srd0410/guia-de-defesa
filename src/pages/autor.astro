@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import PostCard from '../components/PostCard.astro';
+import { SITE, AUTHOR } from '../consts';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: AUTHOR.name,
+  jobTitle: AUTHOR.role,
+  description: AUTHOR.bio,
+  knowsAbout: AUTHOR.knowsAbout,
+  url: new URL(AUTHOR.url, SITE.url).href,
+  worksFor: { '@type': 'Organization', name: SITE.name },
+};
+---
+<BaseLayout
+  title={`${AUTHOR.name} — Autor`}
+  description={AUTHOR.bio}
+  path="/autor/"
+  type="website"
+>
+  <section class="author-head">
+    <div class="wrap">
+      <p class="eyebrow">Autor</p>
+      <h1>{AUTHOR.name}</h1>
+      <p class="role">{AUTHOR.role}</p>
+    </div>
+  </section>
+
+  <article class="wrap body">
+    <div class="prose">
+      <p class="lead">{AUTHOR.bio}</p>
+
+      <h2>Credenciais</h2>
+      <ul class="creds">
+        {AUTHOR.credentials.map((c) => <li>{c}</li>)}
+      </ul>
+      <img class="seal" src={AUTHOR.seal.src} alt={AUTHOR.seal.alt} loading="lazy" />
+
+      <h2>Áreas de atuação</h2>
+      <p>{AUTHOR.knowsAbout.join(' · ')}</p>
+    </div>
+
+    <hr class="field-rule" />
+
+    <p class="eyebrow">Artigos recentes do autor</p>
+    {posts.map((p) => (
+      <PostCard
+        url={`/${p.slug}/`}
+        title={p.data.title}
+        description={p.data.description}
+        category={p.data.category}
+        pubDate={p.data.pubDate}
+      />
+    ))}
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+</BaseLayout>
+
+<style>
+  .author-head { background: var(--command); color: #fff; padding: 2.8rem 0; border-bottom: 3px solid var(--olive); }
+  .author-head .eyebrow { color: var(--brass); }
+  .author-head h1 { color: #fff; margin-top: 0.4rem; }
+  .role { color: #cfd6cf; font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.04em; margin-top: 0.4rem; }
+  .body { max-width: var(--measure); padding-top: 2rem; }
+  .lead { font-size: 1.15rem; color: var(--ink-soft); }
+  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
+  .creds { padding-left: 1.2rem; }
+  .creds li { margin-bottom: 0.35rem; }
+  .seal { height: 58px; width: auto; display: block; margin: 0.4rem 0 0.6rem; }
+</style>

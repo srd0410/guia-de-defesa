@@ -19,6 +19,33 @@ export const SITE = {
   adsenseClientId: '',
 };
 
+// Autor padrão dos artigos (sinal forte de E-E-A-T para Google e IAs).
+export const AUTHOR = {
+  name: 'Felipe Arrais Serôdio',
+  role: 'Instrutor de Tiro',
+  url: '/autor/',
+  credentials: [
+    'Instrutor de Tiro',
+    'Instrutor Credenciado pela Polícia Federal',
+    'Instrutor licenciado — Metodologia ETC (Esperandio Tactical Concept)',
+  ],
+  bio:
+    'Felipe Arrais Serôdio é instrutor de tiro credenciado pela Polícia Federal e ' +
+    'licenciado na Metodologia ETC (Esperandio Tactical Concept). Dedica-se ao ensino e ' +
+    'ao estudo do tiro com base em ciência do treinamento, biomecânica e fundamentos ' +
+    'técnicos, traduzindo a pesquisa em prática deliberada no estande e fora dele. ' +
+    'Escreve sobre defesa pessoal, tiro e prontidão com rigor técnico e sem sensacionalismo.',
+  knowsAbout: [
+    'defesa pessoal', 'tiro esportivo', 'tiro de combate', 'treinamento de tiro',
+    'biomecânica do tiro', 'prática deliberada no tiro', 'defesa residencial', 'EDC',
+  ],
+  // Selo de credencial exibido junto das credenciais do autor.
+  seal: {
+    src: '/selo-etc.png',
+    alt: 'Selo de Instrutor Licenciado — Metodologia ETC (Esperandio Tactical Concept)',
+  },
+};
+
 export type CategorySlug =
   | 'defesa-pessoal'
   | 'defesa-residencial'

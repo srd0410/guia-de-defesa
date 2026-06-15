@@ -3,11 +3,11 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { getCategory } from '../consts';
+import AuthorBio from '../components/AuthorBio.astro';
+import { getCategory, AUTHOR } from '../consts';
 
 export async function getStaticPaths() {
   // Só gera página para posts publicados: não-rascunho e com data já alcançada.
-  // Post agendado (data futura) só ganha página no build feito a partir da data.
   const posts = await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date());
   return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
 }
@@ -38,7 +38,9 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
       <h1>{post.data.title}</h1>
       <p class="dek">{post.data.description}</p>
       <div class="byline">
-        <span>{post.data.author}</span>
+        <span>Por <a href={AUTHOR.url} class="byline-author">{post.data.author}</a></span>
+        <span aria-hidden="true">·</span>
+        <span>{AUTHOR.role}</span>
         <span aria-hidden="true">·</span>
         <time datetime={post.data.pubDate.toISOString()}>{date}</time>
         {updated && <><span aria-hidden="true">·</span><span>atualizado em {updated}</span></>}
@@ -63,6 +65,8 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
         {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
       </div>
     )}
+
+    <AuthorBio />
   </article>
 </BaseLayout>
 
@@ -75,6 +79,8 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
   .post-head h1 { margin: 0.5rem 0 0.6rem; }
   .dek { font-size: 1.2rem; color: var(--ink-soft); line-height: 1.5; }
   .byline { font-family: var(--font-mono); font-size: 0.74rem; color: var(--steel); display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .byline-author { color: var(--olive-dk); text-decoration: none; }
+  .byline-author:hover { color: var(--brass); }
   .cover { border-radius: var(--radius); margin: 1.8rem 0; border: 1px solid var(--line); }
   .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
   .tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--steel); background: var(--paper-2); padding: 0.25rem 0.55rem; border-radius: 3px; }
