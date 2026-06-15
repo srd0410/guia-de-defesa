@@ -21,7 +21,7 @@ export const SITE = {
 
 // Autor padrão dos artigos (sinal forte de E-E-A-T para Google e IAs).
 export const AUTHOR = {
-  name: 'Felipe Arrais Serôdio',
+  name: 'Felipe Arrais Serodio',
   role: 'Instrutor de Tiro',
   url: '/autor/',
   credentials: [
@@ -30,7 +30,7 @@ export const AUTHOR = {
     'Instrutor licenciado — Metodologia ETC (Esperandio Tactical Concept)',
   ],
   bio:
-    'Felipe Arrais Serôdio é instrutor de tiro credenciado pela Polícia Federal e ' +
+    'Felipe Arrais Serodio é instrutor de tiro credenciado pela Polícia Federal e ' +
     'licenciado na Metodologia ETC (Esperandio Tactical Concept). Dedica-se ao ensino e ' +
     'ao estudo do tiro com base em ciência do treinamento, biomecânica e fundamentos ' +
     'técnicos, traduzindo a pesquisa em prática deliberada no estande e fora dele. ' +
