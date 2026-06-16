@@ -3,117 +3,115 @@ import { SITE, CATEGORIES } from '../consts';
 const path = Astro.url.pathname;
 ---
 <header class="site-header">
-  <div class="wrap bar">
-    <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
-      <img class="brand-logo" src="/logo.jpg" alt="" width="52" height="52" />
-      <span class="brand-name">{SITE.name}</span>
-    </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="primary-nav" class="primary-nav" aria-label="Categorias">
-      <ul>
-        {CATEGORIES.map((c) => (
-          <li>
-            <a href={`/categoria/${c.slug}/`}
-               aria-current={path.startsWith(`/categoria/${c.slug}`) ? 'page' : undefined}>
-              {c.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+  <!-- Linha 1: banner full-width -->
+  <a href="/" class="brand-band" aria-label={`${SITE.name} — início`}>
+    <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1500" height="400" />
+  </a>
+
+  <!-- Linha 2: categorias em pills — 2 linhas de 5 -->
+  <div class="nav-bar">
+    <div class="wrap">
+      <nav class="primary-nav" aria-label="Categorias">
+        <ul>
+          {CATEGORIES.map((c) => (
+            <li>
+              <a
+                href={`/categoria/${c.slug}/`}
+                class:list={['pill', { active: path.startsWith(`/categoria/${c.slug}`) }]}
+                aria-current={path.startsWith(`/categoria/${c.slug}`) ? 'page' : undefined}
+              >
+                {c.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 
 <style>
+  /* ── Header geral ───────────────────────────────── */
   .site-header {
     background: var(--command);
     color: #fff;
-    border-bottom: 3px solid var(--olive);
+    width: 100%;
   }
-  .bar {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    min-height: 64px;
-  }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    color: #fff;
-    margin-right: auto;
-  }
-  .brand-logo {
-    height: 52px;
-    width: 52px;
+
+  /* ── Linha 1: banner full-width ─────────────────── */
+  .brand-band {
     display: block;
-    border-radius: 4px;
+    width: 100%;
+    text-decoration: none;
+    line-height: 0; /* remove espaço embaixo da imagem */
+    border-bottom: 1px solid var(--line-dk);
   }
-  .brand-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+
+  .header-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 220px;
   }
+
+  /* ── Linha 2: nav de categorias — 2 linhas de 5 ── */
+  .nav-bar {
+    background: var(--command-2);
+    border-bottom: 3px solid var(--olive);
+    width: 100%;
+  }
+
   .primary-nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
     list-style: none;
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0.55rem 0;
   }
-  .primary-nav a {
+
+  .primary-nav li {
+    display: flex;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.68rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #cfd6cf;
     text-decoration: none;
-    padding: 0.25rem 0;
-    border-bottom: 2px solid transparent;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--line-dk);
+    color: #b0bcb0;
+    background: transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    line-height: 1.2;
   }
-  .primary-nav a:hover { color: #fff; }
-  .primary-nav a[aria-current='page'] {
+
+  .pill:hover {
+    background: var(--olive);
+    border-color: var(--olive);
     color: #fff;
-    border-bottom-color: var(--brass);
   }
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    padding: 0.4rem;
+
+  .pill.active {
+    background: var(--brass);
+    border-color: var(--brass);
+    color: #fff;
   }
-  .nav-toggle span {
-    width: 22px; height: 2px; background: #fff; display: block;
-  }
-  @media (max-width: 820px) {
-    .nav-toggle { display: flex; }
-    .primary-nav {
-      flex-basis: 100%;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease;
+
+  /* ── Mobile ──────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .header-banner { max-height: 100px; }
+    .primary-nav ul {
+      grid-template-columns: repeat(2, 1fr);
     }
-    .primary-nav.open { max-height: 480px; }
-    .primary-nav ul { flex-direction: column; gap: 0; padding-bottom: 0.8rem; }
-    .primary-nav li { border-top: 1px solid var(--line-dk); }
-    .primary-nav a { display: block; padding: 0.7rem 0; }
-    .bar { flex-wrap: wrap; }
   }
 </style>
-
-<script>
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.getElementById('primary-nav');
-  toggle?.addEventListener('click', () => {
-    const open = nav?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-</script>
