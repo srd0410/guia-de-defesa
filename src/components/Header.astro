@@ -3,15 +3,10 @@ import { SITE, CATEGORIES } from '../consts';
 const path = Astro.url.pathname;
 ---
 <header class="site-header">
-  <!-- Linha 1: logo — faixa full-width -->
-  <div class="brand-band">
-    <div class="wrap brand-row">
-      <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
-        <img class="brand-logo" src="/logo-completo.jpg" alt={SITE.name} width="220" height="220" />
-      </a>
-      <p class="brand-tagline">{SITE.tagline}</p>
-    </div>
-  </div>
+  <!-- Linha 1: banner full-width -->
+  <a href="/" class="brand-band" aria-label={`${SITE.name} — início`}>
+    <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1500" height="400" />
+  </a>
 
   <!-- Linha 2: categorias em pills — 2 linhas de 5 -->
   <div class="nav-bar">
@@ -43,42 +38,21 @@ const path = Astro.url.pathname;
     width: 100%;
   }
 
-  /* ── Linha 1: faixa do logo — cobre toda a largura ── */
+  /* ── Linha 1: banner full-width ─────────────────── */
   .brand-band {
+    display: block;
     width: 100%;
-    background: var(--command);
+    text-decoration: none;
+    line-height: 0; /* remove espaço embaixo da imagem */
     border-bottom: 1px solid var(--line-dk);
   }
 
-  .brand-row {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1rem 0 0.85rem;
+  .header-banner {
     width: 100%;
-  }
-
-  .brand {
+    height: auto;
     display: block;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-
-  .brand-logo {
-    height: 80px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  .brand-tagline {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #8a9e8a;
-    margin: 0;
-    line-height: 1.6;
+    object-fit: cover;
+    max-height: 220px;
   }
 
   /* ── Linha 2: nav de categorias — 2 linhas de 5 ── */
@@ -135,9 +109,7 @@ const path = Astro.url.pathname;
 
   /* ── Mobile ──────────────────────────────────────── */
   @media (max-width: 640px) {
-    .brand-logo { height: 56px; }
-    .brand-tagline { display: none; }
-    .brand-row { padding: 0.75rem 0 0.6rem; }
+    .header-banner { max-height: 100px; }
     .primary-nav ul {
       grid-template-columns: repeat(2, 1fr);
     }
