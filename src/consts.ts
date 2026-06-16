@@ -53,7 +53,10 @@ export type CategorySlug =
   | 'sobrevivencialismo'
   | 'tiro'
   | 'ciencia-do-treinamento'
-  | 'fundamentos';
+  | 'fundamentos'
+  | 'legislacao'
+  | 'cac-tiro-desportivo'
+  | 'primeiros-socorros';
 
 export interface Category {
   slug: CategorySlug;
@@ -104,6 +107,24 @@ export const CATEGORIES: Category[] = [
     name: 'Fundamentos',
     blurb:
       'O porquê antes do como: responsabilidade, prudência e a base de quem decide se preparar para proteger.',
+  },
+  {
+    slug: 'legislacao',
+    name: 'Legislação e Direito',
+    blurb:
+      'Armas, porte, posse e legítima defesa explicados com base na lei — conteúdo educativo, com referência na fonte primária.',
+  },
+  {
+    slug: 'cac-tiro-desportivo',
+    name: 'CAC e Tiro Desportivo',
+    blurb:
+      'O universo do CAC: como se tornar e se manter em dia, acervo, guias de tráfego, clubes, federações e colecionamento.',
+  },
+  {
+    slug: 'primeiros-socorros',
+    name: 'Primeiros Socorros e Trauma',
+    blurb:
+      'Atendimento pré-hospitalar e resposta a trauma: controle de hemorragia, kit IFAK e as primeiras intervenções em situações de risco à vida.',
   },
 ];
 
