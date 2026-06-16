@@ -3,15 +3,17 @@ import { SITE, CATEGORIES } from '../consts';
 const path = Astro.url.pathname;
 ---
 <header class="site-header">
-  <!-- Linha 1: logo -->
-  <div class="wrap brand-row">
-    <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
-      <img class="brand-logo" src="/logo-completo.jpg" alt={SITE.name} width="220" height="220" />
-    </a>
-    <p class="brand-tagline">{SITE.tagline}</p>
+  <!-- Linha 1: logo — faixa full-width -->
+  <div class="brand-band">
+    <div class="wrap brand-row">
+      <a href="/" class="brand" aria-label={`${SITE.name} — início`}>
+        <img class="brand-logo" src="/logo-completo.jpg" alt={SITE.name} width="220" height="220" />
+      </a>
+      <p class="brand-tagline">{SITE.tagline}</p>
+    </div>
   </div>
 
-  <!-- Linha 2: categorias em pills -->
+  <!-- Linha 2: categorias em pills — 2 linhas de 5 -->
   <div class="nav-bar">
     <div class="wrap">
       <nav class="primary-nav" aria-label="Categorias">
@@ -34,17 +36,26 @@ const path = Astro.url.pathname;
 </header>
 
 <style>
-  /* ── Linha 1: marca ─────────────────────────────── */
+  /* ── Header geral ───────────────────────────────── */
   .site-header {
     background: var(--command);
     color: #fff;
+    width: 100%;
+  }
+
+  /* ── Linha 1: faixa do logo — cobre toda a largura ── */
+  .brand-band {
+    width: 100%;
+    background: var(--command);
+    border-bottom: 1px solid var(--line-dk);
   }
 
   .brand-row {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1rem 0 0.75rem;
+    padding: 1rem 0 0.85rem;
+    width: 100%;
   }
 
   .brand {
@@ -54,10 +65,9 @@ const path = Astro.url.pathname;
   }
 
   .brand-logo {
-    height: 72px;
+    height: 80px;
     width: auto;
     display: block;
-    /* remove o fundo quadrado do jpg usando object-fit */
     object-fit: contain;
   }
 
@@ -68,46 +78,47 @@ const path = Astro.url.pathname;
     text-transform: uppercase;
     color: #8a9e8a;
     margin: 0;
-    line-height: 1.4;
-    max-width: 28ch;
+    line-height: 1.6;
   }
 
-  /* ── Linha 2: nav de categorias ─────────────────── */
+  /* ── Linha 2: nav de categorias — 2 linhas de 5 ── */
   .nav-bar {
     background: var(--command-2);
-    border-top: 1px solid var(--line-dk);
     border-bottom: 3px solid var(--olive);
+    width: 100%;
   }
 
   .primary-nav ul {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.4rem;
     list-style: none;
     margin: 0;
     padding: 0.55rem 0;
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
   }
 
-  .primary-nav ul::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+  .primary-nav li {
+    display: flex;
   }
 
   .pill {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.07em;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
-    white-space: nowrap;
-    padding: 0.3rem 0.75rem;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
     border-radius: 999px;
     border: 1px solid var(--line-dk);
     color: #b0bcb0;
     background: transparent;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
+    line-height: 1.2;
   }
 
   .pill:hover {
@@ -124,8 +135,11 @@ const path = Astro.url.pathname;
 
   /* ── Mobile ──────────────────────────────────────── */
   @media (max-width: 640px) {
-    .brand-logo { height: 52px; }
+    .brand-logo { height: 56px; }
     .brand-tagline { display: none; }
     .brand-row { padding: 0.75rem 0 0.6rem; }
+    .primary-nav ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 </style>
