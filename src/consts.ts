@@ -5,13 +5,15 @@
 
 export const SITE = {
   name: 'Guia de Defesa',
-  tagline: 'Defesa pessoal, equipamento e prontidão — com método.',
+  tagline: 'Defesa pessoal, equipamento e prontidão.',
+  // Subtítulo alternativo — use em componentes, rodapé, cards de apresentação etc.
+  taglineAlt: 'Conhecer, treinar, proteger.',
   // Troque pelo domínio definitivo:
   url: 'https://guiadedefesa.com.br',
   // Usado nas meta tags sociais e no rodapé:
   description:
-    'Conteúdo sério sobre defesa pessoal, defesa residencial, equipamentos e EDC, ' +
-    'sobrevivencialismo, tiro e a ciência por trás do treinamento.',
+    'Guia completo sobre defesa pessoal, residencial, tiro, legislação, equipamentos, ' +
+    'primeiros socorros, preparação e prontidão. Informação técnica para quem quer aprender e pesquisar.',
   author: 'Guia de Defesa',
   locale: 'pt_BR',
   // Quando tiver o ID do AdSense, cole aqui (ex.: 'ca-pub-0000000000000000').
