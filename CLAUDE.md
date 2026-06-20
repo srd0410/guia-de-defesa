@@ -50,14 +50,27 @@ npm run build    # gera o site em dist/
 
 ## Estado do acervo (atualizar conforme avança)
 
-- ✅ 7 artigos no padrão editorial: os 5 pilares (defesa-residencial, fundamentos-do-tiro,
-  ciencia-do-treinamento-de-tiro, sobrevivencialismo-para-iniciantes, dever-de-proteger-familia)
-  + os 2 originais aprofundados (melhores-red-dots-pistola, legitima-defesa-no-brasil)
-- ⬜ 23 artigos restantes do PLANO-CONTEUDO.md (pingar 2–3/dia, priorizando Defesa Pessoal e Equipamentos)
+- ✅ **19 artigos publicados.** Clusters completos: **Defesa Pessoal (7/7)**, **Tiro (4/4)**,
+  **Ciência do Treinamento (3/3)**, **Fundamentos (1/1)**.
+- ⬜ **11 artigos restantes do PLANO-CONTEUDO.md:** Equipamentos (5 — todos afiliado),
+  Defesa Residencial (4), Sobrevivencialismo (2). Priorizar Equipamentos (monetização).
+- ✅ **Os 6 satélites de Defesa Pessoal** (como-tirar-cac, quais-armas-cac-pode-ter,
+  posse-x-porte-de-arma, excludente-de-ilicitude, o-que-fazer-depois-legitima-defesa,
+  mindset-de-defesa) **já foram nivelados ao padrão da skill** (PR #16): cada um com
+  seção `## Perguntas frequentes` (6 FAQs), 3+ links internos e `updatedDate` no
+  frontmatter. Cluster Defesa Pessoal completo e no padrão.
 - ⬜ Trocar placeholders `https://SEU-LINK-DE-AFILIADO-AQUI` pelos links reais nos ProductCards
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
 - ⬜ Com ~25 artigos no ar: pedir aprovação do Google AdSense e colar o ID em `src/consts.ts`
 - ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
+
+## Fatos do domínio (YMYL — não regredir)
+
+- **CAC: competência é da Polícia Federal, NÃO do Exército.** Desde **01/07/2025**
+  (Decreto 11.615/2023), o registro de CAC (CR), a autorização de compra/transferência,
+  as guias de tráfego e a fiscalização passaram do Exército para a **Polícia Federal**.
+  Todo conteúdo novo sobre CAC deve refletir isso. Há controvérsia jurídica (decreto x
+  Lei 10.826), mas operacionalmente é a PF.
 
 ## Convenções
 
