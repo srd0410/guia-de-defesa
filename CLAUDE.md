@@ -54,10 +54,11 @@ npm run build    # gera o site em dist/
   **Ciência do Treinamento (3/3)**, **Fundamentos (1/1)**.
 - ⬜ **11 artigos restantes do PLANO-CONTEUDO.md:** Equipamentos (5 — todos afiliado),
   Defesa Residencial (4), Sobrevivencialismo (2). Priorizar Equipamentos (monetização).
-- ⚠️ **Os 6 satélites de Defesa Pessoal** (como-tirar-cac, quais-armas-cac-pode-ter,
+- ✅ **Os 6 satélites de Defesa Pessoal** (como-tirar-cac, quais-armas-cac-pode-ter,
   posse-x-porte-de-arma, excludente-de-ilicitude, o-que-fazer-depois-legitima-defesa,
-  mindset-de-defesa) foram publicados num padrão mais leve: **faltam FAQ e linkagem 3+**.
-  Há follow-up pendente para nivelá-los ao padrão da skill.
+  mindset-de-defesa) **já foram nivelados ao padrão da skill** (PR #16): cada um com
+  seção `## Perguntas frequentes` (6 FAQs), 3+ links internos e `updatedDate` no
+  frontmatter. Cluster Defesa Pessoal completo e no padrão.
 - ⬜ Trocar placeholders `https://SEU-LINK-DE-AFILIADO-AQUI` pelos links reais nos ProductCards
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
 - ⬜ Com ~25 artigos no ar: pedir aprovação do Google AdSense e colar o ID em `src/consts.ts`
