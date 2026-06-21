@@ -15,6 +15,10 @@ const posts = defineCollection({
         'tiro',
         'ciencia-do-treinamento',
         'fundamentos',
+        // Pilares de expansão (PLANO-CATEGORIAS-EXPANSAO.md). Já existem em consts.ts.
+        'legislacao',
+        'cac-tiro-desportivo',
+        'primeiros-socorros',
       ]),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
