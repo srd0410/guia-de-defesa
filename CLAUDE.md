@@ -50,19 +50,27 @@ npm run build    # gera o site em dist/
 
 ## Estado do acervo (atualizar conforme avança)
 
-- ✅ **19 artigos publicados.** Clusters completos: **Defesa Pessoal (7/7)**, **Tiro (4/4)**,
-  **Ciência do Treinamento (3/3)**, **Fundamentos (1/1)**.
-- ⬜ **11 artigos restantes do PLANO-CONTEUDO.md:** Equipamentos (5 — todos afiliado),
-  Defesa Residencial (4), Sobrevivencialismo (2). Priorizar Equipamentos (monetização).
-- ✅ **Os 6 satélites de Defesa Pessoal** (como-tirar-cac, quais-armas-cac-pode-ter,
-  posse-x-porte-de-arma, excludente-de-ilicitude, o-que-fazer-depois-legitima-defesa,
-  mindset-de-defesa) **já foram nivelados ao padrão da skill** (PR #16): cada um com
-  seção `## Perguntas frequentes` (6 FAQs), 3+ links internos e `updatedDate` no
-  frontmatter. Cluster Defesa Pessoal completo e no padrão.
-- ⬜ Trocar placeholders `https://SEU-LINK-DE-AFILIADO-AQUI` pelos links reais nos ProductCards
+- ✅ **Plano de 30 artigos (PLANO-CONTEUDO.md) CONCLUÍDO.** Todos os 7 clusters originais
+  completos: Defesa Pessoal (7/7), Equipamentos (7/7), Defesa Residencial (5/5), Tiro (4/4),
+  Ciência do Treinamento (3/3), Sobrevivencialismo (3/3), Fundamentos (1/1).
+  - Os últimos 11 entraram via PRs #17 (Equipamentos), #18 (Defesa Residencial),
+    #19 (Sobrevivencialismo). Confirmar que foram mergeados.
+- ✅ Cluster Defesa Pessoal nivelado ao padrão da skill (FAQ + linkagem + `updatedDate`, PR #16).
+- ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards dos 6 artigos afiliado:
+  melhores-lanternas-taticas, melhores-coldres-de-porte, protecao-auditiva-para-tiro,
+  melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+  - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
+    não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
-- ⬜ Com ~25 artigos no ar: pedir aprovação do Google AdSense e colar o ID em `src/consts.ts`
+- ⬜ **AdSense:** o acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
 - ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
+
+### Próxima fase: pilares de expansão (PLANO-CATEGORIAS-EXPANSAO.md)
+As 3 categorias novas **já estão habilitadas** no enum de `src/content/config.ts` e já existem
+em `consts.ts` (com página-hub automática). Falta criar o conteúdo de cada cluster, na ordem
+recomendada: **Legislação e Direito** (`legislacao`), **CAC/Tiro Desportivo**
+(`cac-tiro-desportivo`), **Primeiros Socorros e Trauma** (`primeiros-socorros`). Começar pelo
+artigo-pilar de cada um. Legislação e Primeiros Socorros são YMYL — rigor e fonte primária.
 
 ## Fatos do domínio (YMYL — não regredir)
 
@@ -74,7 +82,8 @@ npm run build    # gera o site em dist/
 
 ## Convenções
 
-- Português brasileiro; categorias válidas (exatamente estas 7): `defesa-pessoal`,
-  `defesa-residencial`, `equipamentos`, `sobrevivencialismo`, `tiro`,
-  `ciencia-do-treinamento`, `fundamentos`
+- Português brasileiro; **10 categorias válidas** (devem bater entre `src/content/config.ts`
+  e `src/consts.ts`): as 7 originais — `defesa-pessoal`, `defesa-residencial`, `equipamentos`,
+  `sobrevivencialismo`, `tiro`, `ciencia-do-treinamento`, `fundamentos` — mais as 3 de
+  expansão — `legislacao`, `cac-tiro-desportivo`, `primeiros-socorros` (ainda sem conteúdo).
 - Nunca commitar `node_modules/`, `dist/`, `.astro/` (ver `.gitignore`)
