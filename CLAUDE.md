@@ -53,24 +53,27 @@ npm run build    # gera o site em dist/
 - ✅ **Plano de 30 artigos (PLANO-CONTEUDO.md) CONCLUÍDO.** Todos os 7 clusters originais
   completos: Defesa Pessoal (7/7), Equipamentos (7/7), Defesa Residencial (5/5), Tiro (4/4),
   Ciência do Treinamento (3/3), Sobrevivencialismo (3/3), Fundamentos (1/1).
-  - Os últimos 11 entraram via PRs #17 (Equipamentos), #18 (Defesa Residencial),
-    #19 (Sobrevivencialismo). Confirmar que foram mergeados.
 - ✅ Cluster Defesa Pessoal nivelado ao padrão da skill (FAQ + linkagem + `updatedDate`, PR #16).
+- ✅ **Cluster Legislação e Direito iniciado (4 artigos):** pilar `lei-de-armas-no-brasil` +
+  satélites `guia-de-trafego`, `decretos-de-armas-o-que-mudou`, `crimes-do-estatuto-do-desarmamento`.
+  Os 6 artigos legais existentes (defesa-pessoal) têm backlink para o pilar.
+- ✅ **34 artigos publicados** no total (build 48 páginas com hubs de categoria).
 - ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards dos 6 artigos afiliado:
   melhores-lanternas-taticas, melhores-coldres-de-porte, protecao-auditiva-para-tiro,
   melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
-- ⬜ **AdSense:** o acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
+- ⬜ **AdSense:** acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
 - ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
 
-### Próxima fase: pilares de expansão (PLANO-CATEGORIAS-EXPANSAO.md)
-As 3 categorias novas **já estão habilitadas** no enum de `src/content/config.ts` e já existem
-em `consts.ts` (com página-hub automática). Falta criar o conteúdo de cada cluster, na ordem
-recomendada: **Legislação e Direito** (`legislacao`), **CAC/Tiro Desportivo**
-(`cac-tiro-desportivo`), **Primeiros Socorros e Trauma** (`primeiros-socorros`). Começar pelo
-artigo-pilar de cada um. Legislação e Primeiros Socorros são YMYL — rigor e fonte primária.
+### Próxima fase: clusters de expansão restantes
+- **CAC/Tiro Desportivo** (`cac-tiro-desportivo`) — pilar-pilar + satélites (guia passo a passo
+  de como se manter CAC, renovação, guia de tráfego do ponto de vista do atirador, clubes etc.).
+- **Primeiros Socorros e Trauma** (`primeiros-socorros`) — YMYL, baseado em evidência,
+  encaminhar sempre a treino presencial. Pilar + satélites (torniquete, IFAK, RCP etc.).
+- Dentro de Legislação: ainda cabem artigos sobre o Estatuto artigo por artigo, crimes específicos
+  (já criado), direitos do CAC em abordagem policial, etc.
 
 ## Fatos do domínio (YMYL — não regredir)
 
