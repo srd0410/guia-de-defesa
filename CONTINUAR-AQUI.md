@@ -7,31 +7,43 @@
 ## Onde está (estado atual)
 - **Repositório:** github.com/srd0410/guia-de-defesa. **Publicado** (Vercel + domínio
   `guiadedefesa.com.br`). A cada merge na `main`, a Vercel republica.
-- **43 artigos publicados**, em 10 clusters:
+- **48 artigos publicados**, em 10 clusters:
   - **Plano de 30 (completo):** Defesa Pessoal 7 · Equipamentos 7 · Defesa Residencial 5 ·
     Tiro 4 · Ciência do Treinamento 3 · Sobrevivencialismo 3 · Fundamentos 1.
-  - **Expansão:** Legislação e Direito 4 · CAC e Tiro Desportivo 5 · Primeiros Socorros 4.
-- **Fato YMYL fixado:** competência do CAC é da **Polícia Federal** (não Exército) desde
+  - **Expansão:** Legislação e Direito 8 · CAC e Tiro Desportivo 6 · Primeiros Socorros 4.
+  - **Acrescentados nesta fase:** Legislação — `como-tirar-registro-de-arma`,
+    `porte-de-arma-quem-pode`, `sinarm-x-sigma`, `renovacao-registro-de-arma`; CAC —
+    `renovacao-craf-2026` (calendário escalonado da PF por mês de aniversário).
+- **Fato YMYL fixado (1):** competência do CAC é da **Polícia Federal** (não Exército) desde
   01/07/2025. Todo conteúdo novo de CAC deve refletir isso (ver `CLAUDE.md`).
+- **Fato YMYL fixado (2):** renovação dos CRAFs que venciam em 20/07/2026 foi prorrogada pela
+  **IN DG/PF nº 330/2026**, com calendário escalonado por mês de nascimento (ago/2026 a
+  ago/2027). Documentado em `renovacao-craf-2026.mdx` (datas conferidas em gov.br/pf).
+- **Skill atualizada:** `motor-de-conteudo` agora exige **retro-linkagem** — ao publicar
+  artigo novo, varrer os antigos relacionados, linká-los ao novo e marcar `updatedDate`
+  (mantendo `pubDate`). Já aplicado nos artigos desta fase.
 
 ## Pendências (próximos passos)
 
-### 1. Trocar placeholders de afiliado (6 ProductCards)
-Substituir `SEU-LINK-DE-AFILIADO` pelos links reais em: melhores-lanternas-taticas,
-melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc, cofre-para-arma,
-kit-72-horas-mochila-emergencia. (Opções de produto já pesquisadas — ver o PDF
-"Guia de Produtos - Afiliados" na Área de Trabalho.) `municao-de-defesa-calibres` é
-educativo de propósito (sem ProductCard) — não adicionar afiliado.
+### 1. Trocar placeholders de afiliado (ProductCards)
+- `melhores-lanternas-taticas`: **em andamento.** Agora tem 2 cards — Sofirn SP31 (1ª
+  escolha, com relato real de uso) e Apfer T9 (alternativa do Mercado Livre, link real,
+  marcada como TEMPORÁRIA no código). **Falta** o link da Sofirn SP31 (AliExpress/Shopee em
+  cadastro pelo autor) — trocar o `SEU-LINK-DE-AFILIADO` e definir a loja principal do card.
+- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
+  protecao-auditiva-para-tiro, melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+  (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
+- `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.
 
 ### 2. Corrigir o artigo `melhores-red-dots-pistola.mdx`
 - ProductCard com URL `https://SEU-LINK-DE-AFILIADO-AQUI` e preço `R$ 000` — trocar pelos reais.
 - YouTubeEmbed com ID placeholder `dQw4w9WgXcQ` — trocar pelo ID do vídeo real.
 
-### 3. Correções pendentes (ver `REVISAO-COMPLETA.md`)
-- `clubes-de-tiro-no-brasil.mdx`: "comprovaa habitualidade" → "comprova a habitualidade".
-- `kit-edc-essencial.mdx`: "vantegem tática" → "vantagem tática".
-- (Opcional) Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de `defesa-pessoal`
-  para `cac-tiro-desportivo` — decisão de taxonomia ainda em aberto.
+### 3. Correções (ver `REVISAO-COMPLETA.md`)
+- ✅ `clubes-de-tiro-no-brasil.mdx`: "comprovaa" → "comprova a" — **corrigido**.
+- ✅ `kit-edc-essencial.mdx`: "vantegem" → "vantagem" — **corrigido**.
+- (Opcional, em aberto) Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de
+  `defesa-pessoal` para `cac-tiro-desportivo` — decisão de taxonomia ainda em aberto.
 
 ### 4. AdSense (quando quiser monetizar)
 Acervo já passou de 25 artigos. Pedir aprovação no Google AdSense e colar o ID em

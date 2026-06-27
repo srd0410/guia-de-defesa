@@ -31,6 +31,9 @@ editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave q
   parênteses na primeira ocorrência: `*dry fire*` ("tiro a seco")
 - Texto pensado para ser compartilhado no WhatsApp / salvo para consulta
 - `affiliate: true` apenas quando há `<ProductCard>`; `description` de 120–160 caracteres
+- **Retro-linkagem obrigatória:** ao publicar artigo novo, varrer os artigos antigos
+  relacionados, adicionar link deles para o novo (linkagem bidirecional) e marcar
+  `updatedDate` nesses antigos, mantendo o `pubDate` original. (Regra detalhada na skill.)
 
 ## Fluxo de publicação
 
@@ -54,26 +57,36 @@ npm run build    # gera o site em dist/
   completos: Defesa Pessoal (7/7), Equipamentos (7/7), Defesa Residencial (5/5), Tiro (4/4),
   Ciência do Treinamento (3/3), Sobrevivencialismo (3/3), Fundamentos (1/1).
 - ✅ Cluster Defesa Pessoal nivelado ao padrão da skill (FAQ + linkagem + `updatedDate`, PR #16).
-- ✅ **Cluster Legislação e Direito iniciado (4 artigos):** pilar `lei-de-armas-no-brasil` +
-  satélites `guia-de-trafego`, `decretos-de-armas-o-que-mudou`, `crimes-do-estatuto-do-desarmamento`.
-  Os 6 artigos legais existentes (defesa-pessoal) têm backlink para o pilar.
-- ✅ **34 artigos publicados** no total (build 48 páginas com hubs de categoria).
-- ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards dos 6 artigos afiliado:
-  melhores-lanternas-taticas, melhores-coldres-de-porte, protecao-auditiva-para-tiro,
-  melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+- ✅ **Cluster Legislação e Direito (8 artigos):** pilar `lei-de-armas-no-brasil` + satélites
+  `guia-de-trafego`, `decretos-de-armas-o-que-mudou`, `crimes-do-estatuto-do-desarmamento`,
+  `como-tirar-registro-de-arma`, `porte-de-arma-quem-pode`, `sinarm-x-sigma`,
+  `renovacao-registro-de-arma`. Os artigos legais de `defesa-pessoal` têm backlink para o pilar.
+- ✅ **Cluster CAC/Tiro Desportivo (6 artigos):** pilar `cac-guia-completo` + `como-se-manter-cac`,
+  `acervo-cac-como-gerenciar`, `abordagem-policial-sendo-cac`, `clubes-de-tiro-no-brasil`,
+  `renovacao-craf-2026`.
+- ✅ **Cluster Primeiros Socorros (4 artigos):** pilar `primeiros-socorros-trauma` +
+  `controle-de-hemorragia-torniquete`, `kit-ifak-primeiros-socorros`, `rcp-basico`.
+- ✅ **48 artigos publicados** no total.
+- ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards:
+  - `melhores-lanternas-taticas`: **em andamento** — Apfer T9 (ML) com link real e marcada como
+    temporária; Sofirn SP31 (1ª escolha) ainda com placeholder (AliExpress/Shopee em cadastro).
+  - **Faltam:** melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc,
+    cofre-para-arma, kit-72-horas-mochila-emergencia.
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
 - ⬜ **AdSense:** acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
 - ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
 
-### Próxima fase: clusters de expansão restantes
-- **CAC/Tiro Desportivo** (`cac-tiro-desportivo`) — pilar-pilar + satélites (guia passo a passo
-  de como se manter CAC, renovação, guia de tráfego do ponto de vista do atirador, clubes etc.).
-- **Primeiros Socorros e Trauma** (`primeiros-socorros`) — YMYL, baseado em evidência,
-  encaminhar sempre a treino presencial. Pilar + satélites (torniquete, IFAK, RCP etc.).
-- Dentro de Legislação: ainda cabem artigos sobre o Estatuto artigo por artigo, crimes específicos
-  (já criado), direitos do CAC em abordagem policial, etc.
+### Próxima fase: aprofundar os clusters (todos já iniciados)
+- **Legislação:** ainda cabem `processos-junto-a-pf` (como protocolar), Estatuto artigo por
+  artigo, transporte do cidadão comum, etc.
+- **CAC/Tiro Desportivo:** colecionamento (passo a passo), caça (aspectos legais/regionais),
+  federações de tiro, modalidades.
+- **Primeiros Socorros e Trauma:** trauma penetrante, emergências clínicas comuns, onde treinar
+  (encaminhamento presencial). YMYL — baseado em evidência, sempre encaminhar a treino presencial.
+- Subcategorias de maior busca nos pilares existentes (defesa da mulher, balística, consciência
+  situacional) e camada de **Glossário/Enciclopédia** (verbetes curtos, muito citáveis por IA).
 
 ## Fatos do domínio (YMYL — não regredir)
 
@@ -82,11 +95,16 @@ npm run build    # gera o site em dist/
   as guias de tráfego e a fiscalização passaram do Exército para a **Polícia Federal**.
   Todo conteúdo novo sobre CAC deve refletir isso. Há controvérsia jurídica (decreto x
   Lei 10.826), mas operacionalmente é a PF.
+- **Renovação de CRAF 2026 (IN DG/PF nº 330/2026).** A PF prorrogou os CRAFs de CAC
+  concedidos antes de 21/07/2023 e válidos até 20/07/2026, substituindo o vencimento único
+  por **calendário escalonado por mês de nascimento** (ago/2026 a ago/2027). O CRAF segue
+  regular no Sinarm até a data-limite do mês. Documentado em `renovacao-craf-2026.mdx`
+  (datas conferidas em gov.br/pf). Se a PF publicar nova norma, atualizar o artigo.
 
 ## Convenções
 
 - Português brasileiro; **10 categorias válidas** (devem bater entre `src/content/config.ts`
   e `src/consts.ts`): as 7 originais — `defesa-pessoal`, `defesa-residencial`, `equipamentos`,
   `sobrevivencialismo`, `tiro`, `ciencia-do-treinamento`, `fundamentos` — mais as 3 de
-  expansão — `legislacao`, `cac-tiro-desportivo`, `primeiros-socorros` (ainda sem conteúdo).
+  expansão — `legislacao`, `cac-tiro-desportivo`, `primeiros-socorros` (todas já com conteúdo).
 - Nunca commitar `node_modules/`, `dist/`, `.astro/` (ver `.gitignore`)
