@@ -117,6 +117,33 @@ Todo artigo aponta para **pelo menos 3** conteúdos relacionados do próprio sit
 rede temática. Satélites sempre linkam de volta para o artigo-pilar do seu cluster
 (ver PLANO-CONTEUDO.md). Use o slug correto, no formato `/slug-do-artigo/`.
 
+### Retro-linkagem obrigatória (sempre que um artigo novo for publicado)
+
+Linkagem é **bidirecional**: não basta o artigo novo apontar para os antigos — os antigos
+também precisam apontar para o novo. Toda vez que criar/publicar um artigo, faça uma
+**varredura nos artigos já existentes** em busca de oportunidades de referenciar o novo (e
+artigos relacionados entre si). Passo a passo:
+
+1. **Identifique os candidatos.** Liste os posts existentes (`src/content/posts/*.mdx`) do
+   mesmo cluster e de clusters vizinhos cujo assunto se relacione com o artigo novo.
+   Priorize: o **artigo-pilar** do cluster, os **satélites irmãos** e qualquer artigo que
+   mencione o tema en passant sem ter um link para ele.
+2. **Insira o link no contexto certo.** No artigo antigo, adicione o link para o novo onde
+   o assunto já é citado naturalmente (no corpo, numa conclusão parcial ou na lista de
+   "aprofunde" da conclusão). O link deve fazer sentido editorial — nada de empilhar links
+   soltos só para cumprir tabela. Use texto-âncora descritivo e o slug em `/slug/`.
+3. **Pilar sempre incluído.** Se o artigo novo é satélite, o pilar do cluster **tem** de
+   passar a listá-lo entre os temas para aprofundar.
+4. **Marque o frescor do artigo antigo.** Todo post antigo que você editar nessa varredura
+   recebe `updatedDate: <data de hoje>` no frontmatter, **mantendo o `pubDate` original**.
+   Isso sinaliza atualização real ao Google sem falsear a data de publicação.
+5. **Não force nem polua.** Só adicione link onde há relação verdadeira. Um artigo antigo
+   sem conexão real com o novo não deve ser editado (e, portanto, não recebe `updatedDate`).
+
+Resultado esperado: cada artigo novo entra numa malha em que os antigos relevantes já o
+referenciam — a rede temática cresce nos dois sentidos, e os artigos antigos ganham sinal
+de frescor a cada vez que o acervo evolui ao redor deles.
+
 ## Originalidade e fontes
 
 Nunca reproduza texto de outros sites. Produza síntese original, com linguagem própria e
@@ -180,6 +207,7 @@ genéricos. Só abrir PR após aprovação.
 - [ ] Tem fundamentos (científicos/legais/técnicos) corretos e sem dados inventados?
 - [ ] Tem FAQ (5+ perguntas)?
 - [ ] Tem 3+ links internos, e satélite linka pro pilar?
+- [ ] Retro-linkagem feita: os artigos antigos relacionados agora apontam para o novo, com `updatedDate` atualizado (e `pubDate` original mantido)?
 - [ ] Conteúdo original, linguagem própria?
 - [ ] Profundidade real (responde o que/por quê/como/quando/vantagens/limites/aplicar/erros)?
 - [ ] Execução variada (não é cópia da fôrma; sem muletas repetidas)?
