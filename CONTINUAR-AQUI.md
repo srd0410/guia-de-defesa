@@ -30,8 +30,10 @@
   escolha, com relato real de uso) e Apfer T9 (alternativa do Mercado Livre, link real,
   marcada como TEMPORÁRIA no código). **Falta** o link da Sofirn SP31 (AliExpress/Shopee em
   cadastro pelo autor) — trocar o `SEU-LINK-DE-AFILIADO` e definir a loja principal do card.
+- ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
+  preço R$ 189 — **feito**.
 - **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
-  protecao-auditiva-para-tiro, melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+  protecao-auditiva-para-tiro, melhor-faca-edc, kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
 - `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.
 
