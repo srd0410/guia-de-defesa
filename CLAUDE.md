@@ -68,8 +68,8 @@ npm run build    # gera o site em dist/
   `controle-de-hemorragia-torniquete`, `kit-ifak-primeiros-socorros`, `rcp-basico`.
 - ✅ **48 artigos publicados** no total.
 - ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards:
-  - `melhores-lanternas-taticas`: **em andamento** — Apfer T9 (ML) com link real e marcada como
-    temporária; Sofirn SP31 (1ª escolha) ainda com placeholder (AliExpress/Shopee em cadastro).
+  - `melhores-lanternas-taticas`: **feito** — Sofirn SP31 V3 (AliExpress), R$ 207,89. Card
+    temporário da Apfer T9 removido.
   - `cofre-para-arma`: **feito** — Cofre Eletrônico Digital Contelux (Mercado Livre), R$ 189.
   - **Faltam:** melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc,
     kit-72-horas-mochila-emergencia.

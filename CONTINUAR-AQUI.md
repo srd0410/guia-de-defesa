@@ -26,12 +26,11 @@
 ## Pendências (próximos passos)
 
 ### 1. Trocar placeholders de afiliado (ProductCards)
-- `melhores-lanternas-taticas`: **em andamento.** Agora tem 2 cards — Sofirn SP31 (1ª
-  escolha, com relato real de uso) e Apfer T9 (alternativa do Mercado Livre, link real,
-  marcada como TEMPORÁRIA no código). **Falta** o link da Sofirn SP31 (AliExpress/Shopee em
-  cadastro pelo autor) — trocar o `SEU-LINK-DE-AFILIADO` e definir a loja principal do card.
+- ✅ `melhores-lanternas-taticas`: card único da Sofirn SP31 V3 (AliExpress) com link de afiliado
+  real, preço R$ 207,89 — **feito**. Card temporário da Apfer T9 removido, conforme previsto no
+  próprio comentário do código.
 - ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
-  preço R$ 189 — **feito**.
+  preço R$ 189 — **feito** (PR #34, aguardando merge).
 - **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
   protecao-auditiva-para-tiro, melhor-faca-edc, kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
