@@ -27,10 +27,12 @@
 
 ### 1. Trocar placeholders de afiliado (ProductCards)
 - ✅ `melhores-lanternas-taticas`: card único da Sofirn SP31 V3 (AliExpress) com link de afiliado
-  real, preço R$ 207,89 — **feito**. Card temporário da Apfer T9 removido, conforme previsto no
-  próprio comentário do código.
+  real, preço R$ 207,89 — **feito**. O card da Apfer T9 foi reincluído e depois **removido de
+  novo**: o link `https://meli.la/27Y8mUf` estava redirecionando para o produto errado (o
+  canivete, não a lanterna). Não recolocar a Apfer T9 sem um link novo, gerado e conferido pelo
+  autor no Portal de Afiliados do ML.
 - ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
-  preço R$ 189 — **feito** (PR #34, aguardando merge).
+  preço R$ 189 — **feito** (mergeado, PR #34).
 - ✅ `melhores-coldres-de-porte`: **sem afiliado** (decisão do autor) — trocado o ProductCard por
   menção direta à [Hardholster](https://www.instagram.com/hardholster/) (Instagram, sem link
   rastreado), fabricante de coldres kydex sob medida. `affiliate: false` no frontmatter.
