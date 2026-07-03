@@ -31,8 +31,11 @@
   próprio comentário do código.
 - ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
   preço R$ 189 — **feito** (PR #34, aguardando merge).
-- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
-  protecao-auditiva-para-tiro, melhor-faca-edc, kit-72-horas-mochila-emergencia.
+- ✅ `melhores-coldres-de-porte`: **sem afiliado** (decisão do autor) — trocado o ProductCard por
+  menção direta à [Hardholster](https://www.instagram.com/hardholster/) (Instagram, sem link
+  rastreado), fabricante de coldres kydex sob medida. `affiliate: false` no frontmatter.
+- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): protecao-auditiva-para-tiro, melhor-faca-edc,
+  kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
 - `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.
 

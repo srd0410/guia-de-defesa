@@ -71,8 +71,9 @@ npm run build    # gera o site em dist/
   - `melhores-lanternas-taticas`: **feito** — Sofirn SP31 V3 (AliExpress), R$ 207,89. Card
     temporário da Apfer T9 removido.
   - `cofre-para-arma`: **feito** — Cofre Eletrônico Digital Contelux (Mercado Livre), R$ 189.
-  - **Faltam:** melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc,
-    kit-72-horas-mochila-emergencia.
+  - `melhores-coldres-de-porte`: **sem afiliado** — menção direta à Hardholster (Instagram),
+    sem link rastreado; `affiliate: false`.
+  - **Faltam:** protecao-auditiva-para-tiro, melhor-faca-edc, kit-72-horas-mochila-emergencia.
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
