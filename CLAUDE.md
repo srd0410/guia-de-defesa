@@ -68,10 +68,14 @@ npm run build    # gera o site em dist/
   `controle-de-hemorragia-torniquete`, `kit-ifak-primeiros-socorros`, `rcp-basico`.
 - ✅ **48 artigos publicados** no total.
 - ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards:
-  - `melhores-lanternas-taticas`: **em andamento** — Apfer T9 (ML) com link real e marcada como
-    temporária; Sofirn SP31 (1ª escolha) ainda com placeholder (AliExpress/Shopee em cadastro).
-  - **Faltam:** melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc,
-    cofre-para-arma, kit-72-horas-mochila-emergencia.
+  - `melhores-lanternas-taticas`: **feito** — Sofirn SP31 V3 (AliExpress), R$ 207,89. Card
+    temporário da Apfer T9 removido.
+  - `cofre-para-arma`: **feito** — Cofre Eletrônico Digital Contelux (Mercado Livre), R$ 189.
+  - `melhores-coldres-de-porte`: **sem afiliado** — menção direta à Hardholster (Instagram),
+    sem link rastreado; `affiliate: false`.
+  - `melhor-faca-edc`: **feito** — Canivete Taue Semiautomático (Mercado Livre), R$ 34,48.
+  - **Faltam:** protecao-auditiva-para-tiro, kit-72-horas-mochila-emergencia. (Autor sinalizou
+    pausa na busca de afiliados por ora.)
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed

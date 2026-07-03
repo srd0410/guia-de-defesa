@@ -26,12 +26,19 @@
 ## Pendências (próximos passos)
 
 ### 1. Trocar placeholders de afiliado (ProductCards)
-- `melhores-lanternas-taticas`: **em andamento.** Agora tem 2 cards — Sofirn SP31 (1ª
-  escolha, com relato real de uso) e Apfer T9 (alternativa do Mercado Livre, link real,
-  marcada como TEMPORÁRIA no código). **Falta** o link da Sofirn SP31 (AliExpress/Shopee em
-  cadastro pelo autor) — trocar o `SEU-LINK-DE-AFILIADO` e definir a loja principal do card.
-- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
-  protecao-auditiva-para-tiro, melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+- ✅ `melhores-lanternas-taticas`: card único da Sofirn SP31 V3 (AliExpress) com link de afiliado
+  real, preço R$ 207,89 — **feito**. Card temporário da Apfer T9 removido, conforme previsto no
+  próprio comentário do código.
+- ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
+  preço R$ 189 — **feito** (PR #34, aguardando merge).
+- ✅ `melhores-coldres-de-porte`: **sem afiliado** (decisão do autor) — trocado o ProductCard por
+  menção direta à [Hardholster](https://www.instagram.com/hardholster/) (Instagram, sem link
+  rastreado), fabricante de coldres kydex sob medida. `affiliate: false` no frontmatter.
+- ✅ `melhor-faca-edc`: card do Canivete Taue Semiautomático (Mercado Livre) com link de afiliado
+  real, preço R$ 34,48 — **feito**. Autor sinalizou: **este foi o último por agora** — pausar a
+  busca de afiliados até novo pedido.
+- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): protecao-auditiva-para-tiro,
+  kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
 - `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.
 
