@@ -34,7 +34,10 @@
 - ✅ `melhores-coldres-de-porte`: **sem afiliado** (decisão do autor) — trocado o ProductCard por
   menção direta à [Hardholster](https://www.instagram.com/hardholster/) (Instagram, sem link
   rastreado), fabricante de coldres kydex sob medida. `affiliate: false` no frontmatter.
-- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): protecao-auditiva-para-tiro, melhor-faca-edc,
+- ✅ `melhor-faca-edc`: card do Canivete Taue Semiautomático (Mercado Livre) com link de afiliado
+  real, preço R$ 34,48 — **feito**. Autor sinalizou: **este foi o último por agora** — pausar a
+  busca de afiliados até novo pedido.
+- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): protecao-auditiva-para-tiro,
   kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
 - `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.

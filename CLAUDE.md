@@ -73,7 +73,9 @@ npm run build    # gera o site em dist/
   - `cofre-para-arma`: **feito** — Cofre Eletrônico Digital Contelux (Mercado Livre), R$ 189.
   - `melhores-coldres-de-porte`: **sem afiliado** — menção direta à Hardholster (Instagram),
     sem link rastreado; `affiliate: false`.
-  - **Faltam:** protecao-auditiva-para-tiro, melhor-faca-edc, kit-72-horas-mochila-emergencia.
+  - `melhor-faca-edc`: **feito** — Canivete Taue Semiautomático (Mercado Livre), R$ 34,48.
+  - **Faltam:** protecao-auditiva-para-tiro, kit-72-horas-mochila-emergencia. (Autor sinalizou
+    pausa na busca de afiliados por ora.)
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
