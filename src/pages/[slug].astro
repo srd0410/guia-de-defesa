@@ -27,17 +27,17 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
   modifiedTime={post.data.updatedDate ?? post.data.pubDate}
   author={post.data.author}
 >
-  <article class="post wrap">
-    <nav class="crumbs" aria-label="Trilha">
+  <article class="post wrap" data-pagefind-body>
+    <nav class="crumbs" aria-label="Trilha" data-pagefind-ignore>
       <a href="/">Início</a> <span aria-hidden="true">/</span>
       <a href={`/categoria/${cat?.slug}/`}>{cat?.name}</a>
     </nav>
 
     <header class="post-head">
-      <p class="eyebrow">{cat?.name}</p>
+      <p class="eyebrow" data-pagefind-meta="categoria">{cat?.name}</p>
       <h1>{post.data.title}</h1>
       <p class="dek">{post.data.description}</p>
-      <div class="byline">
+      <div class="byline" data-pagefind-ignore>
         <span>Por <a href={AUTHOR.url} class="byline-author">{post.data.author}</a></span>
         <span aria-hidden="true">·</span>
         <span>{AUTHOR.role}</span>
@@ -51,22 +51,24 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
     )}
 
-    {post.data.affiliate && <AffiliateDisclosure />}
+    {post.data.affiliate && <div data-pagefind-ignore><AffiliateDisclosure /></div>}
 
     <div class="prose">
       <Content />
     </div>
 
-    <hr class="field-rule" />
-    <AdSlot slot="" />
+    <div data-pagefind-ignore>
+      <hr class="field-rule" />
+      <AdSlot slot="" />
 
-    {post.data.tags.length > 0 && (
-      <div class="tags">
-        {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
-      </div>
-    )}
+      {post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map((t) => <span class="tag">#{t}</span>)}
+        </div>
+      )}
 
-    <AuthorBio />
+      <AuthorBio />
+    </div>
   </article>
 </BaseLayout>
 

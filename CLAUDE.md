@@ -17,6 +17,27 @@ Hospedagem na **Vercel**; código no GitHub: `https://github.com/srd0410/guia-de
 - `CONTEUDO.md` — formato exato de post e componentes
 - `PLANO-CONTEUDO.md` — roteiro dos 30 artigos do acervo inicial e cadência
 - `.claude/skills/motor-de-conteudo/` — a skill que gera os artigos
+- `src/components/SearchBox.astro` — busca do site (campo translúcido no banner)
+
+## Busca no site (Pagefind)
+
+Busca **full-text** client-side com **Pagefind** (site é estático, sem servidor).
+
+- Integração `astro-pagefind` em `astro.config.mjs`: indexa o `dist/` ao final do build
+  (`astro:build:done`) e gera `dist/pagefind/`. **Não muda o comando de build da Vercel.**
+- Só os **artigos** são indexados: `[slug].astro` tem `data-pagefind-body` no `<article>`, e
+  `data-pagefind-ignore` no que não é conteúdo (trilha, byline, anúncio, tags, bio, disclosure).
+  A categoria vira metadado via `data-pagefind-meta="categoria"` no eyebrow. Páginas de
+  categoria/índice/autor/sobre **não** entram no índice.
+- `SearchBox.astro` (dentro do `<Header>`, logo aparece em todas as páginas): campo translúcido
+  sobreposto no canto inferior direito do banner (desktop) e barra full-width abaixo do banner
+  (mobile ≤640px). Carrega o Pagefind sob demanda via `import('/pagefind/pagefind.js')` — esse
+  caminho está em `vite.build.rollupOptions.external` no config para o Rollup não empacotá-lo.
+- **Atenção (dev):** o índice só existe **depois de um build**. `npm run dev` sozinho não tem
+  busca; rode `npm run build` e depois `npm run preview` para testar localmente. Na Vercel
+  funciona normal (é sempre um build).
+- Comportamento: busca por prefixo + tolerância a erro de digitação (padrão do Pagefind).
+  Mínimo de 2 letras. Termo inexistente pode cair no maior prefixo existente — é esperado.
 
 ## Skill de conteúdo
 
