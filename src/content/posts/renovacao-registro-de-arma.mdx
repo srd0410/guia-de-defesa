@@ -5,6 +5,8 @@ category: "legislacao"
 pubDate: 2026-06-27
 tags: ["renovação de registro de arma", "craf", "registro de arma", "polícia federal", "legislação"]
 ---
+import Faq from '../../components/Faq.astro';
+
 
 A renovação do registro de arma é o ato de revalidar, antes do vencimento, o Certificado de Registro de Arma de Fogo (CRAF) junto à **Polícia Federal** — porque o registro **tem prazo de validade** e não é eterno. Deixar vencer não cancela a sua propriedade da arma, mas a coloca em **situação irregular**, com consequências sérias. Ao final deste guia, você vai entender por que o registro vence, qual é o prazo (e por que ele muda), como renovar e o que fazer se o seu já estiver vencido — sempre lembrando de confirmar os números atuais na fonte oficial.
 
@@ -56,31 +58,16 @@ O segundo erro é **subestimar o que a renovação exige**, achando que é só p
 
 O terceiro erro é **agir por conta própria diante de um registro já vencido**, seja ignorando o problema, seja manuseando ou deslocando a arma como se tudo estivesse normal. Dada a possível repercussão penal da irregularidade, isso pode agravar a situação. A correção é buscar a via oficial de regularização junto à Polícia Federal e, pela seriedade do tema, considerar orientação jurídica. Em resumo, os grandes erros são perder o prazo, subestimar as exigências e improvisar com registro vencido — todos evitáveis com antecedência e método.
 
-## Perguntas frequentes
-
-**O registro de arma tem validade ou é permanente?**
-Tem validade. O registro não é permanente: o CRAF traz uma data de vencimento e precisa ser renovado periodicamente para a arma seguir regular. O prazo exato muda por decreto, então confirme a validade do seu caso no próprio CRAF e nos canais da Polícia Federal.
-
-**De quanto em quanto tempo preciso renovar o registro?**
-O prazo de validade é definido por decreto e já mudou várias vezes, então não confie em um número fixo encontrado por aí. Verifique a data no seu CRAF e confirme o prazo vigente na Polícia Federal. A orientação prática é renovar com antecedência, antes do vencimento.
-
-**Como renovar o registro de arma?**
-Junto à Polícia Federal, antes do vencimento: reconfirmando requisitos (idoneidade, ocupação, residência), em geral reapresentando a aptidão psicológica por laudo atualizado, recolhendo a taxa quando exigida e protocolando pelo canal oficial. As exigências exatas dependem da norma vigente — confirme antes.
-
-**O que acontece se o registro de arma vencer?**
-Você não perde a propriedade da arma, mas ela fica em situação irregular, com consequências administrativas e possível repercussão penal (como posse irregular), conforme o caso e a norma. Regularize pela via oficial na Polícia Federal e, dada a seriedade, considere orientação jurídica.
-
-**Preciso refazer o laudo psicológico para renovar?**
-Em geral sim: a aptidão psicológica costuma precisar de laudo atualizado na renovação, conforme a regra vigente. Como essa exigência pode variar por decreto, confirme o que é exigido no momento da sua renovação diretamente na Polícia Federal antes de iniciar.
-
-**Posso usar a arma com o registro vencido?**
-Não é o caminho seguro. Com o registro vencido, a arma está em situação irregular, e manusear, transportar ou portar nesse cenário pode agravar o problema. O correto é regularizar antes pela via oficial. Lembre ainda que, mesmo regular, o registro dá posse — não porte.
-
-**A renovação do CAC é igual à do cidadão comum?**
-Não. O CAC tem obrigações mais amplas (habitualidade, manutenção da condição de CAC e do acervo) e, desde 1º de julho de 2025, sob a competência da Polícia Federal, não mais do Exército. O cidadão comum sempre renovou na PF (SINARM). Veja a diferença entre os sistemas em SINARM x SIGMA.
-
-**Quanto custa renovar o registro de arma?**
-Não há um valor único: soma a taxa da Polícia Federal (GRU), quando exigida, e os custos de eventuais laudos (como a aptidão psicológica). Taxas e exigências mudam por norma — confirme os valores vigentes na Polícia Federal antes de iniciar a renovação.
+<Faq items={[
+  { q: "O registro de arma tem validade ou é permanente?", a: "Tem validade. O registro não é permanente: o CRAF traz uma data de vencimento e precisa ser renovado periodicamente para a arma seguir regular. O prazo exato muda por decreto, então confirme a validade do seu caso no próprio CRAF e nos canais da Polícia Federal." },
+  { q: "De quanto em quanto tempo preciso renovar o registro?", a: "O prazo de validade é definido por decreto e já mudou várias vezes, então não confie em um número fixo encontrado por aí. Verifique a data no seu CRAF e confirme o prazo vigente na Polícia Federal. A orientação prática é renovar com antecedência, antes do vencimento." },
+  { q: "Como renovar o registro de arma?", a: "Junto à Polícia Federal, antes do vencimento: reconfirmando requisitos (idoneidade, ocupação, residência), em geral reapresentando a aptidão psicológica por laudo atualizado, recolhendo a taxa quando exigida e protocolando pelo canal oficial. As exigências exatas dependem da norma vigente — confirme antes." },
+  { q: "O que acontece se o registro de arma vencer?", a: "Você não perde a propriedade da arma, mas ela fica em situação irregular, com consequências administrativas e possível repercussão penal (como posse irregular), conforme o caso e a norma. Regularize pela via oficial na Polícia Federal e, dada a seriedade, considere orientação jurídica." },
+  { q: "Preciso refazer o laudo psicológico para renovar?", a: "Em geral sim: a aptidão psicológica costuma precisar de laudo atualizado na renovação, conforme a regra vigente. Como essa exigência pode variar por decreto, confirme o que é exigido no momento da sua renovação diretamente na Polícia Federal antes de iniciar." },
+  { q: "Posso usar a arma com o registro vencido?", a: "Não é o caminho seguro. Com o registro vencido, a arma está em situação irregular, e manusear, transportar ou portar nesse cenário pode agravar o problema. O correto é regularizar antes pela via oficial. Lembre ainda que, mesmo regular, o registro dá posse — não porte." },
+  { q: "A renovação do CAC é igual à do cidadão comum?", a: "Não. O CAC tem obrigações mais amplas (habitualidade, manutenção da condição de CAC e do acervo) e, desde 1º de julho de 2025, sob a competência da Polícia Federal, não mais do Exército. O cidadão comum sempre renovou na PF (SINARM). Veja a diferença entre os sistemas em SINARM x SIGMA." },
+  { q: "Quanto custa renovar o registro de arma?", a: "Não há um valor único: soma a taxa da Polícia Federal (GRU), quando exigida, e os custos de eventuais laudos (como a aptidão psicológica). Taxas e exigências mudam por norma — confirme os valores vigentes na Polícia Federal antes de iniciar a renovação." },
+]} />
 
 ## Conclusão
 

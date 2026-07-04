@@ -8,6 +8,8 @@ author: "Guia de Defesa"
 tags: ["posse de arma", "porte de arma", "legislação", "cac", "defesa pessoal"]
 draft: false
 ---
+import Faq from '../../components/Faq.astro';
+
 
 Muita gente compra uma arma legalmente, guarda em casa achando que está tudo certo, coloca no porta-luvas para uma viagem e, sem saber, comete um crime. O erro não está na arma nem no registro — está em não entender que **posse** e **porte** são autorizações diferentes, com regras diferentes. Confundir os dois é uma das formas mais comuns de um cidadão de bem virar réu. Ao final deste texto, você vai saber exatamente o que cada autorização permite, onde uma termina e a outra começa, e como não cruzar essa linha por descuido.
 
@@ -43,24 +45,14 @@ A regra de ouro é simples e cabe numa frase: trate o porte como algo que você 
 
 Um exemplo concreto de como isso cai no dia a dia: o CAC que termina o treino, guarda a pistola municiada no porta-luvas e dirige de volta para casa achando que está tudo certo está, na prática, cometendo porte ilegal — bastava descarregar, guardar no estojo e levar a documentação para estar protegido. A diferença entre o certo e o crime, aqui, são dois minutos de procedimento. Ou seja, conhecer o procedimento correto vale tanto quanto ter a arma.
 
-## Perguntas frequentes
-
-**Qual a diferença entre posse e porte de arma?**
-Posse é a autorização para manter a arma dentro de um espaço delimitado (residência ou local de trabalho do qual você é o responsável). Porte é a autorização para andar com a arma fora desses limites, municiada e ao alcance. São autorizações distintas, com requisitos distintos.
-
-**Ter posse permite levar a arma para o clube de tiro?**
-Não na forma de porte. O deslocamento até o clube é regido pela autorização de transporte (trânsito), com regras próprias: em regra desmuniciada, guardada de forma adequada e acompanhada da documentação que justifique o trajeto. Levá-la municiada e ao alcance pode configurar porte ilegal.
-
-**O CAC tem porte de arma?**
-Não. O registro de CAC autoriza adquirir e transportar a arma de forma regulada entre a residência e os locais de prática; não autoriza andar armado e pronto para uso. Para entender o que o registro permite adquirir, veja [quais armas um CAC pode ter](/quais-armas-cac-pode-ter) e [como tirar o CAC](/como-tirar-cac).
-
-**A maioria das pessoas com arma legal tem porte?**
-Não. O porte é concedido em hipóteses limitadas e exige justificativa qualificada, enquanto a posse é relativamente acessível a quem cumpre os requisitos. A maior parte de quem tem arma legal tem apenas posse — e precisa saber disso para não cometer crime ao sair armada.
-
-**O que acontece se eu andar com a arma tendo só posse?**
-Andar com a arma municiada e ao alcance sem porte pode configurar porte ilegal de arma de fogo, que é crime — mesmo que a arma seja registrada e você seja um cidadão de bem. A regularidade do registro não substitui a autorização de porte.
-
-**Como transportar a arma de forma legal sem ter porte?**
-Em regra, desmuniciada, guardada de forma adequada (estojo ou maleta) e acompanhada da documentação que justifique o deslocamento. As condições exatas constam da regulamentação vigente — confirme antes de cada trajeto.
+<Faq items={[
+  { q: "Qual a diferença entre posse e porte de arma?", a: "Posse é a autorização para manter a arma dentro de um espaço delimitado (residência ou local de trabalho do qual você é o responsável). Porte é a autorização para andar com a arma fora desses limites, municiada e ao alcance. São autorizações distintas, com requisitos distintos." },
+  { q: "Ter posse permite levar a arma para o clube de tiro?", a: "Não na forma de porte. O deslocamento até o clube é regido pela autorização de transporte (trânsito), com regras próprias: em regra desmuniciada, guardada de forma adequada e acompanhada da documentação que justifique o trajeto. Levá-la municiada e ao alcance pode configurar porte ilegal." },
+  { q: "O CAC tem porte de arma?", a: "Não. O registro de CAC autoriza adquirir e transportar a arma de forma regulada entre a residência e os locais de prática; não autoriza andar armado e pronto para uso. Para entender o que o registro permite adquirir, veja <a href=\"/quais-armas-cac-pode-ter\">quais armas um CAC pode ter</a> e <a href=\"/como-tirar-cac\">como tirar o CAC</a>." },
+  { q: "A maioria das pessoas com arma legal tem porte?", a: "Não. O porte é concedido em hipóteses limitadas e exige justificativa qualificada, enquanto a posse é relativamente acessível a quem cumpre os requisitos. A maior parte de quem tem arma legal tem apenas posse — e precisa saber disso para não cometer crime ao sair armada." },
+  { q: "O que acontece se eu andar com a arma tendo só posse?", a: "Andar com a arma municiada e ao alcance sem porte pode configurar porte ilegal de arma de fogo, que é crime — mesmo que a arma seja registrada e você seja um cidadão de bem. A regularidade do registro não substitui a autorização de porte." },
+  { q: "Como transportar a arma de forma legal sem ter porte?", a: "Em regra, desmuniciada, guardada de forma adequada (estojo ou maleta) e acompanhada da documentação que justifique o deslocamento. As condições exatas constam da regulamentação vigente — confirme antes de cada trajeto." },
+]} />
 
 Salve este artigo e use a regra de ouro como checagem mental toda vez que for sair de casa com qualquer armamento. E se você conhece alguém que acabou de tirar a posse ou o CAC e está animado para "andar protegido", mande este texto antes que o entusiasmo vire problema — é exatamente o tipo de informação que precisa chegar antes do primeiro deslocamento. No lado prático, veja [como tirar o registro de arma](/como-tirar-registro-de-arma/) (a posse para o cidadão comum) e [porte de arma: quem tem direito](/porte-de-arma-quem-pode/). Para entender como tudo isso se conecta com o direito de se defender, comece pelo guia de [legítima defesa no Brasil](/legitima-defesa-no-brasil). E para o panorama completo do sistema legal, o guia da [lei de armas no Brasil](/lei-de-armas-no-brasil/).
+

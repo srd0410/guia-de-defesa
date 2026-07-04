@@ -6,6 +6,8 @@ pubDate: 2026-06-21
 updatedDate: 2026-07-04
 tags: ["controle de hemorragia", "torniquete", "trauma", "primeiros socorros", "stop the bleed"]
 ---
+import Faq from '../../components/Faq.astro';
+
 
 Hemorragia não controlada é a causa número um de morte prevenível em trauma — e é tratável com as mãos, um curativo e, quando necessário, um torniquete. Não é cirurgia, não é equipamento sofisticado e não exige formação médica. Exige saber o que fazer, na ordem certa, rápido. Ao final deste guia, você vai entender quando pressão direta basta, quando o torniquete entra e por que escolher o torniquete certo é questão de vida ou morte.
 
@@ -67,25 +69,14 @@ O segundo erro é retirar o curativo para ver como está o ferimento, desfazendo
 
 O terceiro erro é não anotar o horário de aplicação do torniquete. A equipe médica precisa saber há quanto tempo ele está aplicado para tomar a decisão sobre o membro. Sem essa informação, a decisão clínica fica comprometida. Um simples "T 14:32" escrito no membro da vítima pode fazer diferença.
 
-## Perguntas frequentes
-
-**Torniquete corta a circulação e pode fazer perder o membro?**
-Aplicado por tempo prolongado, sim — por isso o horário de aplicação é anotado e a remoção é feita pela equipe médica, não pelo socorrista. Mas a alternativa ao torniquete numa hemorragia arterial grave não é "preservar o membro" — é a morte da vítima por choque hipovolêmico. Em trauma grave, torniquete é a escolha certa.
-
-**Posso usar qualquer coisa como torniquete em emergência?**
-Torniquetes improvisados (gravatas, cintos, faixas de tecido) raramente atingem a pressão necessária para ocluir uma artéria e frequentemente causam mais dano sem controlar o sangramento. Num cenário de absoluta ausência de alternativa, uma tentativa com material disponível pode ser feita — mas não substitui um torniquete adequado. Por isso ter um torniquete de qualidade no kit é fundamental.
-
-**Quando uso pressão direta e quando uso torniquete?**
-Pressão direta é o primeiro recurso para ferimentos sangrando — funciona para a maioria. O torniquete entra quando o sangramento é num membro, é arterial e abundante, e a pressão direta não está controlando. Em caso de dúvida sobre a gravidade, e o ferimento for num membro, o torniquete precoce é preferível a perder a vítima enquanto a pressão direta se mostra insuficiente.
-
-**Qual torniquete devo comprar para o meu kit?**
-Os mais validados na literatura de trauma e combat medicine são o CAT (Combat Application Tourniquet) e o SOFT-T Wide. Evite genéricos de borracha fina ou imitações de marcas reconhecidas — torniquete é o item em que a qualidade é decisiva.
-
-**Posso aplicar torniquete num ferimento no pescoço ou tórax?**
-Não. Torniquete é exclusivo para membros (braços e pernas). Hemorragias em pescoço, axila, virilha e tórax exigem outras intervenções (curativo compressivo com agente hemostático, selo de tórax), que são conteúdo de treinamento especializado como TCCC ou APH avançado.
-
-**O SAMU orienta o atendimento por telefone?**
-Sim. Ao ligar (192), informe a situação e o operador pode orientar manobras enquanto o socorro está a caminho. Nunca desligue antes do operador autorizar.
+<Faq items={[
+  { q: "Torniquete corta a circulação e pode fazer perder o membro?", a: "Aplicado por tempo prolongado, sim — por isso o horário de aplicação é anotado e a remoção é feita pela equipe médica, não pelo socorrista. Mas a alternativa ao torniquete numa hemorragia arterial grave não é \"preservar o membro\" — é a morte da vítima por choque hipovolêmico. Em trauma grave, torniquete é a escolha certa." },
+  { q: "Posso usar qualquer coisa como torniquete em emergência?", a: "Torniquetes improvisados (gravatas, cintos, faixas de tecido) raramente atingem a pressão necessária para ocluir uma artéria e frequentemente causam mais dano sem controlar o sangramento. Num cenário de absoluta ausência de alternativa, uma tentativa com material disponível pode ser feita — mas não substitui um torniquete adequado. Por isso ter um torniquete de qualidade no kit é fundamental." },
+  { q: "Quando uso pressão direta e quando uso torniquete?", a: "Pressão direta é o primeiro recurso para ferimentos sangrando — funciona para a maioria. O torniquete entra quando o sangramento é num membro, é arterial e abundante, e a pressão direta não está controlando. Em caso de dúvida sobre a gravidade, e o ferimento for num membro, o torniquete precoce é preferível a perder a vítima enquanto a pressão direta se mostra insuficiente." },
+  { q: "Qual torniquete devo comprar para o meu kit?", a: "Os mais validados na literatura de trauma e combat medicine são o CAT (Combat Application Tourniquet) e o SOFT-T Wide. Evite genéricos de borracha fina ou imitações de marcas reconhecidas — torniquete é o item em que a qualidade é decisiva." },
+  { q: "Posso aplicar torniquete num ferimento no pescoço ou tórax?", a: "Não. Torniquete é exclusivo para membros (braços e pernas). Hemorragias em pescoço, axila, virilha e tórax exigem outras intervenções (curativo compressivo com agente hemostático, selo de tórax), que são conteúdo de treinamento especializado como TCCC ou APH avançado." },
+  { q: "O SAMU orienta o atendimento por telefone?", a: "Sim. Ao ligar (192), informe a situação e o operador pode orientar manobras enquanto o socorro está a caminho. Nunca desligue antes do operador autorizar." },
+]} />
 
 ## Conclusão
 

@@ -8,6 +8,7 @@ affiliate: true
 draft: false
 ---
 import ProductCard from '../../components/ProductCard.astro';
+import Faq from '../../components/Faq.astro';
 
 A proteção auditiva é o equipamento de tiro que mais gente subestima e que protege o sentido que não se recupera: a audição. Um disparo produz um nível de ruído muito acima do limite seguro, e o dano que ele causa é cumulativo e permanente — não dói na hora, mas se acumula a cada sessão sem proteção. A escolha entre proteção passiva e eletrônica depende do seu uso, mas usar **alguma** proteção adequada não é negociável. Ao final, você vai saber como escolher, o que significa o número de atenuação e por que, em muitos casos, a melhor resposta é usar dois tipos ao mesmo tempo.
 
@@ -67,25 +68,14 @@ Para a maioria que leva o tiro a sério, a combinação que faz sentido é uma p
 
 A proteção auditiva é parte do equipamento básico de quem atira, ao lado da proteção visual e dos [fundamentos do tiro](/fundamentos-do-tiro/). Para montar o conjunto com critério, veja [como começar no tiro esportivo](/como-comecar-tiro-esportivo/) e explore a categoria de [equipamentos](/categoria/equipamentos/). Se você também usa óticas, vale conferir o guia de [red dots para pistola](/melhores-red-dots-pistola/), lembrando que o abafador precisa vedar bem mesmo com a haste dos óculos.
 
-## Perguntas frequentes
-
-**Preciso mesmo de protetor auricular para atirar?**
-Sim, sempre, sem exceção. O disparo gera ruído muito acima do limite seguro, e a perda auditiva que ele causa é cumulativa e permanente. Não existe exposição desprotegida segura ao estampido — a proteção é equipamento de segurança essencial, não acessório.
-
-**Proteção passiva ou eletrônica, qual é melhor?**
-Depende do uso. Passiva é mais barata, simples e robusta, ideal para treino solo. Eletrônica deixa passar comandos e conversa enquanto corta o estampido, sendo muito melhor para aula, grupo e competição. Muitos atiradores têm os dois para situações diferentes.
-
-**O que é NRR?**
-É o índice de redução de ruído, em decibéis — quanto o protetor atenua o som. Quanto maior, mais proteção. Mas é medido em laboratório, então a atenuação real depende muito da vedação correta no seu ouvido; um NRR alto mal vedado protege menos que um moderado bem encaixado.
-
-**Posso usar plug e abafador ao mesmo tempo?**
-Sim, é a chamada dupla proteção, recomendada em ambientes ruidosos — estandes fechados, calibres grandes, muitos atiradores. Plugs por dentro e abafador por cima somam atenuação e dão uma margem de segurança importante.
-
-**Abafador de concha ou plug intra, qual escolher?**
-Concha é prático de colocar e veda de forma consistente, mas é volumoso e pode conflitar com óculos e armas longas. Plug é compacto e compatível com coronha e óculos, mas exige inserção correta. Para carabina e espingarda, o plug costuma encaixar melhor; para uso geral, a concha é prática.
-
-**Atirar sem protetor uma vez só faz mal?**
-Pode fazer. O estampido de um tiro pode causar dano auditivo a partir de uma única exposição desprotegida, e esse dano é irreversível. Não existe "só um tiro" seguro sem proteção — a disciplina de proteger sempre é o que preserva a audição a longo prazo.
+<Faq items={[
+  { q: "Preciso mesmo de protetor auricular para atirar?", a: "Sim, sempre, sem exceção. O disparo gera ruído muito acima do limite seguro, e a perda auditiva que ele causa é cumulativa e permanente. Não existe exposição desprotegida segura ao estampido — a proteção é equipamento de segurança essencial, não acessório." },
+  { q: "Proteção passiva ou eletrônica, qual é melhor?", a: "Depende do uso. Passiva é mais barata, simples e robusta, ideal para treino solo. Eletrônica deixa passar comandos e conversa enquanto corta o estampido, sendo muito melhor para aula, grupo e competição. Muitos atiradores têm os dois para situações diferentes." },
+  { q: "O que é NRR?", a: "É o índice de redução de ruído, em decibéis — quanto o protetor atenua o som. Quanto maior, mais proteção. Mas é medido em laboratório, então a atenuação real depende muito da vedação correta no seu ouvido; um NRR alto mal vedado protege menos que um moderado bem encaixado." },
+  { q: "Posso usar plug e abafador ao mesmo tempo?", a: "Sim, é a chamada dupla proteção, recomendada em ambientes ruidosos — estandes fechados, calibres grandes, muitos atiradores. Plugs por dentro e abafador por cima somam atenuação e dão uma margem de segurança importante." },
+  { q: "Abafador de concha ou plug intra, qual escolher?", a: "Concha é prático de colocar e veda de forma consistente, mas é volumoso e pode conflitar com óculos e armas longas. Plug é compacto e compatível com coronha e óculos, mas exige inserção correta. Para carabina e espingarda, o plug costuma encaixar melhor; para uso geral, a concha é prática." },
+  { q: "Atirar sem protetor uma vez só faz mal?", a: "Pode fazer. O estampido de um tiro pode causar dano auditivo a partir de uma única exposição desprotegida, e esse dano é irreversível. Não existe \"só um tiro\" seguro sem proteção — a disciplina de proteger sempre é o que preserva a audição a longo prazo." },
+]} />
 
 ## Conclusão
 

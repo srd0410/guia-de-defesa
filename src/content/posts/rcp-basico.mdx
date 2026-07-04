@@ -6,6 +6,8 @@ pubDate: 2026-06-21
 updatedDate: 2026-07-04
 tags: ["rcp", "ressuscitação", "parada cardíaca", "primeiros socorros", "dea"]
 ---
+import Faq from '../../components/Faq.astro';
+
 
 RCP (*ressuscitação cardiopulmonar*) é a técnica que mantém a circulação e a oxigenação mínimas quando o coração para — e pode ser a diferença entre uma pessoa chegar viva ao hospital ou não chegar. As diretrizes atuais, baseadas em décadas de pesquisa da **American Heart Association (AHA)** e revisadas periodicamente, simplificaram o protocolo para aumentar a chance de que qualquer pessoa o execute. Este guia foca especificamente nisso — reconhecimento da parada cardíaca, técnica de compressão e uso do DEA; para o panorama mais amplo de primeiros socorros em trauma (hemorragia, vias aéreas, kit), veja o [guia de primeiros socorros em trauma](/primeiros-socorros-trauma/). Ao final deste guia, você vai entender quando e como iniciar a RCP, o que a pesquisa diz sobre compressões e o papel do DEA.
 
@@ -68,25 +70,14 @@ Iniciar a RCP é a parte que parece difícil — parar é a que muita gente não
 
 Uma situação que o leigo não precisa resolver sozinho é a decisão de "quando é definitivamente tarde". Essa avaliação é do médico ou da equipe de suporte avançado de vida. O papel do socorrista leigo é manter a RCP até o socorro assumir ou até a vítima apresentar sinais claros de vida.
 
-## Perguntas frequentes
-
-**Posso machucar a pessoa fazendo RCP?**
-Compressões de qualidade podem causar fraturas de costela — e isso não é motivo para parar ou para comprimir de forma superficial. Uma fratura de costela é tratável; uma parada cardíaca sem intervenção não é. A regra é: se a pessoa precisa de RCP, as compressões de qualidade são o que pode salvá-la.
-
-**Preciso fazer ventilação boca-a-boca?**
-Para leigos sem treinamento em ventilação, diante de adulto em parada cardíaca testemunhada, as diretrizes da AHA suportam a RCP apenas com compressões (sem ventilação). Em crianças, afogamento ou parada por asfixia, a ventilação é mais importante — e o protocolo completo (30:2) é recomendado para quem tem treinamento.
-
-**Como sei que estou comprimindo na profundidade certa?**
-Só saberá com treino em manequim, que dá feedback de profundidade. Em geral, a maioria das pessoas comprime mais raso do que o necessário. A indicação é pelo menos 5 cm de profundidade, com retorno total do tórax — mais fundo e mais rápido do que intuitivo para a maioria.
-
-**O DEA pode dar um choque em alguém que não precisa?**
-Não. O DEA analisa o ritmo cardíaco antes de qualquer choque e só recomenda choque se detectar uma arritmia tratável por desfibrilação. Se o ritmo não indicar choque, o equipamento instrui a continuar as compressões. É seguro para uso por leigos.
-
-**Onde faço um curso de RCP no Brasil?**
-Cruz Vermelha Brasileira, SAMU (alguns núcleos oferecem treinamento), hospitais, clínicas e empresas especializadas em treinamento de primeiros socorros. Muitos clubes de tiro também organizam ou indicam cursos de primeiros socorros em trauma.
-
-**A RCP sempre salva?**
-Não. A RCP aumenta significativamente as chances de sobrevivência, especialmente quando iniciada imediatamente e combinada com desfibrilação precoce, mas não garante a sobrevivência em todos os casos. O objetivo é dar à vítima a melhor chance possível enquanto o socorro especializado está a caminho.
+<Faq items={[
+  { q: "Posso machucar a pessoa fazendo RCP?", a: "Compressões de qualidade podem causar fraturas de costela — e isso não é motivo para parar ou para comprimir de forma superficial. Uma fratura de costela é tratável; uma parada cardíaca sem intervenção não é. A regra é: se a pessoa precisa de RCP, as compressões de qualidade são o que pode salvá-la." },
+  { q: "Preciso fazer ventilação boca-a-boca?", a: "Para leigos sem treinamento em ventilação, diante de adulto em parada cardíaca testemunhada, as diretrizes da AHA suportam a RCP apenas com compressões (sem ventilação). Em crianças, afogamento ou parada por asfixia, a ventilação é mais importante — e o protocolo completo (30:2) é recomendado para quem tem treinamento." },
+  { q: "Como sei que estou comprimindo na profundidade certa?", a: "Só saberá com treino em manequim, que dá feedback de profundidade. Em geral, a maioria das pessoas comprime mais raso do que o necessário. A indicação é pelo menos 5 cm de profundidade, com retorno total do tórax — mais fundo e mais rápido do que intuitivo para a maioria." },
+  { q: "O DEA pode dar um choque em alguém que não precisa?", a: "Não. O DEA analisa o ritmo cardíaco antes de qualquer choque e só recomenda choque se detectar uma arritmia tratável por desfibrilação. Se o ritmo não indicar choque, o equipamento instrui a continuar as compressões. É seguro para uso por leigos." },
+  { q: "Onde faço um curso de RCP no Brasil?", a: "Cruz Vermelha Brasileira, SAMU (alguns núcleos oferecem treinamento), hospitais, clínicas e empresas especializadas em treinamento de primeiros socorros. Muitos clubes de tiro também organizam ou indicam cursos de primeiros socorros em trauma." },
+  { q: "A RCP sempre salva?", a: "Não. A RCP aumenta significativamente as chances de sobrevivência, especialmente quando iniciada imediatamente e combinada com desfibrilação precoce, mas não garante a sobrevivência em todos os casos. O objetivo é dar à vítima a melhor chance possível enquanto o socorro especializado está a caminho." },
+]} />
 
 ## Conclusão
 

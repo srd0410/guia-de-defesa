@@ -7,6 +7,8 @@ tags: ["munição", "calibre", "defesa", "projétil", "balística", "equipamento
 affiliate: false
 draft: false
 ---
+import Faq from '../../components/Faq.astro';
+
 
 A "melhor munição de defesa" não é um calibre mágico — é a munição confiável, que a sua arma alimenta sem falha, que você controla bem e que é adequada ao seu contexto legal e de uso. Calibre importa, mas confiabilidade e controle importam mais, e a maior parte das discussões acaloradas sobre "qual o melhor calibre" ignora o que de fato decide um confronto. Ao final deste guia, você vai entender como pensar munição de forma madura — os trade-offs reais entre os calibres, a diferença entre tipos de projétil e por que confiabilidade vence energia.
 
@@ -60,25 +62,14 @@ Para a maioria, a lógica converge para um calibre equilibrado e bem controlado 
 
 Munição é parte de um sistema maior de defesa, que inclui treino, equipamento e quadro legal. Para conectar os pontos, veja [quais armas o CAC pode ter](/quais-armas-cac-pode-ter/), entenda os limites da [legítima defesa no Brasil](/legitima-defesa-no-brasil/), planeje a [defesa residencial](/defesa-residencial-protocolo/) pensando na sobrepenetração, e explore equipamento com critério na categoria de [equipamentos](/categoria/equipamentos/).
 
-## Perguntas frequentes
-
-**Qual o melhor calibre para defesa?**
-Não há um calibre universalmente "melhor". O melhor é o que você dispara com confiabilidade e controle, que a sua arma alimenta sem falhas e que é viável legalmente para você. O 9mm é o mais difundido por equilibrar recuo, capacidade e energia, mas a escolha certa é a que se ajusta a você e à sua arma.
-
-**Munição de maior calibre é sempre mais eficaz?**
-Não. Mais energia vem com mais recuo e geralmente menos capacidade, o que pode prejudicar a precisão e a velocidade dos tiros seguintes. Precisão e confiabilidade decidem mais que energia bruta — um calibre bem controlado supera um calibre maior mal dominado.
-
-**Qual a diferença entre FMJ e projétil de expansão?**
-FMJ (encamisado) é o projétil de treino: barato, confiável na alimentação e de maior penetração. Os de expansão se deformam ao impacto, transferindo mais energia e reduzindo a sobrepenetração — característica importante para defesa, sobretudo em ambiente residencial, por conter o projétil.
-
-**O que é sobrepenetração e por que importa?**
-É quando o projétil atravessa o alvo (ou uma parede) e pode atingir algo atrás. Importa porque cada disparo é sua responsabilidade legal e moral até onde o projétil parar. Em ambiente residencial e urbano, conter a sobrepenetração é uma questão séria de segurança.
-
-**Posso comprar munição de defesa pela internet no Brasil?**
-Não como um produto comum de marketplace. A aquisição de munição é regulada e vinculada ao seu registro e autorização (CAC), com limites que mudam por norma. Confirme sempre a regra vigente junto à Polícia Federal, que controla essas atividades desde julho de 2025.
-
-**Preciso testar a munição antes de confiar nela para defesa?**
-Sim, sempre. A confiabilidade depende da combinação munição + arma específica. Uma munição precisa ter sido testada na sua arma, em quantidade suficiente, para você confiar que ela dispara e cicla sem falhas. Reputação não substitui teste na sua própria arma.
+<Faq items={[
+  { q: "Qual o melhor calibre para defesa?", a: "Não há um calibre universalmente \"melhor\". O melhor é o que você dispara com confiabilidade e controle, que a sua arma alimenta sem falhas e que é viável legalmente para você. O 9mm é o mais difundido por equilibrar recuo, capacidade e energia, mas a escolha certa é a que se ajusta a você e à sua arma." },
+  { q: "Munição de maior calibre é sempre mais eficaz?", a: "Não. Mais energia vem com mais recuo e geralmente menos capacidade, o que pode prejudicar a precisão e a velocidade dos tiros seguintes. Precisão e confiabilidade decidem mais que energia bruta — um calibre bem controlado supera um calibre maior mal dominado." },
+  { q: "Qual a diferença entre FMJ e projétil de expansão?", a: "FMJ (encamisado) é o projétil de treino: barato, confiável na alimentação e de maior penetração. Os de expansão se deformam ao impacto, transferindo mais energia e reduzindo a sobrepenetração — característica importante para defesa, sobretudo em ambiente residencial, por conter o projétil." },
+  { q: "O que é sobrepenetração e por que importa?", a: "É quando o projétil atravessa o alvo (ou uma parede) e pode atingir algo atrás. Importa porque cada disparo é sua responsabilidade legal e moral até onde o projétil parar. Em ambiente residencial e urbano, conter a sobrepenetração é uma questão séria de segurança." },
+  { q: "Posso comprar munição de defesa pela internet no Brasil?", a: "Não como um produto comum de marketplace. A aquisição de munição é regulada e vinculada ao seu registro e autorização (CAC), com limites que mudam por norma. Confirme sempre a regra vigente junto à Polícia Federal, que controla essas atividades desde julho de 2025." },
+  { q: "Preciso testar a munição antes de confiar nela para defesa?", a: "Sim, sempre. A confiabilidade depende da combinação munição + arma específica. Uma munição precisa ter sido testada na sua arma, em quantidade suficiente, para você confiar que ela dispara e cicla sem falhas. Reputação não substitui teste na sua própria arma." },
+]} />
 
 ## Conclusão
 
