@@ -8,6 +8,8 @@ author: "Guia de Defesa"
 tags: ["cac", "armas permitidas", "armas restritas", "legislação", "defesa pessoal"]
 draft: false
 ---
+import Faq from '../../components/Faq.astro';
+
 
 "Tirei o CAC, agora posso comprar qualquer arma que eu quiser?" — essa é a pergunta que revela o maior mal-entendido sobre o tema. A resposta é não, e entender o porquê evita frustração, compra errada e até problema legal. O que um CAC pode adquirir depende de duas coisas que se cruzam: a sua categoria e a classificação legal do armamento. Ao final deste texto, você vai entender a lógica que governa o que pode e o que não pode — e por que os números exatos são a parte que você precisa sempre reconferir.
 
@@ -39,24 +41,14 @@ Antes de qualquer aquisição, rode um checklist mental simples que parte da ló
 
 Um exemplo de como isso evita dor de cabeça: alguém vê um modelo, se anima, e descobre tarde demais que ele é de uso restrito e não compatível com a sua categoria — ou que o limite de quantidade da categoria já foi atingido. Quem roda o checklist antes não passa por isso, porque chega à loja já sabendo o que é viável. Em outras palavras, cinco minutos de verificação na fonte certa valem mais do que qualquer "ouvi dizer" de grupo de mensagens.
 
-## Perguntas frequentes
-
-**O CAC pode comprar qualquer arma?**
-Não. O que se pode adquirir depende do cruzamento entre a categoria (atirador, caçador ou colecionador) e a classificação legal da arma (uso permitido ou restrito). Cada categoria dá acesso a finalidades diferentes — entender isso é o primeiro passo em [como tirar o CAC](/como-tirar-cac).
-
-**Qual a diferença entre arma de uso permitido e de uso restrito?**
-Uso permitido é o acessível ao cidadão que cumpre os requisitos; uso restrito tem acesso limitado a determinadas categorias e atividades e exige autorização específica. A fronteira é definida por critérios técnicos como calibre e energia do projétil, fixados na regulamentação vigente.
-
-**Quantas armas um CAC pode ter?**
-Existe um limite de quantidade por categoria, mas esse número é exatamente o que mais muda a cada alteração de decreto. Em vez de decorar um teto que pode estar revogado, confirme o limite atual na regulamentação vigente e junto à Polícia Federal antes de comprar.
-
-**Um colecionador pode atirar com as armas do acervo?**
-A lógica do colecionador é o valor histórico, tecnológico ou cultural do acervo, não o uso. Praticar tiro é a finalidade do atirador, que segue outras regras. Misturar finalidades sem a categoria correspondente pode descumprir as condições do registro — verifique o seu enquadramento.
-
-**Onde posso guardar e como posso levar as armas que adquiri?**
-Adquirir não é o mesmo que poder andar armado. A arma fica no endereço da posse e se desloca de forma regulada (transporte), salvo se você tiver porte. Essa distinção é detalhada no guia de [posse x porte de arma](/posse-x-porte-de-arma).
-
-**Mudou o governo, mudam as armas que posso ter?**
-Na prática, sim: limites, calibres e classificações no Brasil são politicamente sensíveis e já foram alterados por decreto várias vezes. Por isso o conhecimento durável é a lógica do sistema; os números específicos devem ser reconferidos a cada decisão.
+<Faq items={[
+  { q: "O CAC pode comprar qualquer arma?", a: "Não. O que se pode adquirir depende do cruzamento entre a categoria (atirador, caçador ou colecionador) e a classificação legal da arma (uso permitido ou restrito). Cada categoria dá acesso a finalidades diferentes — entender isso é o primeiro passo em <a href=\"/como-tirar-cac\">como tirar o CAC</a>." },
+  { q: "Qual a diferença entre arma de uso permitido e de uso restrito?", a: "Uso permitido é o acessível ao cidadão que cumpre os requisitos; uso restrito tem acesso limitado a determinadas categorias e atividades e exige autorização específica. A fronteira é definida por critérios técnicos como calibre e energia do projétil, fixados na regulamentação vigente." },
+  { q: "Quantas armas um CAC pode ter?", a: "Existe um limite de quantidade por categoria, mas esse número é exatamente o que mais muda a cada alteração de decreto. Em vez de decorar um teto que pode estar revogado, confirme o limite atual na regulamentação vigente e junto à Polícia Federal antes de comprar." },
+  { q: "Um colecionador pode atirar com as armas do acervo?", a: "A lógica do colecionador é o valor histórico, tecnológico ou cultural do acervo, não o uso. Praticar tiro é a finalidade do atirador, que segue outras regras. Misturar finalidades sem a categoria correspondente pode descumprir as condições do registro — verifique o seu enquadramento." },
+  { q: "Onde posso guardar e como posso levar as armas que adquiri?", a: "Adquirir não é o mesmo que poder andar armado. A arma fica no endereço da posse e se desloca de forma regulada (transporte), salvo se você tiver porte. Essa distinção é detalhada no guia de <a href=\"/posse-x-porte-de-arma\">posse x porte de arma</a>." },
+  { q: "Mudou o governo, mudam as armas que posso ter?", a: "Na prática, sim: limites, calibres e classificações no Brasil são politicamente sensíveis e já foram alterados por decreto várias vezes. Por isso o conhecimento durável é a lógica do sistema; os números específicos devem ser reconferidos a cada decisão." },
+]} />
 
 Salve este artigo como o seu guia da lógica do sistema e use-o sempre acompanhado da regulamentação oficial atual, que é onde moram os números do momento. E se você tem um amigo recém-CAC achando que pode comprar de tudo, mande este texto — entender a divisão entre permitido e restrito poupa muita frustração. Para o passo a passo de entrada na atividade, veja [como tirar o CAC](/como-tirar-cac), e para o quadro legal da defesa, o guia de [legítima defesa no Brasil](/legitima-defesa-no-brasil). Para o mapa geral das regras de armas, a [lei de armas no Brasil](/lei-de-armas-no-brasil/).
+

@@ -8,6 +8,7 @@ affiliate: true
 draft: false
 ---
 import ProductCard from '../../components/ProductCard.astro';
+import Faq from '../../components/Faq.astro';
 
 O kit 72 horas é a mochila que mantém você e sua família por três dias quando a normalidade falha — falta de luz e água por um temporal, uma enchente, uma evacuação súbita. A regra das 72 horas existe por um motivo prático: é o tempo médio que o socorro organizado leva para chegar a você numa emergência de larga escala. O objetivo não é sobreviver à selva, e sim atravessar esses três dias com água, abrigo, energia e saúde. Ao final deste guia, você vai saber exatamente o que colocar na mochila — e o que deixar de fora.
 
@@ -74,25 +75,14 @@ Com a mochila montada, faça o teste: vista-a, confira o peso, abra e familiariz
 
 O kit de 72 horas é a peça portátil de um preparo maior. Para a base conceitual, leia o [sobrevivencialismo para iniciantes](/sobrevivencialismo-para-iniciantes/); para o aprofundamento dos recursos críticos, [água e energia em emergências](/agua-energia-emergencias/); e para a continuidade com o que você carrega no dia a dia, o [kit EDC essencial](/kit-edc-essencial/). Explore também a categoria de [sobrevivencialismo](/categoria/sobrevivencialismo/).
 
-## Perguntas frequentes
-
-**O que é o kit 72 horas?**
-É a mochila de emergência que mantém você e sua família autossuficientes por três dias — o tempo médio que o socorro organizado leva para chegar numa crise de larga escala. Cobre água, abrigo, energia, primeiros socorros, comida, documentos e comunicação para atravessar essa janela crítica.
-
-**Por que três dias (72 horas) e não mais?**
-Porque 72 horas é o tempo aproximado para que serviços de emergência e ajuda organizada alcancem a população após um evento grave. É a janela em que você pode precisar se virar sozinho. Quem quer mais autonomia pode ampliar, mas 72 horas é o patamar mínimo sensato de preparo.
-
-**Qual é o item mais importante do kit?**
-A água e, sobretudo, a capacidade de purificar mais água. É o recurso que falta primeiro e mata mais cedo numa crise, e carregar três dias de água para uma família é inviável em peso. Por isso o kit prioriza água imediata mais um meio de purificação (pastilhas, filtro ou ferver).
-
-**Preciso de equipamento de sobrevivência tipo selva?**
-Não. A maioria das emergências reais é urbana e mundana — apagão, enchente, evacuação —, não um cenário de mata. O kit deve priorizar água, abrigo, remédios, documentos, dinheiro e energia para o celular. Equipamento de "sobrevivência na selva" costuma ser peso inútil para o cenário provável.
-
-**Com que frequência revisar o kit?**
-A cada seis meses é um bom ritmo. O kit tem itens perecíveis — água, comida, pastilhas, medicamentos, pilhas — que vencem ou degradam. Revisar periodicamente, trocando o vencido e ajustando à estação e às necessidades da família, é o que mantém a mochila funcional quando importar.
-
-**Onde guardar a mochila de emergência?**
-Em local de acesso rápido, não no fundo do armário atrás de tudo. Numa evacuação súbita, você precisa pegá-la em segundos. Idealmente perto de uma saída, conhecida por todos da família, junto com cópias de documentos e o dinheiro em espécie.
+<Faq items={[
+  { q: "O que é o kit 72 horas?", a: "É a mochila de emergência que mantém você e sua família autossuficientes por três dias — o tempo médio que o socorro organizado leva para chegar numa crise de larga escala. Cobre água, abrigo, energia, primeiros socorros, comida, documentos e comunicação para atravessar essa janela crítica." },
+  { q: "Por que três dias (72 horas) e não mais?", a: "Porque 72 horas é o tempo aproximado para que serviços de emergência e ajuda organizada alcancem a população após um evento grave. É a janela em que você pode precisar se virar sozinho. Quem quer mais autonomia pode ampliar, mas 72 horas é o patamar mínimo sensato de preparo." },
+  { q: "Qual é o item mais importante do kit?", a: "A água e, sobretudo, a capacidade de purificar mais água. É o recurso que falta primeiro e mata mais cedo numa crise, e carregar três dias de água para uma família é inviável em peso. Por isso o kit prioriza água imediata mais um meio de purificação (pastilhas, filtro ou ferver)." },
+  { q: "Preciso de equipamento de sobrevivência tipo selva?", a: "Não. A maioria das emergências reais é urbana e mundana — apagão, enchente, evacuação —, não um cenário de mata. O kit deve priorizar água, abrigo, remédios, documentos, dinheiro e energia para o celular. Equipamento de \"sobrevivência na selva\" costuma ser peso inútil para o cenário provável." },
+  { q: "Com que frequência revisar o kit?", a: "A cada seis meses é um bom ritmo. O kit tem itens perecíveis — água, comida, pastilhas, medicamentos, pilhas — que vencem ou degradam. Revisar periodicamente, trocando o vencido e ajustando à estação e às necessidades da família, é o que mantém a mochila funcional quando importar." },
+  { q: "Onde guardar a mochila de emergência?", a: "Em local de acesso rápido, não no fundo do armário atrás de tudo. Numa evacuação súbita, você precisa pegá-la em segundos. Idealmente perto de uma saída, conhecida por todos da família, junto com cópias de documentos e o dinheiro em espécie." },
+]} />
 
 ## Conclusão
 

@@ -8,6 +8,7 @@ affiliate: true
 draft: false
 ---
 import ProductCard from '../../components/ProductCard.astro';
+import Faq from '../../components/Faq.astro';
 
 Um bom cofre para arma resolve dois problemas ao mesmo tempo: mantém a arma fora do alcance de quem não deve (crianças, intrusos) e, no modelo certo, ainda permite acesso rápido em uma emergência. A escolha não é sobre o cofre "mais forte", e sim sobre o equilíbrio entre segurança da guarda, velocidade de acesso e instalação correta. Guardar arma sem critério é risco; guardá-la trancada e inacessível na hora certa também. Ao final deste guia, você vai saber escolher e instalar um cofre que protege a sua família dos dois lados do problema.
 
@@ -69,25 +70,14 @@ Para muitos proprietários, a montagem ideal combina um cofre pequeno de acesso 
 
 O cofre é uma peça do sistema de defesa residencial. Para encaixá-lo no todo, leia o [protocolo de defesa residencial](/defesa-residencial-protocolo/); para o quadro legal da arma e do CAC, [quais armas o CAC pode ter](/quais-armas-cac-pode-ter/) e [posse x porte de arma](/posse-x-porte-de-arma/); e para as demais camadas da casa, a categoria de [defesa residencial](/categoria/defesa-residencial/).
 
-## Perguntas frequentes
-
-**Sou obrigado a ter cofre para guardar arma?**
-A guarda segura é um dever do proprietário, e a regulamentação prevê exigências de armazenamento que mudam por norma. O princípio é estável: a arma deve ser guardada de forma que apenas o responsável tenha acesso. Confirme os requisitos vigentes junto à Polícia Federal, que controla as atividades de CAC desde julho de 2025.
-
-**Cofre de acesso rápido ou cofre grande de guarda?**
-Depende do uso, e muita gente precisa dos dois. O de acesso rápido é para a arma de defesa que precisa estar pronta em segundos. O grande de guarda é para o acervo, com foco em resistência a arrombamento e fogo. Cada um é ruim no papel do outro.
-
-**Biométrico, senha ou chave: qual o melhor mecanismo?**
-Para acesso rápido, um biométrico ou teclado de qualidade comprovada é o mais veloz, sempre com chave de backup guardada à parte. A chave sozinha é confiável, mas lenta para emergência. O essencial é qualidade comprovada e redundância — um cofre que não abre na hora é tão ruim quanto uma arma destrancada.
-
-**Preciso fixar o cofre na parede ou no chão?**
-Sim, especialmente os menores. Um cofre não fixado pode ser carregado inteiro pelo ladrão e arrombado sem pressa em outro lugar. A fixação à estrutura obriga o intruso a tentar arrombá-lo ali, sob pressão de tempo. Sem fixação, o cofre perde grande parte da função contra furto.
-
-**Onde devo instalar o cofre de defesa?**
-Onde você precisa dele numa emergência — tipicamente acessível de onde você passa a noite —, posicionado para abertura rápida no escuro, mas fora do alcance e da vista de crianças e visitantes. Treine a abertura no escuro até ela ficar automática.
-
-**O cofre protege contra incêndio?**
-Alguns modelos têm resistência ao fogo por tempo determinado, o que é relevante sobretudo para o cofre de guarda de longo prazo (acervo, documentos, munição). Cofres pequenos de acesso rápido geralmente priorizam velocidade, não proteção contra fogo. Verifique a especificação conforme o que você precisa proteger.
+<Faq items={[
+  { q: "Sou obrigado a ter cofre para guardar arma?", a: "A guarda segura é um dever do proprietário, e a regulamentação prevê exigências de armazenamento que mudam por norma. O princípio é estável: a arma deve ser guardada de forma que apenas o responsável tenha acesso. Confirme os requisitos vigentes junto à Polícia Federal, que controla as atividades de CAC desde julho de 2025." },
+  { q: "Cofre de acesso rápido ou cofre grande de guarda?", a: "Depende do uso, e muita gente precisa dos dois. O de acesso rápido é para a arma de defesa que precisa estar pronta em segundos. O grande de guarda é para o acervo, com foco em resistência a arrombamento e fogo. Cada um é ruim no papel do outro." },
+  { q: "Biométrico, senha ou chave: qual o melhor mecanismo?", a: "Para acesso rápido, um biométrico ou teclado de qualidade comprovada é o mais veloz, sempre com chave de backup guardada à parte. A chave sozinha é confiável, mas lenta para emergência. O essencial é qualidade comprovada e redundância — um cofre que não abre na hora é tão ruim quanto uma arma destrancada." },
+  { q: "Preciso fixar o cofre na parede ou no chão?", a: "Sim, especialmente os menores. Um cofre não fixado pode ser carregado inteiro pelo ladrão e arrombado sem pressa em outro lugar. A fixação à estrutura obriga o intruso a tentar arrombá-lo ali, sob pressão de tempo. Sem fixação, o cofre perde grande parte da função contra furto." },
+  { q: "Onde devo instalar o cofre de defesa?", a: "Onde você precisa dele numa emergência — tipicamente acessível de onde você passa a noite —, posicionado para abertura rápida no escuro, mas fora do alcance e da vista de crianças e visitantes. Treine a abertura no escuro até ela ficar automática." },
+  { q: "O cofre protege contra incêndio?", a: "Alguns modelos têm resistência ao fogo por tempo determinado, o que é relevante sobretudo para o cofre de guarda de longo prazo (acervo, documentos, munição). Cofres pequenos de acesso rápido geralmente priorizam velocidade, não proteção contra fogo. Verifique a especificação conforme o que você precisa proteger." },
+]} />
 
 ## Conclusão
 

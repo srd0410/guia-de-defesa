@@ -8,6 +8,8 @@ tags: ["dry fire", "treino a seco", "treinamento de tiro", "fundamentos do tiro"
 affiliate: false
 draft: true
 ---
+import Faq from '../../components/Faq.astro';
+
 
 Treino a seco é praticar com a arma descarregada — apresentação, alinhamento de mira, pressão de gatilho, saque — sem disparar uma única bala. Feito corretamente, ele acelera a consolidação de engramas motores mais rápido do que a maioria das sessões no estande, porque elimina o ruído do recuo e do estrondo, forçando o atirador a focar exatamente no que mais importa: o que acontece antes do disparo.
 
@@ -108,32 +110,18 @@ Uma cadência prática para atiradores CAC que frequentam o estande mensalmente:
 
 Atiradores que chegam ao estande depois de um ciclo de dry fire consistente disparam melhor desde o primeiro tiro — porque o padrão já está consolidado. O estande vira um teste, não o único momento de aprendizado.
 
-## Perguntas frequentes
-
-**O treino a seco danifica a arma?**
-Depende do modelo e do fabricante. Muitas pistolas modernas — Glock, por exemplo — toleram dry fire sem peças especiais. Outras, especialmente rimfire (.22 LR), podem danificar a ponteira do percutor. Consulte o manual da sua arma. Para eliminar qualquer dúvida, use snap-caps (cartuchos de treinamento de borracha ou polímero) que absorvem o impacto do percutor.
-
-**Quantas repetições por sessão são suficientes?**
-Não existe número mágico. O critério é qualidade: enquanto você consegue manter foco e executar o movimento de forma controlada, a sessão vale. Quando a atenção começa a cair e os movimentos ficam mecânicos e distraídos, pare. Para a maioria das pessoas, isso acontece entre 15 e 25 minutos.
-
-**Posso fazer dry fire em apartamento?**
-Sim, com cuidado. Defina uma direção segura — preferencialmente uma parede estrutural de concreto — e certifique-se de que ninguém está do outro lado. Avise as pessoas da casa. Se tiver vizinhos próximos e a situação gerar qualquer dúvida sobre a direção segura, considere pistolas de treinamento dedicadas (SIRT) ou cartuchos laser, que eliminam completamente o risco.
-
-**O dry fire substitui o tiro ao vivo?**
-Não completamente. Ele substitui boa parte do treino de fundamentos (gatilho, alinhamento, apresentação), mas não replica o recuo real, o gerenciamento de munição, as falhas mecânicas e a pressão adrenérgica do tiro ao vivo. O ideal é usar os dois de forma integrada.
-
-**Qual é o principal benefício do dry fire para um atirador iniciante?**
-A possibilidade de repetir os fundamentos centenas de vezes sem custo de munição e sem o elemento perturbador do recuo, que frequentemente faz iniciantes antecipar o disparo (flinch). O dry fire permite construir a pressão de gatilho correta antes de introduzir o recuo, acelerando significativamente a curva de aprendizado.
-
-**Preciso de equipamento especial para começar?**
-Não. Arma verificada como vazia, ponto pequeno na parede e um cronômetro no celular são suficientes para uma sessão produtiva. Equipamentos como MantisX ou cartuchos laser adicionam feedback valioso, mas são opcionais, não requisitos.
-
-**Com que frequência devo fazer dry fire?**
-A consistência supera a intensidade. Sessões de 10–15 minutos, 3 a 5 vezes por semana, produzem resultados melhores do que uma sessão longa de uma hora por semana. O sistema nervoso consolida engramas melhor com exposições frequentes e espaçadas do que com blocos concentrados e raros.
-
-**O que é o MantisX e vale a pena?**
-O MantisX é um sensor de movimento que se acopla ao trilho picatinny da pistola e se conecta a um aplicativo no celular. Ele mede microdesvios durante o curso do gatilho e no momento do break, gerando uma pontuação e um diagnóstico do padrão de tiro. É amplamente usado por instrutores e atiradores competitivos por ser uma das ferramentas de feedback mais precisas disponíveis para dry fire. Para quem treina seriamente, o investimento se paga rápido.
+<Faq items={[
+  { q: "O treino a seco danifica a arma?", a: "Depende do modelo e do fabricante. Muitas pistolas modernas — Glock, por exemplo — toleram dry fire sem peças especiais. Outras, especialmente rimfire (.22 LR), podem danificar a ponteira do percutor. Consulte o manual da sua arma. Para eliminar qualquer dúvida, use snap-caps (cartuchos de treinamento de borracha ou polímero) que absorvem o impacto do percutor." },
+  { q: "Quantas repetições por sessão são suficientes?", a: "Não existe número mágico. O critério é qualidade: enquanto você consegue manter foco e executar o movimento de forma controlada, a sessão vale. Quando a atenção começa a cair e os movimentos ficam mecânicos e distraídos, pare. Para a maioria das pessoas, isso acontece entre 15 e 25 minutos." },
+  { q: "Posso fazer dry fire em apartamento?", a: "Sim, com cuidado. Defina uma direção segura — preferencialmente uma parede estrutural de concreto — e certifique-se de que ninguém está do outro lado. Avise as pessoas da casa. Se tiver vizinhos próximos e a situação gerar qualquer dúvida sobre a direção segura, considere pistolas de treinamento dedicadas (SIRT) ou cartuchos laser, que eliminam completamente o risco." },
+  { q: "O dry fire substitui o tiro ao vivo?", a: "Não completamente. Ele substitui boa parte do treino de fundamentos (gatilho, alinhamento, apresentação), mas não replica o recuo real, o gerenciamento de munição, as falhas mecânicas e a pressão adrenérgica do tiro ao vivo. O ideal é usar os dois de forma integrada." },
+  { q: "Qual é o principal benefício do dry fire para um atirador iniciante?", a: "A possibilidade de repetir os fundamentos centenas de vezes sem custo de munição e sem o elemento perturbador do recuo, que frequentemente faz iniciantes antecipar o disparo (flinch). O dry fire permite construir a pressão de gatilho correta antes de introduzir o recuo, acelerando significativamente a curva de aprendizado." },
+  { q: "Preciso de equipamento especial para começar?", a: "Não. Arma verificada como vazia, ponto pequeno na parede e um cronômetro no celular são suficientes para uma sessão produtiva. Equipamentos como MantisX ou cartuchos laser adicionam feedback valioso, mas são opcionais, não requisitos." },
+  { q: "Com que frequência devo fazer dry fire?", a: "A consistência supera a intensidade. Sessões de 10–15 minutos, 3 a 5 vezes por semana, produzem resultados melhores do que uma sessão longa de uma hora por semana. O sistema nervoso consolida engramas melhor com exposições frequentes e espaçadas do que com blocos concentrados e raros." },
+  { q: "O que é o MantisX e vale a pena?", a: "O MantisX é um sensor de movimento que se acopla ao trilho picatinny da pistola e se conecta a um aplicativo no celular. Ele mede microdesvios durante o curso do gatilho e no momento do break, gerando uma pontuação e um diagnóstico do padrão de tiro. É amplamente usado por instrutores e atiradores competitivos por ser uma das ferramentas de feedback mais precisas disponíveis para dry fire. Para quem treina seriamente, o investimento se paga rápido." },
+]} />
 
 ---
 
 *Veja também: [A ciência do treinamento de tiro](/ciencia-do-treinamento-de-tiro/) · [Fundamentos do tiro](/fundamentos-do-tiro/) · [Saque da coldre: a técnica passo a passo](/saque-da-coldre-tecnica/)*
+

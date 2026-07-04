@@ -5,6 +5,8 @@ category: "primeiros-socorros"
 pubDate: 2026-06-21
 tags: ["primeiros socorros", "trauma", "controle de hemorragia", "tccc", "stop the bleed"]
 ---
+import Faq from '../../components/Faq.astro';
+
 
 Nos primeiros minutos após um trauma grave, quem está no local decide se a vítima chega viva ao hospital — não o médico, não a ambulância, não o sistema. As causas de morte preveníveis no trauma têm solução simples e ensinável: controle de hemorragia, desobstrução de vias aéreas e posicionamento correto. Qualquer pessoa pode aprender a fazer esses três movimentos. Ao final deste guia, você vai entender a lógica dos primeiros socorros em trauma, o que priorizar e por que o treino presencial é insubstituível.
 
@@ -60,25 +62,14 @@ Cada tipo de trauma tem características próprias que moldam o atendimento. **F
 
 Nesses casos mais complexos, o texto serve para orientar o raciocínio, não para substituir o treino. Saber que existe o risco de pneumotórax num FAF de tórax já muda o que você observa e o que você comunica ao SAMU; saber que queda de altura exige cuidado com a cervical já muda como você posiciona a vítima. Em resumo, conhecimento de contexto não é o mesmo que competência técnica — mas é melhor do que ignorância total, especialmente quando combinado com treino presencial.
 
-## Perguntas frequentes
-
-**Preciso de treinamento para ajudar numa emergência?**
-Para as intervenções mais simples (pressão direta, acionar o socorro, posição de recuperação), não é estritamente necessário — mas treino sempre melhora a eficácia e a confiança. Para intervenções mais complexas (torniquete, RCP, manejo de vias aéreas), o treino presencial é fundamental: a diferença entre certo e errado pode ser a diferença entre salvar e agravar.
-
-**Qual o número do SAMU?**
-192. Bombeiros: 193. Em qualquer emergência de trauma, ligue imediatamente e mantenha a linha aberta — o operador pode orientar manobras enquanto o socorro está a caminho.
-
-**O que é o protocolo TCCC?**
-*Tactical Combat Casualty Care* — protocolo desenvolvido pelas Forças Armadas norte-americanas para atendimento de trauma em campo de batalha. Identificou as principais causas de morte prevenível (hemorragia de extremidades, obstrução de vias aéreas) e sistematizou intervenções simples e eficazes. Muito do que se ensina hoje em primeiros socorros em trauma civil é derivado ou inspirado nesse protocolo.
-
-**O que é Stop the Bleed?**
-Programa civil norte-americano criado para ensinar o público a controlar hemorragias graves. Desenvolvido após o tiroteio de Sandy Hook (2012) e endossado pelo Colégio Americano de Cirurgiões, ensina três passos: chamar o socorro, comprimir o ferimento e aplicar torniquete quando necessário.
-
-**Posso mover uma vítima de acidente?**
-Em geral, não sem necessidade — mover incorretamente uma possível lesão cervical pode agravar dramaticamente o dano. A exceção é quando o local representa risco imediato e iminente à vítima (incêndio, afogamento, desabamento). Quando precisar mover, faça em linha reta, mantendo cabeça, pescoço e tronco alinhados.
-
-**Onde posso fazer um curso de primeiros socorros em trauma?**
-Cruz Vermelha Brasileira, SAMU (alguns núcleos oferecem treinamento), cursos de APH oferecidos por empresas especializadas, e cursos de Stop the Bleed que estão sendo expandidos no Brasil. Para quem frequenta estandes de tiro, muitos clubes e instrutores oferecem ou indicam cursos de trauma aplicado ao contexto de tiro.
+<Faq items={[
+  { q: "Preciso de treinamento para ajudar numa emergência?", a: "Para as intervenções mais simples (pressão direta, acionar o socorro, posição de recuperação), não é estritamente necessário — mas treino sempre melhora a eficácia e a confiança. Para intervenções mais complexas (torniquete, RCP, manejo de vias aéreas), o treino presencial é fundamental: a diferença entre certo e errado pode ser a diferença entre salvar e agravar." },
+  { q: "Qual o número do SAMU?", a: "192. Bombeiros: 193. Em qualquer emergência de trauma, ligue imediatamente e mantenha a linha aberta — o operador pode orientar manobras enquanto o socorro está a caminho." },
+  { q: "O que é o protocolo TCCC?", a: "<em>Tactical Combat Casualty Care</em> — protocolo desenvolvido pelas Forças Armadas norte-americanas para atendimento de trauma em campo de batalha. Identificou as principais causas de morte prevenível (hemorragia de extremidades, obstrução de vias aéreas) e sistematizou intervenções simples e eficazes. Muito do que se ensina hoje em primeiros socorros em trauma civil é derivado ou inspirado nesse protocolo." },
+  { q: "O que é Stop the Bleed?", a: "Programa civil norte-americano criado para ensinar o público a controlar hemorragias graves. Desenvolvido após o tiroteio de Sandy Hook (2012) e endossado pelo Colégio Americano de Cirurgiões, ensina três passos: chamar o socorro, comprimir o ferimento e aplicar torniquete quando necessário." },
+  { q: "Posso mover uma vítima de acidente?", a: "Em geral, não sem necessidade — mover incorretamente uma possível lesão cervical pode agravar dramaticamente o dano. A exceção é quando o local representa risco imediato e iminente à vítima (incêndio, afogamento, desabamento). Quando precisar mover, faça em linha reta, mantendo cabeça, pescoço e tronco alinhados." },
+  { q: "Onde posso fazer um curso de primeiros socorros em trauma?", a: "Cruz Vermelha Brasileira, SAMU (alguns núcleos oferecem treinamento), cursos de APH oferecidos por empresas especializadas, e cursos de Stop the Bleed que estão sendo expandidos no Brasil. Para quem frequenta estandes de tiro, muitos clubes e instrutores oferecem ou indicam cursos de trauma aplicado ao contexto de tiro." },
+]} />
 
 ## Conclusão
 
