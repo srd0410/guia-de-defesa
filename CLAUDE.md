@@ -109,7 +109,11 @@ npm run build    # gera o site em dist/
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
 - ⬜ **AdSense:** acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
-- ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
+- ✅ **Domínio canônico = `www`.** O apex `guiadedefesa.com.br` faz **308 → www** na Vercel
+  (www é o primário, responde 200). `site` (astro.config), `SITE.url` (consts) e o `Sitemap` do
+  robots.txt usam **www**, para o sitemap/canonical baterem com o host 200 e não gerar
+  "Página com redirecionamento" no Search Console. Se um dia trocar o primário para o apex na
+  Vercel, reverter os três para sem-www.
 
 ### Próxima fase: aprofundar os clusters (todos já iniciados)
 - **Legislação:** ainda cabem `processos-junto-a-pf` (como protocolar), Estatuto artigo por

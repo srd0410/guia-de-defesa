@@ -8,8 +8,9 @@ export const SITE = {
   tagline: 'Defesa pessoal, equipamento e prontidão.',
   // Subtítulo alternativo — use em componentes, rodapé, cards de apresentação etc.
   taglineAlt: 'Conhecer, treinar, proteger.',
-  // Troque pelo domínio definitivo:
-  url: 'https://guiadedefesa.com.br',
+  // Domínio canônico = www (o apex faz 308 → www na Vercel). Deve casar com o `site` em
+  // astro.config.mjs e o Sitemap em public/robots.txt. Usado no canonical, og:url e JSON-LD.
+  url: 'https://www.guiadedefesa.com.br',
   // Usado nas meta tags sociais e no rodapé:
   description:
     'Guia completo sobre defesa pessoal, residencial, tiro, legislação, equipamentos, ' +
