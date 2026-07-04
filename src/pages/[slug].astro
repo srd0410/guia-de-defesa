@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
 import AdSlot from '../components/AdSlot.astro';
 import AuthorBio from '../components/AuthorBio.astro';
-import { getCategory, AUTHOR } from '../consts';
+import { getCategory, AUTHOR, SITE } from '../consts';
 
 export async function getStaticPaths() {
   // Só gera página para posts publicados: não-rascunho e com data já alcançada.
@@ -17,6 +17,18 @@ const { Content } = await render(post);
 const cat = getCategory(post.data.category);
 const date = post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+// Trilha (BreadcrumbList) — mesmo caminho mostrado visualmente em .crumbs, mas legível por
+// máquina: Início → Categoria → Artigo. Ajuda o Google a exibir a trilha no resultado.
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: new URL('/', SITE.url).href },
+    { '@type': 'ListItem', position: 2, name: cat?.name, item: new URL(`/categoria/${cat?.slug}/`, SITE.url).href },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: new URL(`/${post.slug}/`, SITE.url).href },
+  ],
+};
 ---
 <BaseLayout
   title={post.data.title}
@@ -27,6 +39,7 @@ const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-dig
   modifiedTime={post.data.updatedDate ?? post.data.pubDate}
   author={post.data.author}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <article class="post wrap" data-pagefind-body>
     <nav class="crumbs" aria-label="Trilha" data-pagefind-ignore>
       <a href="/">Início</a> <span aria-hidden="true">/</span>
