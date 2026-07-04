@@ -54,6 +54,13 @@
 - (Opcional, em aberto) Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de
   `defesa-pessoal` para `cac-tiro-desportivo` — decisão de taxonomia ainda em aberto.
 
+### ✅ Busca no site (feito)
+Busca full-text com **Pagefind** (client-side, site estático). Campo translúcido sobreposto no
+banner (Opção 4 escolhida pelo autor: 35% de transparência, canto inferior direito), presente em
+todas as páginas; no mobile vira barra full-width abaixo do banner. Indexa só os artigos. Detalhes
+técnicos no `CLAUDE.md` (seção "Busca no site"). Testado localmente (build+preview): retorna os
+artigos onde o termo aparece, com destaque. Na Vercel funciona sem mudar o comando de build.
+
 ### 4. AdSense (quando quiser monetizar)
 Acervo já passou de 25 artigos. Pedir aprovação no Google AdSense e colar o ID em
 `src/consts.ts` → `adsenseClientId`. (Autor sinalizou: não agora.)
