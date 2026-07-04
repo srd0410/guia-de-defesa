@@ -38,6 +38,13 @@ Busca **full-text** client-side com **Pagefind** (site é estático, sem servido
   funciona normal (é sempre um build).
 - Comportamento: busca por prefixo + tolerância a erro de digitação (padrão do Pagefind).
   Mínimo de 2 letras. Termo inexistente pode cair no maior prefixo existente — é esperado.
+- **Artigos novos entram sozinhos, sem passo extra.** Todo `.mdx` novo é renderizado pelo
+  `[slug].astro` (que tem o campo de busca via `<Header>` e o `data-pagefind-body`), então:
+  (1) a página do artigo novo já nasce com o campo de busca; (2) o artigo é indexado no próximo
+  build e passa a aparecer nos resultados. A Vercel reconstrói a cada merge, então basta publicar
+  o artigo normalmente. (Provado com artigo de teste: o índice foi de 48 → 49 fragmentos.)
+  Ressalva: post **agendado** (pubDate futuro) só entra no índice no primeiro build feito após a
+  data chegar — mesma regra que já vale para o post aparecer no site.
 
 ## Skill de conteúdo
 
