@@ -12,6 +12,16 @@ const { category } = Astro.props;
 // Só publicados: não-rascunho e com data já alcançada (ver index.astro).
 const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date() && data.category === category.slug))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Trilha (BreadcrumbList) — mesmo padrão usado em [slug].astro: Início → Categoria.
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: new URL('/', SITE.url).href },
+    { '@type': 'ListItem', position: 2, name: category.name, item: new URL(`/categoria/${category.slug}/`, SITE.url).href },
+  ],
+};
 ---
 <BaseLayout
   title={category.name}
@@ -19,6 +29,7 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pu
   path={`/categoria/${category.slug}/`}
   type="website"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <section class="cat-head">
     <div class="wrap">
       <p class="eyebrow">Seção</p>

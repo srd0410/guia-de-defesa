@@ -17,7 +17,41 @@ interface Props {
 }
 const { name, url, store = 'outro', image, price, take } = Astro.props;
 const s = STORES[store];
+
+// Converte preço em texto (ex.: "R$ 207,89", "R$ 4.602") para o formato numérico
+// que o schema Offer exige (ex.: "207.89", "4602" — ponto decimal, sem separador de milhar).
+function parsePrice(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const cleaned = raw.replace(/[^\d.,]/g, '').trim();
+  if (!cleaned) return undefined;
+  // Tem vírgula: é o separador decimal (padrão BR) — remove pontos de milhar antes.
+  if (cleaned.includes(',')) return cleaned.replace(/\./g, '').replace(',', '.');
+  // Sem vírgula: qualquer ponto é separador de milhar (ex.: "4.602" -> "4602").
+  return cleaned.replace(/\./g, '');
+}
+const numericPrice = parsePrice(price);
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name,
+  ...(image ? { image } : {}),
+  ...(take ? { description: take } : {}),
+  ...(numericPrice
+    ? {
+        offers: {
+          '@type': 'Offer',
+          url,
+          priceCurrency: 'BRL',
+          price: numericPrice,
+          availability: 'https://schema.org/InStock',
+          seller: { '@type': 'Organization', name: s.label },
+        },
+      }
+    : {}),
+};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(productLd)} />
 <div class="product" role="group" aria-label={`Recomendação: ${name}`}>
   <div class="product-head">
     <span class="eyebrow">Recomendação</span>
