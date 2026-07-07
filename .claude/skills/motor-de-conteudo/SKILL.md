@@ -77,6 +77,12 @@ Sinais de experiência real elevam o E-E-A-T. MAS:
 - Pode escrever em linguagem técnica e impessoal o que é conhecimento consolidado do
   campo ("observa-se que, sob estresse agudo, a motricidade fina se degrada"), sem
   fingir uma experiência pessoal específica.
+- **Este placeholder nunca deve ir para produção sem resolução.** Antes de publicar
+  (mergear o PR), o autor precisa: (a) preencher com o relato real, ou (b) pedir para
+  remover o callout, caindo de volta na linguagem técnica impessoal acima. Um placeholder
+  `[EXPERIÊNCIA DO AUTOR: ...]` esquecido e publicado é um bug visível no site (já
+  aconteceu — ver `CONTINUAR-AQUI.md`/memória do projeto). Ao revisar um PR antes do
+  merge, sempre grep por essa string nos arquivos tocados.
 
 ## E-E-A-T e tom
 
