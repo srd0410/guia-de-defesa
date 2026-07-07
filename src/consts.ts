@@ -28,9 +28,8 @@ export const AUTHOR = {
   role: 'Instrutor de Tiro',
   url: '/autor/',
   credentials: [
-    'Instrutor de Tiro',
-    'Instrutor Credenciado pela Polícia Federal',
-    'Instrutor licenciado — Metodologia ETC (Esperandio Tactical Concept)',
+    'Instrutor de Armamento e Tiro - Credenciado pela Polícia Federal',
+    'Instrutor de Tiro licenciado - Metodologia ETC (Esperandio Tactical Concept)',
   ],
   bio:
     'Felipe Arrais Serodio é instrutor de tiro credenciado pela Polícia Federal e ' +
