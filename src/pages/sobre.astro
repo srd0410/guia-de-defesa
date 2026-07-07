@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { SITE } from '../consts';
 ---
 <BaseLayout title="Sobre" description={`Sobre o ${SITE.name}: missão, princípios e responsabilidade editorial.`} path="/sobre/" type="website">
@@ -20,8 +21,11 @@ import { SITE } from '../consts';
       </ul>
 
       <h2>Contato</h2>
-      <p>Sugestões de pauta e parcerias: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+      <p>Sugestões de pauta e parcerias: preencha o formulário abaixo, ou escreva direto para
+      <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
     </div>
+
+    <ContactForm />
   </article>
 </BaseLayout>
 
