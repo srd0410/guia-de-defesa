@@ -22,6 +22,15 @@ const {
 const canonical = new URL(path, SITE.url).href;
 const fullTitle = path === '/' ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
 const ogImage = image ? new URL(image, SITE.url).href : new URL('/logo-completo.jpg', SITE.url).href;
+const logoUrl = new URL('/logo-completo.jpg', SITE.url).href;
+
+// Organization reutilizada como publisher (com logo, que o Google recomenda para Article).
+const organization = {
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: { '@type': 'ImageObject', url: logoUrl },
+};
 
 const jsonLd = type === 'article'
   ? {
@@ -37,7 +46,7 @@ const jsonLd = type === 'article'
         knowsAbout: AUTHOR.knowsAbout,
         url: new URL(AUTHOR.url, SITE.url).href,
       },
-      publisher: { '@type': 'Organization', name: SITE.name },
+      publisher: organization,
       datePublished: publishedTime?.toISOString(),
       dateModified: (modifiedTime ?? publishedTime)?.toISOString(),
       mainEntityOfPage: canonical,
@@ -45,10 +54,15 @@ const jsonLd = type === 'article'
     }
   : {
       '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: SITE.name,
-      url: SITE.url,
-      description: SITE.description,
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          name: SITE.name,
+          url: SITE.url,
+          description: SITE.description,
+        },
+        organization,
+      ],
     };
 ---
 <title>{fullTitle}</title>
