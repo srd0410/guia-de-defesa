@@ -1,0 +1,106 @@
+---
+// Formulário de contato via Web3Forms (formulario estático, sem servidor
+// próprio). A "access key" abaixo é pública por design do serviço — pode
+// ficar no código-fonte com segurança (o próprio Web3Forms documenta isso).
+// https://web3forms.com/
+const WEB3FORMS_ACCESS_KEY = 'a475f8e6-3f5c-41c5-9192-1c9df221dccc';
+---
+
+<div class="contact-form-wrap">
+  <form id="contact-form" class="contact-form">
+    <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+    <input type="hidden" name="subject" value="Nova mensagem — Guia de Defesa (site)" />
+    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
+
+    <div class="field">
+      <label for="cf-name">Nome</label>
+      <input id="cf-name" type="text" name="name" placeholder="Opcional" />
+    </div>
+
+    <div class="field">
+      <label for="cf-email">Seu e-mail</label>
+      <input id="cf-email" type="email" name="email" placeholder="Opcional" />
+    </div>
+
+    <div class="field">
+      <label for="cf-message">Mensagem</label>
+      <textarea id="cf-message" name="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="btn">Enviar mensagem</button>
+    <p class="status" id="contact-form-status" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<style>
+  .contact-form-wrap { margin: 1.2rem 0 0.5rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 32rem; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .field input, .field textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--ink);
+  }
+  .field input:focus, .field textarea:focus {
+    outline: 2px solid var(--brass);
+    outline-offset: 1px;
+  }
+  .field input::placeholder, .field textarea::placeholder {
+    color: var(--steel);
+    opacity: 0.6;
+    font-style: italic;
+  }
+  .contact-form .btn { align-self: flex-start; border: 0; }
+  .botcheck { display: none; }
+  .status { font-family: var(--font-mono); font-size: 0.82rem; margin: 0; min-height: 1.2em; }
+  .status.ok { color: var(--olive-dk); }
+  .status.err { color: var(--danger); }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const statusEl = document.getElementById('contact-form-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!statusEl) return;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    statusEl.textContent = 'Enviando…';
+    statusEl.className = 'status';
+    if (submitBtn) submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json();
+      if (data.success) {
+        statusEl.textContent = 'Mensagem enviada — obrigado! Respondo assim que puder.';
+        statusEl.className = 'status ok';
+        form.reset();
+      } else {
+        statusEl.textContent = 'Não consegui enviar agora. Tente de novo ou use o e-mail acima.';
+        statusEl.className = 'status err';
+      }
+    } catch {
+      statusEl.textContent = 'Não consegui enviar agora. Tente de novo ou use o e-mail acima.';
+      statusEl.className = 'status err';
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>
