@@ -95,21 +95,27 @@ mesma muleta (ex.: evitar "E daí?" em todas as seções; alternar com "Na prát
 
 ## FAQ (obrigatória)
 
-Termine com uma seção "Perguntas frequentes". Mínimo 5 perguntas; ideal 8 a 12. Use
-perguntas reais e específicas do tema. Formato em MDX:
+Termine com uma seção de perguntas frequentes. Mínimo 5 perguntas; ideal 8 a 12. Use
+perguntas reais e específicas do tema. **Use sempre o componente `<Faq>`**
+(`src/components/Faq.astro`), que emite o schema **FAQPage** (JSON-LD) — importante para
+SEO e para citação por mecanismos de IA. Não escrever a seção em markdown solto
+(`## Perguntas frequentes` + `**Pergunta?**`/resposta): isso não gera dado estruturado.
+
+Formato em MDX:
 
 ```
-## Perguntas frequentes
-
-**O red dot funciona à noite?**
-Resposta direta em 1–3 frases.
-
-**O red dot aumenta a precisão?**
-Resposta direta.
+import Faq from '../../components/Faq.astro';
+...
+<Faq items={[
+  { q: "O red dot funciona à noite?", a: "Resposta direta em 1–3 frases." },
+  { q: "O red dot aumenta a precisão?", a: "Resposta direta." },
+]} />
 ```
 
-(Quando o componente `<Faq>` com schema FAQPage estiver disponível no site, usar ele;
-até lá, o formato acima já renderiza e é lido por IA.)
+O componente já renderiza o próprio título "Perguntas frequentes" — não duplicar com um
+`## Perguntas frequentes` antes dele. Negrito e links dentro da resposta devem ser **HTML
+real** (`<strong>texto</strong>`, `<a href="/x/">texto</a>`), não markdown — o componente
+usa `set:html`, que não converte `**negrito**` nem `[link](url)`.
 
 ## Linkagem interna e clusters
 

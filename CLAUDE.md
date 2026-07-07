@@ -59,6 +59,13 @@ editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave q
   parênteses na primeira ocorrência: `*dry fire*` ("tiro a seco")
 - Texto pensado para ser compartilhado no WhatsApp / salvo para consulta
 - `affiliate: true` apenas quando há `<ProductCard>`; `description` de 120–160 caracteres
+- **FAQ sempre com o componente `<Faq>`** (`src/components/Faq.astro`), nunca em markdown solto
+  (`## Perguntas frequentes` + `**Pergunta?**`/resposta). O componente emite o schema **FAQPage**
+  (JSON-LD) — importante para SEO e GEO (citação por IA). Uso:
+  `<Faq items={[{ q: "Pergunta?", a: "Resposta." }]} />`. Negrito/links na resposta devem ser HTML
+  real (`<strong>`, `<a href="...">`), não markdown — o componente renderiza a resposta com
+  `set:html`, que não converte markdown. (Os 41 posts antigos que ainda usavam markdown solto
+  foram convertidos no PR #40; não regredir para o formato antigo em posts novos.)
 - **Retro-linkagem obrigatória:** ao publicar artigo novo, varrer os artigos antigos
   relacionados, adicionar link deles para o novo (linkagem bidirecional) e marcar
   `updatedDate` nesses antigos, mantendo o `pubDate` original. (Regra detalhada na skill.)
@@ -114,6 +121,13 @@ npm run build    # gera o site em dist/
   robots.txt usam **www**, para o sitemap/canonical baterem com o host 200 e não gerar
   "Página com redirecionamento" no Search Console. Se um dia trocar o primário para o apex na
   Vercel, reverter os três para sem-www.
+- ✅ **Auditoria de SEO/GEO concluída (2026-07-04 a 2026-07-07, PRs #39, #40, #41):**
+  schema **FAQPage** em 41 posts (componente `<Faq>`, ver regra abaixo), sitemap com `lastmod`,
+  `BreadcrumbList` nos artigos, `publisher`/`Organization` com logo, e as 32 descrições acima de
+  160 caracteres aparadas para o padrão 120–160. Também verificada a propriedade de **Domínio**
+  no Search Console (a que cobre www+https de uma vez), verificada via TXT na Vercel.
+  Pendências que sobraram (baixa prioridade, não são bugs): nenhum post tem imagem de `cover`
+  (tarefa de design, não de código); `llms.txt` ainda não existe.
 
 ### Próxima fase: aprofundar os clusters (todos já iniciados)
 - **Legislação:** ainda cabem `processos-junto-a-pf` (como protocolar), Estatuto artigo por
