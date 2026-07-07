@@ -17,6 +17,9 @@ export const SITE = {
     'primeiros socorros, preparação e prontidão. Informação técnica para quem quer aprender e pesquisar.',
   author: 'Guia de Defesa',
   locale: 'pt_BR',
+  // E-mail de contato do site (sugestões de pauta, parcerias). Domínio próprio via Hostinger
+  // Email (MX/SPF/DKIM/DMARC apontados na Vercel, onde o DNS do domínio é gerenciado).
+  contactEmail: 'contato@guiadedefesa.com.br',
   // Quando tiver o ID do AdSense, cole aqui (ex.: 'ca-pub-0000000000000000').
   // Deixe vazio para não carregar nada de anúncio ainda.
   adsenseClientId: '',
