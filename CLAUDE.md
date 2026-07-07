@@ -59,6 +59,16 @@ editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave q
   parênteses na primeira ocorrência: `*dry fire*` ("tiro a seco")
 - Texto pensado para ser compartilhado no WhatsApp / salvo para consulta
 - `affiliate: true` apenas quando há `<ProductCard>`; `description` de 120–160 caracteres
+- **Honestidade no texto do produto (`take` do `<ProductCard>`):** deixar sempre claro se é
+  recomendação de **uso pessoal testado pelo autor** ("a que eu uso", "tenho a minha há X anos")
+  ou uma **sugestão sem uso próprio** (pesquisa/reputação, deixar isso explícito no texto, ex.:
+  "não tenho uso pessoal desta, a indicação é baseada em pesquisa e depoimentos"). Nunca escrever
+  um texto genérico tipo "modelo para começar" que não diz de onde vem a confiança na indicação —
+  o leitor precisa saber se é experiência real ou não.
+- **Aviso de afiliado sempre no final do artigo**, nunca no topo. Isso é automático — o
+  `<AffiliateDisclosure>` é renderizado pelo template (`[slug].astro`), logo após `<Content />`
+  e antes das tags de rodapé, para todo post com `affiliate: true`. Não duplicar manualmente
+  esse aviso dentro do `.mdx`.
 - **FAQ sempre com o componente `<Faq>`** (`src/components/Faq.astro`), nunca em markdown solto
   (`## Perguntas frequentes` + `**Pergunta?**`/resposta). O componente emite o schema **FAQPage**
   (JSON-LD) — importante para SEO e GEO (citação por IA). Uso:

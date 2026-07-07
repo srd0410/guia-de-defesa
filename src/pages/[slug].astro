@@ -64,11 +64,11 @@ const breadcrumbLd = {
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
     )}
 
-    {post.data.affiliate && <div data-pagefind-ignore><AffiliateDisclosure /></div>}
-
     <div class="prose">
       <Content />
     </div>
+
+    {post.data.affiliate && <div data-pagefind-ignore><AffiliateDisclosure /></div>}
 
     <div data-pagefind-ignore>
       <hr class="field-rule" />

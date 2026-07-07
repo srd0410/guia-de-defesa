@@ -186,6 +186,15 @@ affiliate: true            # true se houver ProductCard
   ```
   O link de afiliado é gerado pelo autor no painel da loja — usar placeholder
   `SEU-LINK-DE-AFILIADO` quando não fornecido.
+  **No `take`, ser honesto sobre a origem da confiança na indicação:** se é uso pessoal
+  testado pelo autor, dizer isso explicitamente ("a que eu uso", "tenho a minha há X anos",
+  "é a que eu uso e é extremamente robusta"); se não há uso próprio, deixar claro também
+  ("não tenho uso pessoal desta, a indicação é baseada em pesquisa/depoimentos"). Nunca
+  escrever um texto genérico (tipo "modelo para começar") que não diz de onde vem a
+  confiança — o leitor precisa saber se é experiência real ou não.
+  O **aviso de afiliado não é escrito manualmente no `.mdx`** — o template já renderiza
+  o `<AffiliateDisclosure>` sozinho, no **final** do artigo, para todo post com
+  `affiliate: true`.
 - **Vídeo do YouTube** (embed lazy; usar embed, nunca repost):
   ```
   import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
