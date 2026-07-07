@@ -18,6 +18,9 @@ Hospedagem na **Vercel**; código no GitHub: `https://github.com/srd0410/guia-de
 - `PLANO-CONTEUDO.md` — roteiro dos 30 artigos do acervo inicial e cadência
 - `.claude/skills/motor-de-conteudo/` — a skill que gera os artigos
 - `src/components/SearchBox.astro` — busca do site (campo translúcido no banner)
+- `src/pages/llms.txt.ts` — endpoint dinâmico (convenção GEO llmstxt.org), gerado a cada
+  build a partir do conteúdo real (mesmo padrão do `rss.xml.js`) — nunca precisa manutenção
+  manual, artigo novo aparece sozinho
 
 ## Busca no site (Pagefind)
 
@@ -137,7 +140,7 @@ npm run build    # gera o site em dist/
   160 caracteres aparadas para o padrão 120–160. Também verificada a propriedade de **Domínio**
   no Search Console (a que cobre www+https de uma vez), verificada via TXT na Vercel.
   Pendências que sobraram (baixa prioridade, não são bugs): nenhum post tem imagem de `cover`
-  (tarefa de design, não de código); `llms.txt` ainda não existe.
+  (tarefa de design, não de código); `llms.txt` **feito** (endpoint dinâmico, ver Estrutura acima).
 
 ### Próxima fase: aprofundar os clusters (todos já iniciados)
 - **Legislação:** ainda cabem `processos-junto-a-pf` (como protocolar), Estatuto artigo por
