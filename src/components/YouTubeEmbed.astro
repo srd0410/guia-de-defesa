@@ -4,11 +4,31 @@ interface Props {
   id: string;
   /** Título descritivo (acessibilidade + SEO) */
   title: string;
+  /** Descrição curta do vídeo (opcional) — usada no schema VideoObject. */
+  description?: string;
+  /**
+   * Data de publicação do vídeo no YouTube, formato "AAAA-MM-DD" (opcional).
+   * O Google recomenda essa propriedade para elegibilidade de rich result de
+   * vídeo — sem ela, o VideoObject ainda é válido, só não concorre a esse
+   * resultado. Preencha quando souber a data real do vídeo.
+   */
+  uploadDate?: string;
 }
-const { id, title } = Astro.props;
+const { id, title, description, uploadDate } = Astro.props;
 // Lite-embed: carrega só a miniatura; o player só entra ao clicar (performance).
 const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+const videoLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: title,
+  description: description ?? title,
+  thumbnailUrl: thumb,
+  embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
+  ...(uploadDate ? { uploadDate } : {}),
+};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(videoLd)} />
 <div class="yt" data-id={id}>
   <button class="yt-play" type="button" aria-label={`Reproduzir: ${title}`}>
     <img src={thumb} alt={title} loading="lazy" />
