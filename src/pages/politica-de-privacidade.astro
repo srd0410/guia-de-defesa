@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+const lastUpdated = '8 de julho de 2026';
+---
+<BaseLayout title="Política de Privacidade" description={`Política de Privacidade do ${SITE.name}: quais dados coletamos, uso de cookies, publicidade e seus direitos sob a LGPD.`} path="/politica-de-privacidade/" type="website">
+  <article class="post wrap">
+    <p class="eyebrow">Política de Privacidade</p>
+    <h1>Política de Privacidade</h1>
+    <p class="updated">Última atualização: {lastUpdated}</p>
+
+    <div class="prose">
+      <p>Esta Política de Privacidade explica quais dados o {SITE.name} coleta, como são usados,
+      e quais direitos você tem sobre eles, em conformidade com a Lei Geral de Proteção de Dados
+      (Lei nº 13.709/2018 — LGPD).</p>
+
+      <h2>Quem é o responsável pelos dados</h2>
+      <p>O {SITE.name} é o controlador dos dados tratados neste site. Dúvidas, solicitações ou
+      exercício de direitos sobre seus dados podem ser enviados para
+      <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+
+      <h2>Quais dados coletamos</h2>
+      <p>Coletamos apenas o necessário para operar o site e responder ao contato do visitante:</p>
+      <ul>
+        <li><strong>Formulário de contato:</strong> nome, e-mail e a mensagem que você escrever,
+        processados através do serviço Web3Forms para chegar à nossa caixa de entrada. Não
+        armazenamos esses dados em banco de dados próprio.</li>
+        <li><strong>Dados de navegação e hospedagem:</strong> como em qualquer site, nosso
+        provedor de hospedagem (Vercel) registra automaticamente informações técnicas de acesso
+        (endereço IP, navegador, páginas visitadas) para operação, segurança e diagnóstico —
+        não para identificação individual do visitante.</li>
+        <li><strong>Cookies de publicidade (Google AdSense):</strong> quando o site exibir
+        anúncios via Google AdSense, o Google e seus parceiros podem usar cookies para veicular
+        anúncios com base em visitas anteriores suas a este e a outros sites. Você pode
+        desativar a publicidade personalizada visitando as
+        <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Configurações
+        de Anúncios do Google</a>, ou opções de anúncios personalizados de terceiros em
+        <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">www.aboutads.info</a>.</li>
+      </ul>
+
+      <h2>Não coletamos</h2>
+      <p>Não pedimos cadastro, login ou senha para ler o conteúdo do site. Não vendemos dados
+      pessoais a terceiros. Não usamos os dados do formulário de contato para nenhuma outra
+      finalidade além de responder à sua mensagem.</p>
+
+      <h2>Cookies</h2>
+      <p>Cookies são pequenos arquivos armazenados no seu navegador. Usamos apenas os cookies
+      estritamente necessários ao funcionamento do site e, quando aplicável, os cookies de
+      publicidade descritos acima. Você pode bloquear ou apagar cookies a qualquer momento nas
+      configurações do seu navegador — isso pode afetar a exibição de anúncios, mas não impede
+      a leitura do conteúdo.</p>
+
+      <h2>Links de afiliado</h2>
+      <p>Alguns artigos contêm links de afiliado (Amazon, Mercado Livre, Shopee, AliExpress,
+      entre outros), sinalizados no próprio texto. Ao clicar, você é redirecionado ao site do
+      parceiro, que tem sua própria política de privacidade — recomendamos consultá-la. O
+      {SITE.name} pode receber uma comissão pela indicação, sem custo adicional para você.</p>
+
+      <h2>Compartilhamento de dados com terceiros</h2>
+      <p>Compartilhamos dados apenas com os prestadores de serviço necessários para operar o
+      site: Web3Forms (formulário de contato), Vercel (hospedagem) e, quando ativo, Google
+      AdSense (publicidade). Cada um desses serviços tem sua própria política de privacidade.</p>
+
+      <h2>Seus direitos sob a LGPD</h2>
+      <p>Você pode, a qualquer momento, solicitar:</p>
+      <ul>
+        <li>Confirmação de que tratamos algum dado seu, e acesso a ele;</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+        <li>Eliminação de dados tratados com o seu consentimento;</li>
+        <li>Informação sobre com quem compartilhamos seus dados;</li>
+        <li>Revogação do consentimento dado anteriormente.</li>
+      </ul>
+      <p>Para exercer qualquer um desses direitos, escreva para
+      <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+
+      <h2>Menores de idade</h2>
+      <p>O conteúdo deste site é destinado a maiores de 18 anos, dada a natureza dos temas
+      (armas de fogo, defesa pessoal, legislação). Não coletamos intencionalmente dados de
+      menores de idade.</p>
+
+      <h2>Alterações nesta política</h2>
+      <p>Esta política pode ser atualizada para refletir mudanças legais ou operacionais. A
+      data da última atualização está sempre indicada no topo desta página.</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: var(--measure); padding-top: 2.2rem; }
+  .updated { color: var(--ink-3, #666); font-size: 0.9rem; margin-top: -0.5rem; }
+  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; margin-top: 2rem; }
+  .prose :global(ul) { padding-left: 1.3rem; }
+  .prose :global(li) { margin-bottom: 0.5rem; }
+</style>
