@@ -8,14 +8,18 @@ export const SITE = {
   tagline: 'Defesa pessoal, equipamento e prontidão.',
   // Subtítulo alternativo — use em componentes, rodapé, cards de apresentação etc.
   taglineAlt: 'Conhecer, treinar, proteger.',
-  // Troque pelo domínio definitivo:
-  url: 'https://guiadedefesa.com.br',
+  // Domínio canônico = www (o apex faz 308 → www na Vercel). Deve casar com o `site` em
+  // astro.config.mjs e o Sitemap em public/robots.txt. Usado no canonical, og:url e JSON-LD.
+  url: 'https://www.guiadedefesa.com.br',
   // Usado nas meta tags sociais e no rodapé:
   description:
     'Guia completo sobre defesa pessoal, residencial, tiro, legislação, equipamentos, ' +
     'primeiros socorros, preparação e prontidão. Informação técnica para quem quer aprender e pesquisar.',
   author: 'Guia de Defesa',
   locale: 'pt_BR',
+  // E-mail de contato do site (sugestões de pauta, parcerias). Domínio próprio via Hostinger
+  // Email (MX/SPF/DKIM/DMARC apontados na Vercel, onde o DNS do domínio é gerenciado).
+  contactEmail: 'contato@guiadedefesa.com.br',
   // Quando tiver o ID do AdSense, cole aqui (ex.: 'ca-pub-0000000000000000').
   // Deixe vazio para não carregar nada de anúncio ainda.
   adsenseClientId: '',
@@ -27,9 +31,8 @@ export const AUTHOR = {
   role: 'Instrutor de Tiro',
   url: '/autor/',
   credentials: [
-    'Instrutor de Tiro',
-    'Instrutor Credenciado pela Polícia Federal',
-    'Instrutor licenciado — Metodologia ETC (Esperandio Tactical Concept)',
+    'Instrutor de Armamento e Tiro - Credenciado pela Polícia Federal',
+    'Instrutor de Tiro licenciado - Metodologia ETC (Esperandio Tactical Concept)',
   ],
   bio:
     'Felipe Arrais Serodio é instrutor de tiro credenciado pela Polícia Federal e ' +

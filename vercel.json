@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/saque-da-coldre-tecnica",
+      "destination": "/saque-do-coldre-tecnica/",
+      "permanent": true
+    },
+    {
+      "source": "/saque-da-coldre-tecnica/",
+      "destination": "/saque-do-coldre-tecnica/",
+      "permanent": true
+    }
+  ]
+}

@@ -17,6 +17,37 @@ Hospedagem na **Vercel**; código no GitHub: `https://github.com/srd0410/guia-de
 - `CONTEUDO.md` — formato exato de post e componentes
 - `PLANO-CONTEUDO.md` — roteiro dos 30 artigos do acervo inicial e cadência
 - `.claude/skills/motor-de-conteudo/` — a skill que gera os artigos
+- `src/components/SearchBox.astro` — busca do site (campo translúcido no banner)
+- `src/pages/llms.txt.ts` — endpoint dinâmico (convenção GEO llmstxt.org), gerado a cada
+  build a partir do conteúdo real (mesmo padrão do `rss.xml.js`) — nunca precisa manutenção
+  manual, artigo novo aparece sozinho
+
+## Busca no site (Pagefind)
+
+Busca **full-text** client-side com **Pagefind** (site é estático, sem servidor).
+
+- Integração `astro-pagefind` em `astro.config.mjs`: indexa o `dist/` ao final do build
+  (`astro:build:done`) e gera `dist/pagefind/`. **Não muda o comando de build da Vercel.**
+- Só os **artigos** são indexados: `[slug].astro` tem `data-pagefind-body` no `<article>`, e
+  `data-pagefind-ignore` no que não é conteúdo (trilha, byline, anúncio, tags, bio, disclosure).
+  A categoria vira metadado via `data-pagefind-meta="categoria"` no eyebrow. Páginas de
+  categoria/índice/autor/sobre **não** entram no índice.
+- `SearchBox.astro` (dentro do `<Header>`, logo aparece em todas as páginas): campo translúcido
+  sobreposto no canto inferior direito do banner (desktop) e barra full-width abaixo do banner
+  (mobile ≤640px). Carrega o Pagefind sob demanda via `import('/pagefind/pagefind.js')` — esse
+  caminho está em `vite.build.rollupOptions.external` no config para o Rollup não empacotá-lo.
+- **Atenção (dev):** o índice só existe **depois de um build**. `npm run dev` sozinho não tem
+  busca; rode `npm run build` e depois `npm run preview` para testar localmente. Na Vercel
+  funciona normal (é sempre um build).
+- Comportamento: busca por prefixo + tolerância a erro de digitação (padrão do Pagefind).
+  Mínimo de 2 letras. Termo inexistente pode cair no maior prefixo existente — é esperado.
+- **Artigos novos entram sozinhos, sem passo extra.** Todo `.mdx` novo é renderizado pelo
+  `[slug].astro` (que tem o campo de busca via `<Header>` e o `data-pagefind-body`), então:
+  (1) a página do artigo novo já nasce com o campo de busca; (2) o artigo é indexado no próximo
+  build e passa a aparecer nos resultados. A Vercel reconstrói a cada merge, então basta publicar
+  o artigo normalmente. (Provado com artigo de teste: o índice foi de 48 → 49 fragmentos.)
+  Ressalva: post **agendado** (pubDate futuro) só entra no índice no primeiro build feito após a
+  data chegar — mesma regra que já vale para o post aparecer no site.
 
 ## Skill de conteúdo
 
@@ -31,6 +62,23 @@ editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave q
   parênteses na primeira ocorrência: `*dry fire*` ("tiro a seco")
 - Texto pensado para ser compartilhado no WhatsApp / salvo para consulta
 - `affiliate: true` apenas quando há `<ProductCard>`; `description` de 120–160 caracteres
+- **Honestidade no texto do produto (`take` do `<ProductCard>`):** deixar sempre claro se é
+  recomendação de **uso pessoal testado pelo autor** ("a que eu uso", "tenho a minha há X anos")
+  ou uma **sugestão sem uso próprio** (pesquisa/reputação, deixar isso explícito no texto, ex.:
+  "não tenho uso pessoal desta, a indicação é baseada em pesquisa e depoimentos"). Nunca escrever
+  um texto genérico tipo "modelo para começar" que não diz de onde vem a confiança na indicação —
+  o leitor precisa saber se é experiência real ou não.
+- **Aviso de afiliado sempre no final do artigo**, nunca no topo. Isso é automático — o
+  `<AffiliateDisclosure>` é renderizado pelo template (`[slug].astro`), logo após `<Content />`
+  e antes das tags de rodapé, para todo post com `affiliate: true`. Não duplicar manualmente
+  esse aviso dentro do `.mdx`.
+- **FAQ sempre com o componente `<Faq>`** (`src/components/Faq.astro`), nunca em markdown solto
+  (`## Perguntas frequentes` + `**Pergunta?**`/resposta). O componente emite o schema **FAQPage**
+  (JSON-LD) — importante para SEO e GEO (citação por IA). Uso:
+  `<Faq items={[{ q: "Pergunta?", a: "Resposta." }]} />`. Negrito/links na resposta devem ser HTML
+  real (`<strong>`, `<a href="...">`), não markdown — o componente renderiza a resposta com
+  `set:html`, que não converte markdown. (Os 41 posts antigos que ainda usavam markdown solto
+  foram convertidos no PR #40; não regredir para o formato antigo em posts novos.)
 - **Retro-linkagem obrigatória:** ao publicar artigo novo, varrer os artigos antigos
   relacionados, adicionar link deles para o novo (linkagem bidirecional) e marcar
   `updatedDate` nesses antigos, mantendo o `pubDate` original. (Regra detalhada na skill.)
@@ -68,15 +116,31 @@ npm run build    # gera o site em dist/
   `controle-de-hemorragia-torniquete`, `kit-ifak-primeiros-socorros`, `rcp-basico`.
 - ✅ **48 artigos publicados** no total.
 - ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards:
-  - `melhores-lanternas-taticas`: **em andamento** — Apfer T9 (ML) com link real e marcada como
-    temporária; Sofirn SP31 (1ª escolha) ainda com placeholder (AliExpress/Shopee em cadastro).
-  - **Faltam:** melhores-coldres-de-porte, protecao-auditiva-para-tiro, melhor-faca-edc,
-    cofre-para-arma, kit-72-horas-mochila-emergencia.
+  - `melhores-lanternas-taticas`: **feito** — Sofirn SP31 V3 (AliExpress), R$ 207,89. Card da
+    Apfer T9 removido (o link `https://meli.la/27Y8mUf` redirecionava para o produto errado, o
+    canivete). Não recolocar sem link novo conferido pelo autor.
+  - `cofre-para-arma`: **feito** — Cofre Eletrônico Digital Contelux (Mercado Livre), R$ 189.
+  - `melhores-coldres-de-porte`: **sem afiliado** — menção direta à Hardholster (Instagram),
+    sem link rastreado; `affiliate: false`.
+  - `melhor-faca-edc`: **feito** — Canivete Taue Semiautomático (Mercado Livre), R$ 34,48.
+  - **Faltam:** protecao-auditiva-para-tiro, kit-72-horas-mochila-emergencia. (Autor sinalizou
+    pausa na busca de afiliados por ora.)
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
 - ⬜ **AdSense:** acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
-- ⬜ Confirmar domínio em `astro.config.mjs` e `src/consts.ts`
+- ✅ **Domínio canônico = `www`.** O apex `guiadedefesa.com.br` faz **308 → www** na Vercel
+  (www é o primário, responde 200). `site` (astro.config), `SITE.url` (consts) e o `Sitemap` do
+  robots.txt usam **www**, para o sitemap/canonical baterem com o host 200 e não gerar
+  "Página com redirecionamento" no Search Console. Se um dia trocar o primário para o apex na
+  Vercel, reverter os três para sem-www.
+- ✅ **Auditoria de SEO/GEO concluída (2026-07-04 a 2026-07-07, PRs #39, #40, #41):**
+  schema **FAQPage** em 41 posts (componente `<Faq>`, ver regra abaixo), sitemap com `lastmod`,
+  `BreadcrumbList` nos artigos, `publisher`/`Organization` com logo, e as 32 descrições acima de
+  160 caracteres aparadas para o padrão 120–160. Também verificada a propriedade de **Domínio**
+  no Search Console (a que cobre www+https de uma vez), verificada via TXT na Vercel.
+  Pendências que sobraram (baixa prioridade, não são bugs): nenhum post tem imagem de `cover`
+  (tarefa de design, não de código); `llms.txt` **feito** (endpoint dinâmico, ver Estrutura acima).
 
 ### Próxima fase: aprofundar os clusters (todos já iniciados)
 - **Legislação:** ainda cabem `processos-junto-a-pf` (como protocolar), Estatuto artigo por

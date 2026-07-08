@@ -77,6 +77,12 @@ Sinais de experiência real elevam o E-E-A-T. MAS:
 - Pode escrever em linguagem técnica e impessoal o que é conhecimento consolidado do
   campo ("observa-se que, sob estresse agudo, a motricidade fina se degrada"), sem
   fingir uma experiência pessoal específica.
+- **Este placeholder nunca deve ir para produção sem resolução.** Antes de publicar
+  (mergear o PR), o autor precisa: (a) preencher com o relato real, ou (b) pedir para
+  remover o callout, caindo de volta na linguagem técnica impessoal acima. Um placeholder
+  `[EXPERIÊNCIA DO AUTOR: ...]` esquecido e publicado é um bug visível no site (já
+  aconteceu — ver `CONTINUAR-AQUI.md`/memória do projeto). Ao revisar um PR antes do
+  merge, sempre grep por essa string nos arquivos tocados.
 
 ## E-E-A-T e tom
 
@@ -95,21 +101,27 @@ mesma muleta (ex.: evitar "E daí?" em todas as seções; alternar com "Na prát
 
 ## FAQ (obrigatória)
 
-Termine com uma seção "Perguntas frequentes". Mínimo 5 perguntas; ideal 8 a 12. Use
-perguntas reais e específicas do tema. Formato em MDX:
+Termine com uma seção de perguntas frequentes. Mínimo 5 perguntas; ideal 8 a 12. Use
+perguntas reais e específicas do tema. **Use sempre o componente `<Faq>`**
+(`src/components/Faq.astro`), que emite o schema **FAQPage** (JSON-LD) — importante para
+SEO e para citação por mecanismos de IA. Não escrever a seção em markdown solto
+(`## Perguntas frequentes` + `**Pergunta?**`/resposta): isso não gera dado estruturado.
+
+Formato em MDX:
 
 ```
-## Perguntas frequentes
-
-**O red dot funciona à noite?**
-Resposta direta em 1–3 frases.
-
-**O red dot aumenta a precisão?**
-Resposta direta.
+import Faq from '../../components/Faq.astro';
+...
+<Faq items={[
+  { q: "O red dot funciona à noite?", a: "Resposta direta em 1–3 frases." },
+  { q: "O red dot aumenta a precisão?", a: "Resposta direta." },
+]} />
 ```
 
-(Quando o componente `<Faq>` com schema FAQPage estiver disponível no site, usar ele;
-até lá, o formato acima já renderiza e é lido por IA.)
+O componente já renderiza o próprio título "Perguntas frequentes" — não duplicar com um
+`## Perguntas frequentes` antes dele. Negrito e links dentro da resposta devem ser **HTML
+real** (`<strong>texto</strong>`, `<a href="/x/">texto</a>`), não markdown — o componente
+usa `set:html`, que não converte `**negrito**` nem `[link](url)`.
 
 ## Linkagem interna e clusters
 
@@ -180,6 +192,15 @@ affiliate: true            # true se houver ProductCard
   ```
   O link de afiliado é gerado pelo autor no painel da loja — usar placeholder
   `SEU-LINK-DE-AFILIADO` quando não fornecido.
+  **No `take`, ser honesto sobre a origem da confiança na indicação:** se é uso pessoal
+  testado pelo autor, dizer isso explicitamente ("a que eu uso", "tenho a minha há X anos",
+  "é a que eu uso e é extremamente robusta"); se não há uso próprio, deixar claro também
+  ("não tenho uso pessoal desta, a indicação é baseada em pesquisa/depoimentos"). Nunca
+  escrever um texto genérico (tipo "modelo para começar") que não diz de onde vem a
+  confiança — o leitor precisa saber se é experiência real ou não.
+  O **aviso de afiliado não é escrito manualmente no `.mdx`** — o template já renderiza
+  o `<AffiliateDisclosure>` sozinho, no **final** do artigo, para todo post com
+  `affiliate: true`.
 - **Vídeo do YouTube** (embed lazy; usar embed, nunca repost):
   ```
   import YouTubeEmbed from '../../components/YouTubeEmbed.astro';

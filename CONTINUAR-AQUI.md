@@ -26,12 +26,21 @@
 ## Pendências (próximos passos)
 
 ### 1. Trocar placeholders de afiliado (ProductCards)
-- `melhores-lanternas-taticas`: **em andamento.** Agora tem 2 cards — Sofirn SP31 (1ª
-  escolha, com relato real de uso) e Apfer T9 (alternativa do Mercado Livre, link real,
-  marcada como TEMPORÁRIA no código). **Falta** o link da Sofirn SP31 (AliExpress/Shopee em
-  cadastro pelo autor) — trocar o `SEU-LINK-DE-AFILIADO` e definir a loja principal do card.
-- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): melhores-coldres-de-porte,
-  protecao-auditiva-para-tiro, melhor-faca-edc, cofre-para-arma, kit-72-horas-mochila-emergencia.
+- ✅ `melhores-lanternas-taticas`: card único da Sofirn SP31 V3 (AliExpress) com link de afiliado
+  real, preço R$ 207,89 — **feito**. O card da Apfer T9 foi reincluído e depois **removido de
+  novo**: o link `https://meli.la/27Y8mUf` estava redirecionando para o produto errado (o
+  canivete, não a lanterna). Não recolocar a Apfer T9 sem um link novo, gerado e conferido pelo
+  autor no Portal de Afiliados do ML.
+- ✅ `cofre-para-arma`: card de cofre eletrônico Contelux (Mercado Livre) com link de afiliado real,
+  preço R$ 189 — **feito** (mergeado, PR #34).
+- ✅ `melhores-coldres-de-porte`: **sem afiliado** (decisão do autor) — trocado o ProductCard por
+  menção direta à [Hardholster](https://www.instagram.com/hardholster/) (Instagram, sem link
+  rastreado), fabricante de coldres kydex sob medida. `affiliate: false` no frontmatter.
+- ✅ `melhor-faca-edc`: card do Canivete Taue Semiautomático (Mercado Livre) com link de afiliado
+  real, preço R$ 34,48 — **feito**. Autor sinalizou: **este foi o último por agora** — pausar a
+  busca de afiliados até novo pedido.
+- **Faltam** (ainda com `SEU-LINK-DE-AFILIADO`): protecao-auditiva-para-tiro,
+  kit-72-horas-mochila-emergencia.
   (Opções de produto já pesquisadas — ver o PDF "Guia de Produtos - Afiliados" na Área de Trabalho.)
 - `municao-de-defesa-calibres` é educativo de propósito (sem ProductCard) — não adicionar afiliado.
 
@@ -44,6 +53,13 @@
 - ✅ `kit-edc-essencial.mdx`: "vantegem" → "vantagem" — **corrigido**.
 - (Opcional, em aberto) Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de
   `defesa-pessoal` para `cac-tiro-desportivo` — decisão de taxonomia ainda em aberto.
+
+### ✅ Busca no site (feito)
+Busca full-text com **Pagefind** (client-side, site estático). Campo translúcido sobreposto no
+banner (Opção 4 escolhida pelo autor: 35% de transparência, canto inferior direito), presente em
+todas as páginas; no mobile vira barra full-width abaixo do banner. Indexa só os artigos. Detalhes
+técnicos no `CLAUDE.md` (seção "Busca no site"). Testado localmente (build+preview): retorna os
+artigos onde o termo aparece, com destaque. Na Vercel funciona sem mudar o comando de build.
 
 ### 4. AdSense (quando quiser monetizar)
 Acervo já passou de 25 artigos. Pedir aprovação no Google AdSense e colar o ID em
