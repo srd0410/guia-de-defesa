@@ -29,6 +29,12 @@ const lastUpdated = '8 de julho de 2026';
         provedor de hospedagem (Vercel) registra automaticamente informações técnicas de acesso
         (endereço IP, navegador, páginas visitadas) para operação, segurança e diagnóstico —
         não para identificação individual do visitante.</li>
+        <li><strong>Google Analytics:</strong> usamos o Google Analytics para entender, de
+        forma agregada e anônima, quais páginas são mais visitadas e como os visitantes chegam
+        ao site. O Google Analytics usa cookies próprios para essa finalidade.</li>
+        <li><strong>Confirmação de idade:</strong> ao confirmar ser maior de 18 anos na entrada
+        do site, essa informação é salva localmente no seu navegador (localStorage), para não
+        pedir a confirmação novamente — não é enviada a nenhum servidor.</li>
         <li><strong>Cookies de publicidade (Google AdSense):</strong> quando o site exibir
         anúncios via Google AdSense, o Google e seus parceiros podem usar cookies para veicular
         anúncios com base em visitas anteriores suas a este e a outros sites. Você pode
@@ -74,9 +80,12 @@ const lastUpdated = '8 de julho de 2026';
       <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
 
       <h2>Menores de idade</h2>
-      <p>O conteúdo deste site é destinado a maiores de 18 anos, dada a natureza dos temas
+      <p>O conteúdo deste site é recomendado para maiores de 18 anos, dada a natureza dos temas
       (armas de fogo, defesa pessoal, legislação). Não coletamos intencionalmente dados de
-      menores de idade.</p>
+      menores de idade. Em páginas específicas sobre armas de fogo, o acesso exige confirmação
+      de que o visitante é maior de 18 anos, mediante clique de autodeclaração — essa
+      confirmação isenta o {SITE.name} de responsabilidade em caso de acesso por menores que
+      declararem informação falsa.</p>
 
       <h2>Alterações nesta política</h2>
       <p>Esta política pode ser atualizada para refletir mudanças legais ou operacionais. A
