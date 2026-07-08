@@ -114,7 +114,8 @@ npm run build    # gera o site em dist/
   `renovacao-craf-2026`.
 - ✅ **Cluster Primeiros Socorros (4 artigos):** pilar `primeiros-socorros-trauma` +
   `controle-de-hemorragia-torniquete`, `kit-ifak-primeiros-socorros`, `rcp-basico`.
-- ✅ **48 artigos publicados** no total.
+- ✅ **51 artigos publicados** no total (inclui `manobra-de-heimlich-engasgo` e
+  `portal-pf-novo-sistema-cac`, publicados em 2026-07-08).
 - ⬜ **Trocar `SEU-LINK-DE-AFILIADO`** pelos links reais nos ProductCards:
   - `melhores-lanternas-taticas`: **feito** — Sofirn SP31 V3 (AliExpress), R$ 207,89. Card da
     Apfer T9 removido (o link `https://meli.la/27Y8mUf` redirecionava para o produto errado, o
@@ -128,7 +129,21 @@ npm run build    # gera o site em dist/
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
-- ⬜ **AdSense:** acervo já passou de 25 artigos — pedir aprovação e colar o ID em `src/consts.ts`.
+- ⬜ **AdSense:** requisitos técnicos prontos — falta só solicitar a aprovação no
+  google.com/adsense e colar o ID em `src/consts.ts` (`adsenseClientId`).
+  - ✅ Acervo já passou de 25 artigos (51 publicados).
+  - ✅ Domínio confirmado e consistente (`www.guiadedefesa.com.br`).
+  - ✅ **Política de Privacidade** criada (`/politica-de-privacidade/`, PR direto na main,
+    2026-07-08) — cobre coleta de dados (Web3Forms, Vercel, Google Analytics), cookies de
+    publicidade do Google, links de afiliado e direitos LGPD. Link no rodapé (`Footer.astro`).
+  - ✅ **Gate de confirmação de idade (18+)** implementado (`src/components/AgeGate.astro`,
+    integrado no `BaseLayout.astro`, mesma data) — autodeclaração obrigatória antes de liberar
+    o site inteiro (uma vez por visitante, via `localStorage`), sem flash de conteúdo antes da
+    confirmação. "Não" bloqueia na mesma URL sem redirecionar. Isenta responsabilidade do site
+    em caso de acesso por menor que se autodeclarar incorretamente.
+  - ⚠️ **Ponto de atenção:** mesmo com o site aprovado, é esperado que artigos específicos sobre
+    calibres/armas fiquem marcados como "anúncios limitados" pela política do Google para esse
+    tipo de conteúdo — não é erro, não regredir tentando "consertar".
 - ✅ **Domínio canônico = `www`.** O apex `guiadedefesa.com.br` faz **308 → www** na Vercel
   (www é o primário, responde 200). `site` (astro.config), `SITE.url` (consts) e o `Sitemap` do
   robots.txt usam **www**, para o sitemap/canonical baterem com o host 200 e não gerar
