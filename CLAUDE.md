@@ -83,12 +83,35 @@ editorial do blog. Use-a sempre que for criar/escrever um artigo. Regras-chave q
   relacionados, adicionar link deles para o novo (linkagem bidirecional) e marcar
   `updatedDate` nesses antigos, mantendo o `pubDate` original. (Regra detalhada na skill.)
 
-## Fluxo de publicação
+## Fluxo de conteúdo (geração → revisão → publicação)
 
-1. Criar/editar `.mdx` em `src/content/posts/` numa **branch** (não direto na `main`)
-2. Abrir **Pull Request** → a Vercel gera uma **prévia ao vivo** do post
+**Desde 2026-07-08, o Cowork (Google Drive + e-mail) foi desativado.** Todo o fluxo de
+conteúdo roda localmente, por pastas + comandos. Referência completa e comandos prontos
+pra copiar/colar: **`COMANDOS-RAPIDOS.md`** (raiz do projeto). Resumo:
+
+- `revisao/` — artigos aguardando a conferência do autor (Claude Code gera aqui quando
+  pedido "gerar novo artigo", ou o autor cria manualmente)
+- `revisados/` — artigos que o autor já aprovou; **mover um artigo pra cá é o sinal de
+  aprovação**, mas a publicação em si só acontece com um comando explícito (nunca automático)
+- `scripts/publicar-artigos.ps1` — script que move de `revisados/` para
+  `src/content/posts/`, tira `draft: true` e comita. Rodar com `-Once` (uma vez) ou
+  `-DryRun` (simula sem alterar nada)
+- Pedir "**publica os artigos aprovados**" faz o Claude Code rodar o fluxo inteiro:
+  cria branch dedicada → publica → faz a **retro-linkagem automaticamente** → abre PR →
+  aguarda "pode mesclar" antes de dar merge
+- Pastas antigas descontinuadas: `revisoes/` (plural, fluxo de e-mail do Cowork) e os
+  scripts `email_config.py`/`send_article_email.py` foram apagados — não recriar
+
+### Publicação técnica (git/PR)
+
+1. Artigo (ou mudança de código) numa **branch** (não direto na `main`)
+2. Abrir **Pull Request** → a Vercel gera uma **prévia ao vivo**
 3. Revisar a prévia e dar merge → o site republica sozinho
-4. Cadência: controlar a data de publicação pelo campo `pubDate` de cada post
+4. Cadência de conteúdo: controlar a data de publicação pelo campo `pubDate` de cada post
+5. **Antes de abrir PR numa branch antiga:** sincronizar com o `main` primeiro
+   (`git merge origin/main`) — branches que ficam paradas divergem rápido conforme o `main`
+   recebe outras PRs, e o merge tardio pode trazer conflitos de conteúdo (já aconteceu nos
+   PRs #51 e #53, resolvido combinando as duas versões manualmente)
 
 ## Rodar localmente
 
