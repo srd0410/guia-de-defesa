@@ -20,9 +20,10 @@ export const SITE = {
   // E-mail de contato do site (sugestões de pauta, parcerias). Domínio próprio via Hostinger
   // Email (MX/SPF/DKIM/DMARC apontados na Vercel, onde o DNS do domínio é gerenciado).
   contactEmail: 'contato@guiadedefesa.com.br',
-  // Quando tiver o ID do AdSense, cole aqui (ex.: 'ca-pub-0000000000000000').
-  // Deixe vazio para não carregar nada de anúncio ainda.
-  adsenseClientId: '',
+  // ID do editor AdSense (aprovado em 2026-07-09). Cada posição de anúncio ([slug].astro,
+  // index.astro, categoria/[category].astro) só ativa de verdade quando também tiver o
+  // "slot" (ID da unidade de anúncio) preenchido — ver COMANDOS-RAPIDOS.md, seção 4.5.
+  adsenseClientId: 'ca-pub-8473582368044331',
 };
 
 // Autor padrão dos artigos (sinal forte de E-E-A-T para Google e IAs).
