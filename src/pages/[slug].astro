@@ -19,6 +19,28 @@ const cat = getCategory(post.data.category);
 const date = post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 
+// Autor convidado: quando presente, ele assina o artigo e Felipe entra como "Edição".
+const guest = post.data.guestAuthor;
+const guestIsExternal = guest?.url?.startsWith('http');
+
+// Person JSON-LD passados ao SEO só no caso de convidado (senão o SEO usa o autor da casa).
+const articleAuthorPerson = guest
+  ? {
+      '@type': 'Person',
+      name: guest.name,
+      ...(guest.credential ? { jobTitle: guest.credential } : {}),
+      ...(guest.url ? { url: guest.url } : {}),
+    }
+  : undefined;
+const articleEditorPerson = guest
+  ? {
+      '@type': 'Person',
+      name: AUTHOR.name,
+      jobTitle: AUTHOR.role,
+      url: new URL(AUTHOR.url, SITE.url).href,
+    }
+  : undefined;
+
 // Trilha (BreadcrumbList) — mesmo caminho mostrado visualmente em .crumbs, mas legível por
 // máquina: Início → Categoria → Artigo. Ajuda o Google a exibir a trilha no resultado.
 const breadcrumbLd = {
@@ -38,7 +60,9 @@ const breadcrumbLd = {
   type="article"
   publishedTime={post.data.pubDate}
   modifiedTime={post.data.updatedDate ?? post.data.pubDate}
-  author={post.data.author}
+  author={guest ? guest.name : post.data.author}
+  authorPerson={articleAuthorPerson}
+  editorPerson={articleEditorPerson}
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <StickyReadingBar title={post.data.title} />
@@ -54,9 +78,18 @@ const breadcrumbLd = {
       <h1>{post.data.title}</h1>
       <p class="dek">{post.data.description}</p>
       <div class="byline" data-pagefind-ignore>
-        <span>Por <a href={AUTHOR.url} class="byline-author">{post.data.author}</a></span>
-        <span aria-hidden="true">·</span>
-        <span>{AUTHOR.role}</span>
+        {guest ? (
+          <>
+            <span>Por {guest.url
+              ? <a href={guest.url} class="byline-author" target={guestIsExternal ? '_blank' : undefined} rel={guestIsExternal ? 'noopener nofollow' : undefined}>{guest.name}</a>
+              : guest.name}</span>
+            {guest.credential && <><span aria-hidden="true">·</span><span>{guest.credential}</span></>}
+            <span aria-hidden="true">·</span>
+            <span>Edição: <a href={AUTHOR.url} class="byline-author">{AUTHOR.name}</a></span>
+          </>
+        ) : (
+          <span>Por <a href={AUTHOR.url} class="byline-author">{post.data.author}</a></span>
+        )}
         <span aria-hidden="true">·</span>
         <time datetime={post.data.pubDate.toISOString()}>{date}</time>
         {updated && <><span aria-hidden="true">·</span><span>atualizado em {updated}</span></>}

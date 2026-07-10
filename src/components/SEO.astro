@@ -11,12 +11,17 @@ interface Props {
   modifiedTime?: Date;
   author?: string;
   image?: string;
+  /** Person JSON-LD do autor do artigo (usado p/ autor convidado; se ausente, cai no autor da casa). */
+  authorPerson?: Record<string, unknown>;
+  /** Person JSON-LD do editor/responsável editorial (autor convidado → Felipe entra como editor). */
+  editorPerson?: Record<string, unknown>;
 }
 
 const {
   title, description, path,
   type = 'website',
   publishedTime, modifiedTime, author, image,
+  authorPerson, editorPerson,
 } = Astro.props;
 
 const canonical = new URL(path, SITE.url).href;
@@ -32,20 +37,26 @@ const organization = {
   logo: { '@type': 'ImageObject', url: logoUrl },
 };
 
+// Autor da casa (Felipe) com E-E-A-T completo — usado quando não há autor convidado.
+const houseAuthor = {
+  '@type': 'Person',
+  name: AUTHOR.name,
+  jobTitle: AUTHOR.role,
+  description: AUTHOR.bio,
+  knowsAbout: AUTHOR.knowsAbout,
+  url: new URL(AUTHOR.url, SITE.url).href,
+};
+
 const jsonLd = type === 'article'
   ? {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: title,
       description,
-      author: {
-        '@type': 'Person',
-        name: author ?? AUTHOR.name,
-        jobTitle: AUTHOR.role,
-        description: AUTHOR.bio,
-        knowsAbout: AUTHOR.knowsAbout,
-        url: new URL(AUTHOR.url, SITE.url).href,
-      },
+      author: authorPerson ?? houseAuthor,
+      // Autor convidado → Felipe entra como editor (responsável editorial), sinal de
+      // supervisão que reforça E-E-A-T em conteúdo YMYL.
+      ...(editorPerson ? { editor: editorPerson } : {}),
       publisher: organization,
       datePublished: publishedTime?.toISOString(),
       dateModified: (modifiedTime ?? publishedTime)?.toISOString(),
