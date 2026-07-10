@@ -40,24 +40,20 @@ const breadcrumbLd = {
   </section>
 
   <div class="wrap stream">
-    {posts.length === 0 ? (
-      <p class="empty">Ainda não há artigos nesta seção. Em breve.</p>
-    ) : (
-      <>
-        {/* Topo da listagem de categoria. ID do slot: colar depois de criar a unidade
-            "Categoria — topo" no painel do AdSense. */}
-        <AdSlot slot="" />
-        {posts.map((p) => (
-          <PostCard
-            url={`/${p.slug}/`}
-            title={p.data.title}
-            description={p.data.description}
-            category={p.data.category}
-            pubDate={p.data.pubDate}
-          />
-        ))}
-      </>
-    )}
+    {posts.length === 0 && <p class="empty">Ainda não há artigos nesta seção. Em breve.</p>}
+
+    {/* Categoria — topo */}
+    {posts.length > 0 && <AdSlot slot="8310072144" />}
+
+    {posts.map((p) => (
+      <PostCard
+        url={`/${p.slug}/`}
+        title={p.data.title}
+        description={p.data.description}
+        category={p.data.category}
+        pubDate={p.data.pubDate}
+      />
+    ))}
   </div>
 </BaseLayout>
 
