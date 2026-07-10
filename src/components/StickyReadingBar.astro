@@ -59,6 +59,13 @@ const { title } = Astro.props;
         bar.classList.remove('visible');
       }
 
+      // Fecha o menu se estiver aberto e o usuário rolar a página, em vez de
+      // deixar o dropdown "preso" na tela até um novo clique no botão.
+      if (menuDropdown && !menuDropdown.hidden) {
+        menuDropdown.hidden = true;
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      }
+
       if (prose && progress) {
         var rect = prose.getBoundingClientRect();
         var proseTop = rect.top + y;
