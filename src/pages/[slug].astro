@@ -40,7 +40,8 @@ const breadcrumbLd = {
   author={post.data.author}
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
-  <article class="post wrap" data-pagefind-body>
+  <div class="post-layout wrap">
+  <article class="post" data-pagefind-body>
     <nav class="crumbs" aria-label="Trilha" data-pagefind-ignore>
       <a href="/">Início</a> <span aria-hidden="true">/</span>
       <a href={`/categoria/${cat?.slug}/`}>{cat?.name}</a>
@@ -100,10 +101,26 @@ const breadcrumbLd = {
       <AuthorBio />
     </div>
   </article>
+
+  <aside class="post-rail" data-pagefind-ignore>
+    <div class="rail-ad-sticky">
+      {/* Artigo — lateral (só desktop largo). ID do slot: colar depois de criar a
+          unidade "Artigo — lateral" no painel do AdSense. */}
+      <AdSlot slot="" />
+    </div>
+  </aside>
+  </div>
 </BaseLayout>
 
 <style>
-  .post { max-width: var(--measure); padding-top: 2.2rem; }
+  .post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-top: 2.2rem;
+  }
+  .post { max-width: 46rem; margin-inline: auto; width: 100%; }
+  .post-rail { display: none; }
   .crumbs { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--steel); margin-bottom: 1.4rem; }
   .crumbs a { color: var(--steel); text-decoration: none; }
   .crumbs a:hover { color: var(--olive-dk); }
@@ -128,4 +145,15 @@ const breadcrumbLd = {
   .prose :global(code) { font-family: var(--font-mono); font-size: 0.9em; background: var(--paper-2); padding: 0.1em 0.35em; border-radius: 3px; }
   .prose :global(img) { border-radius: var(--radius); margin: 1.5rem 0; }
   .prose :global(strong) { font-weight: 600; }
+
+  /* Coluna lateral com anúncio — só aparece em telas largas o bastante para não
+     apertar a leitura (artigo 46rem + rail ~18rem + gap cabem no --wrap de 72rem). */
+  @media (min-width: 1280px) {
+    .post-layout {
+      grid-template-columns: 46rem minmax(220px, 18rem);
+      justify-content: center;
+    }
+    .post-rail { display: block; }
+    .rail-ad-sticky { position: sticky; top: 1.5rem; }
+  }
 </style>
