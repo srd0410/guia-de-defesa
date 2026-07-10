@@ -147,8 +147,11 @@ npm run build    # gera o site em dist/
   - `melhores-coldres-de-porte`: **sem afiliado** — menção direta à Hardholster (Instagram),
     sem link rastreado; `affiliate: false`.
   - `melhor-faca-edc`: **feito** — Canivete Taue Semiautomático (Mercado Livre), R$ 34,48.
-  - **Faltam:** protecao-auditiva-para-tiro, kit-72-horas-mochila-emergencia. (Autor sinalizou
-    pausa na busca de afiliados por ora.)
+  - `kit-72-horas-mochila-emergencia`: **sem afiliado** — o `<ProductCard>` (que estava com
+    placeholder `SEU-LINK-DE-AFILIADO` e `price=""`, causando schema Product inválido no
+    Search Console) foi removido a pedido do autor em 2026-07-09; `affiliate: false`. Se um
+    afiliado real for escolhido no futuro, adicionar `<ProductCard>` de volta com preço real.
+  - **Falta:** protecao-auditiva-para-tiro. (Autor sinalizou pausa na busca de afiliados por ora.)
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
