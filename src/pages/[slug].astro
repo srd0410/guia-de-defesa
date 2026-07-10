@@ -64,10 +64,9 @@ const breadcrumbLd = {
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
     )}
 
-    {/* Topo do artigo (alta visibilidade). ID do slot: colar depois de criar a unidade
-        de anúncio "Artigo — topo" no painel do AdSense. */}
+    {/* Artigo — topo */}
     <div data-pagefind-ignore>
-      <AdSlot slot="" />
+      <AdSlot slot="6996990475" />
     </div>
 
     <div class="prose">
@@ -78,8 +77,8 @@ const breadcrumbLd = {
 
     <div data-pagefind-ignore>
       <hr class="field-rule" />
-      {/* Fim do artigo. ID do slot: colar depois de criar a unidade "Artigo — fim". */}
-      <AdSlot slot="" />
+      {/* Artigo — fim */}
+      <AdSlot slot="9142019079" />
 
       {post.data.tags.length > 0 && (
         <div class="tags">
