@@ -31,13 +31,20 @@ function parsePrice(raw?: string): string | undefined {
 }
 const numericPrice = parsePrice(price);
 
+// O Google exige que todo item "Product" tenha pelo menos um de: offers, review
+// ou aggregateRating (senão o snippet é invalidado no Search Console — já
+// aconteceu com kit-72-horas-mochila-emergencia, que ainda não tem afiliado
+// escolhido). Enquanto não houver preço real, não emitimos o schema Product
+// nenhum — o card visual continua aparecendo normalmente, só sem o JSON-LD.
+const hasValidOffer = Boolean(numericPrice);
+
 const productLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name,
   ...(image ? { image } : {}),
   ...(take ? { description: take } : {}),
-  ...(numericPrice
+  ...(hasValidOffer
     ? {
         offers: {
           '@type': 'Offer',
@@ -51,7 +58,7 @@ const productLd = {
     : {}),
 };
 ---
-<script type="application/ld+json" set:html={JSON.stringify(productLd)} />
+{hasValidOffer && <script type="application/ld+json" set:html={JSON.stringify(productLd)} />}
 <div class="product" role="group" aria-label={`Recomendação: ${name}`}>
   <div class="product-head">
     <span class="eyebrow">Recomendação</span>
