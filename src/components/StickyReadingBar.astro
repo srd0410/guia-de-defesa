@@ -1,8 +1,9 @@
 ---
 // Barra fixa que aparece ao rolar a leitura de um artigo, depois de passar o
-// cabeçalho original: título do artigo (clicável, volta ao topo) + menu de
-// categorias (clicável, navega pro site) + barra de progresso de leitura.
-import { CATEGORIES } from '../consts';
+// cabeçalho original: marca (logo + nome, volta ao início do site) + título
+// do artigo (clicável, volta ao topo do artigo) + menu de categorias +
+// barra de progresso de leitura.
+import { CATEGORIES, SITE } from '../consts';
 interface Props {
   title: string;
 }
@@ -11,6 +12,10 @@ const { title } = Astro.props;
 <div id="sticky-reading-bar" class="sticky-bar">
   <div class="sticky-progress" id="sticky-progress"></div>
   <div class="sticky-inner wrap">
+    <a href="/" class="sticky-brand" aria-label={`${SITE.name} — início`}>
+      <img src="/logo.jpg" alt="" width="28" height="28" />
+      <span>{SITE.name}</span>
+    </a>
     <button type="button" class="sticky-title" id="sticky-scroll-top" title="Voltar ao topo do artigo">
       {title}
     </button>
@@ -122,23 +127,47 @@ const { title } = Astro.props;
   .sticky-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 1.2rem;
     padding: 0.6rem 0;
   }
+
+  .sticky-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sticky-brand img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+  }
+  .sticky-brand span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sticky-brand:hover span { color: var(--brass); }
 
   .sticky-title {
     background: none;
     border: none;
     cursor: pointer;
-    color: #fff;
+    color: #cfd6cf;
     font-family: var(--font-display);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     text-align: left;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 70%;
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 0;
   }
   .sticky-title:hover { color: var(--brass); }
@@ -185,6 +214,8 @@ const { title } = Astro.props;
   .sticky-menu-dropdown a:hover { background: var(--olive); color: #fff; }
 
   @media (max-width: 640px) {
-    .sticky-title { max-width: 55%; font-size: 0.85rem; }
+    .sticky-brand span { display: none; } /* só o logo, economiza espaço */
+    .sticky-title { font-size: 0.85rem; }
+    .sticky-inner { gap: 0.7rem; }
   }
 </style>
