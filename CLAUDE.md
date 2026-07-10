@@ -152,14 +152,22 @@ npm run build    # gera o site em dist/
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
-- ✅ **AdSense: conta aprovada e os 4 anúncios ativos (2026-07-09).**
+- ✅ **AdSense: conta aprovada e os 5 anúncios ativos (2026-07-09).**
   `adsenseClientId` em `src/consts.ts` = `ca-pub-8473582368044331`. `public/ads.txt` criado
   (exigido pelo Google, declara a autorização de venda). Manual (não automático) — cada posição
   usa o componente `src/components/AdSlot.astro`, formato "Anúncio de display" responsivo:
   - `Home — lateral` (`src/pages/index.astro`), slot `3524649329`
   - `Categoria — topo` (`src/pages/categoria/[category].astro`), slot `8310072144`
-  - `Artigo — topo` (`src/pages/[slug].astro`, antes do `<Content />`), slot `6996990475`
+  - `Artigo — topo` (`src/pages/[slug].astro`): renderiza antes do `<Content />` como
+    fallback, mas um script (`#ad-artigo-topo` + `insertAdjacentElement`) o move pra logo
+    depois do 1º parágrafo (a introdução) assim que a página carrega — pedido do autor após
+    ver a posição original (antes da introdução) na versão publicada. Slot `6996990475`.
   - `Artigo — fim` (`src/pages/[slug].astro`, depois do conteúdo/disclosure), slot `9142019079`
+  - `Artigo — lateral` (`src/pages/[slug].astro`, `<aside class="post-rail">`): coluna
+    lateral sticky, só visível a partir de **1280px** de largura de tela (some em telas
+    menores, sem apertar a leitura). Foi criada pra ocupar o espaço vazio que sobrava nas
+    laterais do artigo em desktop — junto com isso, a largura de leitura do artigo (`.post`)
+    também subiu de `var(--measure)` (42rem) para 46rem fixo. Slot `3165556671`.
   - **Bug conhecido, já corrigido:** `<AdSlot>` dentro de um `<>...</>` (Fragment) aninhado num
     ternário não renderizava (nem o frontmatter do componente executava), mesmo com os
     elementos irmãos do fragment funcionando normalmente. Corrigido reestruturando para
