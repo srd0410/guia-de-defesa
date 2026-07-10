@@ -64,14 +64,25 @@ const breadcrumbLd = {
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
     )}
 
-    {/* Artigo — topo */}
-    <div data-pagefind-ignore>
+    {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
+        a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
+    <div id="ad-artigo-topo" data-pagefind-ignore>
       <AdSlot slot="6996990475" />
     </div>
 
     <div class="prose">
       <Content />
     </div>
+
+    <script is:inline>
+      (function () {
+        var ad = document.getElementById('ad-artigo-topo');
+        var firstPara = document.querySelector('.prose > p:first-of-type');
+        if (ad && firstPara) {
+          firstPara.insertAdjacentElement('afterend', ad);
+        }
+      })();
+    </script>
 
     {post.data.affiliate && <div data-pagefind-ignore><AffiliateDisclosure /></div>}
 
