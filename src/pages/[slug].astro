@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
 import AdSlot from '../components/AdSlot.astro';
 import AuthorBio from '../components/AuthorBio.astro';
-import StickyReadingBar from '../components/StickyReadingBar.astro';
 import { getCategory, AUTHOR, SITE } from '../consts';
 
 export async function getStaticPaths() {
@@ -63,9 +62,9 @@ const breadcrumbLd = {
   author={guest ? guest.name : post.data.author}
   authorPerson={articleAuthorPerson}
   editorPerson={articleEditorPerson}
+  stickyTitle={post.data.title}
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
-  <StickyReadingBar title={post.data.title} />
   <div class="post-layout wrap">
   <article class="post" data-pagefind-body>
     <nav class="crumbs" aria-label="Trilha" data-pagefind-ignore>
