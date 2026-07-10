@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE } from '../consts';
+
+// Mesmo critério de publicação usado na home e nas categorias.
+const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date()))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout
+  title="Todos os artigos"
+  description={`Todos os artigos publicados no ${SITE.name}, do mais recente ao mais antigo.`}
+  path="/artigos/"
+  type="website"
+>
+  <section class="cat-head">
+    <div class="wrap">
+      <p class="eyebrow">Acervo completo</p>
+      <h1>Todos os artigos</h1>
+      <p class="blurb">{posts.length} artigos publicados, do mais recente ao mais antigo.</p>
+    </div>
+  </section>
+
+  <div class="wrap stream">
+    {posts.map((p) => (
+      <PostCard
+        url={`/${p.slug}/`}
+        title={p.data.title}
+        description={p.data.description}
+        category={p.data.category}
+        pubDate={p.data.pubDate}
+      />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .cat-head { background: var(--command); color: #fff; padding: 2.8rem 0; border-bottom: 3px solid var(--olive); }
+  .cat-head .eyebrow { color: var(--brass); }
+  .cat-head h1 { color: #fff; margin-top: 0.4rem; }
+  .blurb { color: #cfd6cf; max-width: 56ch; margin-top: 0.6rem; }
+  .stream { max-width: var(--measure); padding-top: 1.5rem; }
+</style>

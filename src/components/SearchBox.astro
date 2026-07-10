@@ -1,15 +1,31 @@
 ---
-// Campo de busca do site (Opção 4): fica sobreposto no banner, translúcido.
-// Usa o índice do Pagefind (gerado no build) para buscar o TEXTO INTEIRO dos artigos.
-// Aparece em todas as páginas porque é renderizado dentro do <Header>.
+// Campo de busca do site. Usa o índice do Pagefind (gerado no build) para
+// buscar o TEXTO INTEIRO dos artigos.
+//
+// Duas variantes, mesmo motor de busca:
+// - "banner" (padrão): campo sempre visível, sobreposto no banner do <Header>.
+// - "compact": só um ícone de lupa; clicar expande um campo estreito. Usada
+//   na StickyReadingBar (barra fixa ao rolar), onde o espaço é curto.
+interface Props {
+  variant?: 'banner' | 'compact';
+}
+const { variant = 'banner' } = Astro.props;
 ---
-<div class="site-search" role="search">
+<div class={`site-search variant-${variant}`} role="search" data-variant={variant}>
+  {variant === 'compact' && (
+    <button type="button" class="search-toggle" aria-label="Buscar no site" aria-expanded="false">
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    </button>
+  )}
   <div class="search-field">
-    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
+    {variant === 'banner' && (
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    )}
     <input
-      id="site-search-input"
       class="search-input"
       type="search"
       placeholder="Buscar no site…"
@@ -17,29 +33,58 @@
       autocomplete="off"
       role="combobox"
       aria-expanded="false"
-      aria-controls="site-search-panel"
     />
-    <div id="site-search-panel" class="search-panel" hidden>
-      <div id="site-search-results" class="search-results" role="listbox" aria-label="Resultados da busca"></div>
-      <div class="search-foot" id="site-search-foot"></div>
+    <div class="search-panel" hidden>
+      <div class="search-results" role="listbox" aria-label="Resultados da busca"></div>
+      <div class="search-foot"></div>
     </div>
   </div>
 </div>
 
 <style>
-  /* ── Campo translúcido no banner (desktop) ─────────────────── */
   .site-search {
+    z-index: 5;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Variante "banner": campo translúcido sobreposto (desktop) ──────── */
+  .site-search.variant-banner {
     position: absolute;
     right: 1.5%;
     bottom: 7%;
     width: min(32%, 190px);
-    z-index: 5;
   }
+
+  /* ── Variante "compact": ícone que expande (usada na barra fixa) ────── */
+  .site-search.variant-compact {
+    position: relative;
+    flex-shrink: 0;
+    gap: 0.35rem;
+  }
+  .search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--line-dk);
+    border-radius: 999px;
+    color: #cfd6cf;
+    cursor: pointer;
+  }
+  .search-toggle:hover { border-color: var(--olive); color: #fff; }
+  .search-toggle .search-ico { width: 14px; height: 14px; }
+
   .search-field {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.4rem;
+  }
+  .variant-banner .search-field {
     background: rgba(34, 49, 42, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 999px;
@@ -49,7 +94,7 @@
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     transition: background 0.12s, border-color 0.12s;
   }
-  .search-field:focus-within {
+  .variant-banner .search-field:focus-within {
     background: rgba(34, 49, 42, 0.55);
     border-color: var(--brass);
   }
@@ -75,7 +120,28 @@
   /* some o "x" nativo do input[type=search] para o visual ficar limpo */
   .search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
 
-  /* ── Painel de resultados ──────────────────────────────────── */
+  /* Campo estreito, colapsado até o usuário clicar na lupa */
+  .variant-compact .search-field {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: width 0.2s ease, opacity 0.15s ease, padding 0.2s ease, border-color 0.15s;
+  }
+  .variant-compact.expanded .search-field {
+    width: 180px;
+    opacity: 1;
+    padding: 0.3rem 0.6rem;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--line-dk);
+  }
+  .variant-compact.expanded .search-field:focus-within { border-color: var(--brass); }
+
+  /* ── Painel de resultados (comum às duas variantes) ──────────────────── */
   .search-panel {
     position: absolute;
     top: calc(100% + 0.5rem);
@@ -141,15 +207,17 @@
 
   /* ── Mobile: o banner é baixo demais para sobrepor —          ── */
   /*    o campo vira uma barra normal, largura total, abaixo do   */
-  /*    banner e acima das categorias.                            */
+  /*    banner e acima das categorias. Só se aplica à variante    */
+  /*    "banner" — a "compact" (barra fixa) já é pequena por si.  */
   @media (max-width: 640px) {
-    .site-search {
+    .variant-banner {
       position: static;
       width: auto;
       margin: 0.55rem 0.75rem 0;
     }
-    .search-field { background: rgba(34, 49, 42, 0.6); }
-    .search-panel { left: 0; right: 0; width: auto; }
+    .variant-banner .search-field { background: rgba(34, 49, 42, 0.6); }
+    .variant-banner .search-panel { left: 0; right: 0; width: auto; }
+    .variant-compact.expanded .search-field { width: 140px; }
   }
 </style>
 
@@ -160,35 +228,48 @@
     meta: Record<string, string> & { title?: string };
   };
 
-  const root = document.querySelector<HTMLElement>('.site-search');
-  const input = document.getElementById('site-search-input') as HTMLInputElement | null;
-  const panel = document.getElementById('site-search-panel') as HTMLElement | null;
-  const resultsEl = document.getElementById('site-search-results') as HTMLElement | null;
-  const footEl = document.getElementById('site-search-foot') as HTMLElement | null;
+  let pagefindMod: any = null;
+  let pagefindLoading: Promise<any> | null = null;
 
-  if (root && input && panel && resultsEl && footEl) {
-    let pagefind: any = null;
-    let loading: Promise<any> | null = null;
+  // Carrega o Pagefind sob demanda (só quando o usuário interage). O caminho é
+  // resolvido em runtime; o /* @vite-ignore */ evita o Vite tentar empacotar
+  // esse import no build. Compartilhado por todas as instâncias do campo.
+  async function loadPagefind() {
+    if (pagefindMod) return pagefindMod;
+    if (!pagefindLoading) {
+      pagefindLoading = import(/* @vite-ignore */ '/pagefind/pagefind.js')
+        .then(async (mod: any) => {
+          await mod.options?.({ excerptLength: 18 });
+          await mod.init?.();
+          pagefindMod = mod;
+          return mod;
+        })
+        .catch(() => null);
+    }
+    return pagefindLoading;
+  }
+
+  function escapeHtml(s: string) {
+    return s.replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m] as string));
+  }
+
+  // Cada instância de .site-search (banner no Header, compact na barra fixa)
+  // é inicializada de forma isolada, com elementos localizados por
+  // querySelector dentro da própria raiz — evita colisão de ids entre instâncias.
+  function initSearch(root: HTMLElement, index: number) {
+    const variant = root.dataset.variant;
+    const toggle = root.querySelector<HTMLButtonElement>('.search-toggle');
+    const input = root.querySelector<HTMLInputElement>('.search-input');
+    const panel = root.querySelector<HTMLElement>('.search-panel');
+    const resultsEl = root.querySelector<HTMLElement>('.search-results');
+    const footEl = root.querySelector<HTMLElement>('.search-foot');
+    if (!input || !panel || !resultsEl || !footEl) return;
+
+    panel.id = `site-search-panel-${index}`;
+    input.setAttribute('aria-controls', panel.id);
+
     let debounce: number | undefined;
     let activeIndex = -1;
-
-    // Carrega o Pagefind sob demanda (só quando o usuário interage).
-    // O caminho é resolvido em runtime; o /* @vite-ignore */ evita o Vite tentar
-    // empacotar esse import no build.
-    async function loadPagefind() {
-      if (pagefind) return pagefind;
-      if (!loading) {
-        loading = import(/* @vite-ignore */ '/pagefind/pagefind.js')
-          .then(async (mod: any) => {
-            await mod.options?.({ excerptLength: 18 });
-            await mod.init?.();
-            pagefind = mod;
-            return mod;
-          })
-          .catch(() => null);
-      }
-      return loading;
-    }
 
     function openPanel() {
       panel!.hidden = false;
@@ -233,7 +314,7 @@
         .map((it, i) => {
           const cat = it.meta?.categoria ? `<span class="r-cat">${escapeHtml(it.meta.categoria)}</span>` : '';
           const title = escapeHtml(it.meta?.title || 'Artigo');
-          return `<a class="search-item" role="option" id="site-search-opt-${i}" href="${it.url}">
+          return `<a class="search-item" role="option" id="site-search-opt-${index}-${i}" href="${it.url}">
             ${cat}
             <p class="r-title">${title}</p>
             <p class="r-snip">${it.excerpt}</p>
@@ -245,10 +326,6 @@
           ? `Mostrando ${items.length} de ${total} artigos encontrados`
           : `${total} artigo${total > 1 ? 's' : ''} encontrado${total > 1 ? 's' : ''}`;
       openPanel();
-    }
-
-    function escapeHtml(s: string) {
-      return s.replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m] as string));
     }
 
     // Navegação por teclado nos resultados
@@ -263,6 +340,26 @@
         list[i].scrollIntoView({ block: 'nearest' });
       }
       activeIndex = i;
+    }
+
+    function collapseCompact() {
+      if (variant === 'compact') {
+        root.classList.remove('expanded');
+        toggle?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const isExpanded = root.classList.toggle('expanded');
+        toggle.setAttribute('aria-expanded', String(isExpanded));
+        if (isExpanded) {
+          loadPagefind();
+          input.focus();
+        } else {
+          closePanel();
+        }
+      });
     }
 
     input.addEventListener('input', () => {
@@ -288,13 +385,19 @@
         }
       } else if (e.key === 'Escape') {
         closePanel();
+        collapseCompact();
         input.blur();
       }
     });
 
-    // Fecha ao clicar fora
+    // Fecha ao clicar fora (e recolhe o campo compact de volta ao ícone)
     document.addEventListener('click', (e) => {
-      if (!root.contains(e.target as Node)) closePanel();
+      if (!root.contains(e.target as Node)) {
+        closePanel();
+        collapseCompact();
+      }
     });
   }
+
+  document.querySelectorAll<HTMLElement>('.site-search').forEach((root, i) => initSearch(root, i));
 </script>
