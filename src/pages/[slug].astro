@@ -148,16 +148,24 @@ const breadcrumbLd = {
   .prose :global(strong) { font-weight: 600; }
 
   /* Coluna lateral com anúncio — só aparece em telas largas o bastante para não
-     apertar a leitura. O mínimo matemático (artigo 46rem + gap + rail no menor
-     tamanho + padding do wrap) é ~1036px; 1100px dá uma folga pequena de segurança.
-     Cobre notebooks comuns com escala de tela 125%/150% do Windows, que reduzem a
-     largura "vista" pelo navegador mesmo com a janela maximizada. */
-  @media (min-width: 1100px) {
+     apertar a leitura. A pedido do autor, o limite é 1000px. O artigo tem
+     prioridade sobre a lateral: de 1000 a 1199px a lateral fica fixa em 160px
+     (largura mínima viável pra um anúncio vertical) e o artigo usa o resto até
+     o teto de 46rem; a partir de 1200px, com mais espaço sobrando, a lateral
+     cresce até 18rem. Sem isso, o Grid do CSS tende a "dar" o espaço extra pra
+     lateral primeiro, deixando a leitura mais estreita do que antes de existir
+     a lateral — o oposto do que se quer aqui. */
+  @media (min-width: 1000px) {
     .post-layout {
-      grid-template-columns: 46rem minmax(220px, 18rem);
+      grid-template-columns: minmax(0, 46rem) 160px;
       justify-content: center;
     }
     .post-rail { display: block; }
     .rail-ad-sticky { position: sticky; top: 1.5rem; }
+  }
+  @media (min-width: 1200px) {
+    .post-layout {
+      grid-template-columns: minmax(0, 46rem) minmax(220px, 18rem);
+    }
   }
 </style>
