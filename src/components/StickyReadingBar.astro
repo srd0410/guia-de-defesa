@@ -1,0 +1,190 @@
+---
+// Barra fixa que aparece ao rolar a leitura de um artigo, depois de passar o
+// cabeçalho original: título do artigo (clicável, volta ao topo) + menu de
+// categorias (clicável, navega pro site) + barra de progresso de leitura.
+import { CATEGORIES } from '../consts';
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<div id="sticky-reading-bar" class="sticky-bar">
+  <div class="sticky-progress" id="sticky-progress"></div>
+  <div class="sticky-inner wrap">
+    <button type="button" class="sticky-title" id="sticky-scroll-top" title="Voltar ao topo do artigo">
+      {title}
+    </button>
+    <div class="sticky-menu">
+      <button type="button" class="sticky-menu-toggle" id="sticky-menu-toggle" aria-expanded="false" aria-controls="sticky-menu-dropdown">
+        Menu <span aria-hidden="true">▾</span>
+      </button>
+      <ul id="sticky-menu-dropdown" class="sticky-menu-dropdown" hidden>
+        {CATEGORIES.map((c) => (
+          <li><a href={`/categoria/${c.slug}/`}>{c.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var bar = document.getElementById('sticky-reading-bar');
+    var progress = document.getElementById('sticky-progress');
+    var scrollTopBtn = document.getElementById('sticky-scroll-top');
+    var menuToggle = document.getElementById('sticky-menu-toggle');
+    var menuDropdown = document.getElementById('sticky-menu-dropdown');
+    if (!bar) return;
+
+    // Buscados dentro do onScroll (não uma vez só no topo) porque este script roda
+    // antes do resto do artigo (.prose, mais abaixo no HTML) existir no DOM.
+    function getThreshold() {
+      var header = document.querySelector('.site-header');
+      return header ? header.offsetHeight : 300;
+    }
+
+    function onScroll() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var threshold = getThreshold();
+      var prose = document.querySelector('.prose');
+
+      if (y > threshold) {
+        bar.classList.add('visible');
+      } else {
+        bar.classList.remove('visible');
+      }
+
+      if (prose && progress) {
+        var rect = prose.getBoundingClientRect();
+        var proseTop = rect.top + y;
+        var proseHeight = rect.height;
+        var viewportH = window.innerHeight;
+        var scrolled = y + viewportH - proseTop;
+        var pct = Math.max(0, Math.min(100, (scrolled / (proseHeight + viewportH * 0.3)) * 100));
+        progress.style.width = pct + '%';
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    if (menuToggle && menuDropdown) {
+      menuToggle.addEventListener('click', function () {
+        var isOpen = !menuDropdown.hidden;
+        menuDropdown.hidden = isOpen;
+        menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function (e) {
+        if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+          menuDropdown.hidden = true;
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          menuDropdown.hidden = true;
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  .sticky-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    background: var(--command);
+    border-bottom: 1px solid var(--line-dk);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-100%);
+    transition: transform 0.25s ease;
+  }
+  .sticky-bar.visible { transform: translateY(0); }
+
+  .sticky-progress {
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--olive), var(--brass));
+    transition: width 0.1s linear;
+  }
+
+  .sticky-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0;
+  }
+
+  .sticky-title {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    padding: 0;
+  }
+  .sticky-title:hover { color: var(--brass); }
+
+  .sticky-menu { position: relative; flex-shrink: 0; }
+  .sticky-menu-toggle {
+    background: transparent;
+    border: 1px solid var(--line-dk);
+    color: #cfd6cf;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .sticky-menu-toggle:hover { border-color: var(--olive); color: #fff; }
+
+  .sticky-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--command-2);
+    border: 1px solid var(--line-dk);
+    border-radius: var(--radius);
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+  .sticky-menu-dropdown li { margin: 0; }
+  .sticky-menu-dropdown a {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    color: #cfd6cf;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+  .sticky-menu-dropdown a:hover { background: var(--olive); color: #fff; }
+
+  @media (max-width: 640px) {
+    .sticky-title { max-width: 55%; font-size: 0.85rem; }
+  }
+</style>
