@@ -18,6 +18,15 @@ yarn-error.log*
 # config local do Claude (preview) — específico da máquina
 .claude/launch.json
 
+# fila de conteúdo local (motor de conteúdo) — rascunhos e aprovados, nunca vão pro git direto
+revisao/
+revisados/
+revisoes/
+
 # sistema operacional
 .DS_Store
 Thumbs.db
+
+# Credenciais de email
+scripts/email_config.py
+.claude/github-config.sh
