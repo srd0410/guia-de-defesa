@@ -152,21 +152,35 @@ npm run build    # gera o site em dist/
   - Obs.: `municao-de-defesa-calibres` é **educativo de propósito** (sem ProductCard): munição
     não é item de marketplace no Brasil (CAC adquire via autorização). Não adicionar afiliado.
 - ⬜ Trocar IDs de vídeo placeholder nos YouTubeEmbed
-- ⬜ **AdSense:** requisitos técnicos prontos — falta só solicitar a aprovação no
-  google.com/adsense e colar o ID em `src/consts.ts` (`adsenseClientId`).
-  - ✅ Acervo já passou de 25 artigos (51 publicados).
-  - ✅ Domínio confirmado e consistente (`www.guiadedefesa.com.br`).
-  - ✅ **Política de Privacidade** criada (`/politica-de-privacidade/`, PR direto na main,
-    2026-07-08) — cobre coleta de dados (Web3Forms, Vercel, Google Analytics), cookies de
-    publicidade do Google, links de afiliado e direitos LGPD. Link no rodapé (`Footer.astro`).
-  - ✅ **Gate de confirmação de idade (18+)** implementado (`src/components/AgeGate.astro`,
-    integrado no `BaseLayout.astro`, mesma data) — autodeclaração obrigatória antes de liberar
-    o site inteiro (uma vez por visitante, via `localStorage`), sem flash de conteúdo antes da
-    confirmação. "Não" bloqueia na mesma URL sem redirecionar. Isenta responsabilidade do site
-    em caso de acesso por menor que se autodeclarar incorretamente.
-  - ⚠️ **Ponto de atenção:** mesmo com o site aprovado, é esperado que artigos específicos sobre
-    calibres/armas fiquem marcados como "anúncios limitados" pela política do Google para esse
-    tipo de conteúdo — não é erro, não regredir tentando "consertar".
+- ✅ **AdSense: conta aprovada e os 4 anúncios ativos (2026-07-09).**
+  `adsenseClientId` em `src/consts.ts` = `ca-pub-8473582368044331`. `public/ads.txt` criado
+  (exigido pelo Google, declara a autorização de venda). Manual (não automático) — cada posição
+  usa o componente `src/components/AdSlot.astro`, formato "Anúncio de display" responsivo:
+  - `Home — lateral` (`src/pages/index.astro`), slot `3524649329`
+  - `Categoria — topo` (`src/pages/categoria/[category].astro`), slot `8310072144`
+  - `Artigo — topo` (`src/pages/[slug].astro`, antes do `<Content />`), slot `6996990475`
+  - `Artigo — fim` (`src/pages/[slug].astro`, depois do conteúdo/disclosure), slot `9142019079`
+  - **Bug conhecido, já corrigido:** `<AdSlot>` dentro de um `<>...</>` (Fragment) aninhado num
+    ternário não renderizava (nem o frontmatter do componente executava), mesmo com os
+    elementos irmãos do fragment funcionando normalmente. Corrigido reestruturando para
+    expressões condicionais separadas (`{cond && <Componente />}`) em vez de
+    `{cond ? (<>...</>) : (...)}`. Se precisar adicionar novo `<AdSlot>` (ou qualquer
+    componente) dentro de uma lista/condicional, **evitar Fragment+ternário** — usar o padrão
+    de `&&` direto, e sempre conferir com build limpo (`rm -rf dist .astro node_modules/.vite`)
+    antes de dar como certo, porque esse bug não gera nenhum erro/warning no build.
+  - Formatos ainda não usados (In-feed, In-article, Multiplex) — cabíveis no futuro, mas cada
+    um gera HTML diferente do "Display" e exigiria adaptar/criar outro componente.
+  - Pré-requisitos que viabilizaram a aprovação: acervo de 51 artigos, domínio confirmado,
+    **Política de Privacidade** (`/politica-de-privacidade/`, PR direto na main, 2026-07-08—
+    cobre Web3Forms, Vercel, Google Analytics, cookies de publicidade, afiliados e LGPD) e
+    **gate de confirmação de idade 18+** (`src/components/AgeGate.astro`, integrado no
+    `BaseLayout.astro`, mesma data — autodeclaração obrigatória uma vez por visitante via
+    `localStorage`, sem flash de conteúdo antes da confirmação, "Não" bloqueia na mesma URL
+    sem redirecionar, isenta responsabilidade do site em caso de acesso por menor que se
+    autodeclarar incorretamente).
+  - ⚠️ **Ponto de atenção:** é esperado que artigos específicos sobre calibres/armas fiquem
+    marcados como "anúncios limitados" pela política do Google para esse tipo de conteúdo —
+    não é erro, não regredir tentando "consertar".
 - ✅ **Domínio canônico = `www`.** O apex `guiadedefesa.com.br` faz **308 → www** na Vercel
   (www é o primário, responde 200). `site` (astro.config), `SITE.url` (consts) e o `Sitemap` do
   robots.txt usam **www**, para o sitemap/canonical baterem com o host 200 e não gerar
