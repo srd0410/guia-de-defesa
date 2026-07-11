@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import NossaFilosofia from '../components/NossaFilosofia.astro';
 import { SITE, AUTHOR, CATEGORIES } from '../consts';
 
 // AboutPage + Organization com fundador — reforça E-E-A-T e ajuda mecanismos
@@ -191,27 +192,7 @@ const aboutLd = {
       </ul>
     </div>
 
-    <aside class="manifesto" aria-labelledby="manifesto-title">
-      <p class="manifesto-eyebrow">Manifesto</p>
-      <h2 class="manifesto-title" id="manifesto-title">Nossa filosofia</h2>
-
-      <div class="manifesto-layer">
-        <h3 class="manifesto-sub">O que fazemos</h3>
-        <p class="manifesto-lede">Defesa • Equipamentos • Prontidão</p>
-        <p class="manifesto-desc">Levamos conhecimento técnico e confiável sobre defesa pessoal,
-        defesa residencial, equipamentos, EDC, sobrevivencialismo, treinamento e preparação para
-        pessoas que desejam proteger aquilo que realmente importa.</p>
-      </div>
-
-      <div class="manifesto-layer">
-        <h3 class="manifesto-sub">Como fazemos</h3>
-        <dl class="manifesto-list">
-          <div><dt>Conhecimento</dt><dd>Aprender antes de agir.</dd></div>
-          <div><dt>Preparação</dt><dd>Treinar antes de precisar.</dd></div>
-          <div><dt>Discernimento</dt><dd>Decidir com sabedoria, responsabilidade e princípios.</dd></div>
-        </dl>
-      </div>
-    </aside>
+    <NossaFilosofia />
 
     <div class="prose closing">
       <h2>Uma convicção que não muda</h2>
@@ -293,72 +274,6 @@ const aboutLd = {
   @media (max-width: 640px) {
     .heraldry { grid-template-columns: 1fr; gap: 1rem; }
     .heraldry img { max-width: 190px; margin: 0 auto; }
-  }
-
-  /* ── Bloco-manifesto (reutilizável futuramente no rodapé) ── */
-  .manifesto {
-    margin: 3rem 0;
-    background: var(--command);
-    color: #e8ece6;
-    border-radius: var(--radius);
-    border-top: 3px solid var(--olive);
-    padding: 2rem 1.9rem 2.1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-  }
-  .manifesto-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--brass);
-    margin: 0;
-  }
-  .manifesto-title {
-    font-family: var(--font-display);
-    color: #fff;
-    font-size: 1.65rem;
-    line-height: 1.15;
-    margin: 0.3rem 0 1.3rem;
-  }
-  .manifesto-layer + .manifesto-layer {
-    margin-top: 1.6rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--line-dk);
-  }
-  .manifesto-sub {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--brass);
-    margin: 0 0 0.5rem;
-  }
-  .manifesto-lede {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #fff;
-    margin: 0 0 0.5rem;
-  }
-  .manifesto-desc { color: #cfd6cf; line-height: 1.55; margin: 0; }
-  .manifesto-list { margin: 0; }
-  .manifesto-list > div {
-    padding: 0.9rem 0;
-    border-top: 1px solid var(--line-dk);
-  }
-  .manifesto-list > div:first-child { border-top: 0; padding-top: 0; }
-  .manifesto-list dt {
-    font-family: var(--font-display);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 1.08rem;
-    color: var(--brass);
-  }
-  .manifesto-list dd {
-    margin: 0.15rem 0 0;
-    color: #cfd6cf;
-    line-height: 1.5;
   }
 
   /* ── Assinatura filosófica ── */
