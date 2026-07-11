@@ -124,10 +124,17 @@ const { title } = Astro.props;
     background: var(--command);
     border-bottom: 1px solid var(--line-dk);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transform: translateY(-100%);
+    /* translate3d (não translateY) + will-change forçam uma camada de composição
+       própria na GPU. Sem isso, navegadores mobile (iOS Safari, Chrome Android)
+       não repintam elementos position:fixed durante o scroll com inércia — a barra
+       só "aparecia" quando o scroll parava ou o usuário rolava para cima. */
+    transform: translate3d(0, -100%, 0);
     transition: transform 0.25s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
-  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-bar.visible { transform: translate3d(0, 0, 0); }
 
   .sticky-progress {
     height: 3px;
