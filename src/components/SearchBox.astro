@@ -210,13 +210,16 @@ const { variant = 'banner' } = Astro.props;
   /*    banner e acima das categorias. Só se aplica à variante    */
   /*    "banner" — a "compact" (barra fixa) já é pequena por si.  */
   @media (max-width: 640px) {
-    .variant-banner {
+    /* NB: precisa casar a especificidade da regra base (.site-search.variant-banner,
+       duas classes) — senão a base "absolute/width:32%" vence por especificidade
+       mesmo dentro do media query e o campo fica flutuando sobre o banner. */
+    .site-search.variant-banner {
       position: static;
       width: auto;
       margin: 0.55rem 0.75rem 0;
     }
-    .variant-banner .search-field { background: rgba(34, 49, 42, 0.6); }
-    .variant-banner .search-panel { left: 0; right: 0; width: auto; }
+    .site-search.variant-banner .search-field { background: rgba(34, 49, 42, 0.6); }
+    .site-search.variant-banner .search-panel { left: 0; right: 0; width: auto; }
     .variant-compact.expanded .search-field { width: 140px; }
   }
 </style>
