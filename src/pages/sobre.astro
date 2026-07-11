@@ -1,29 +1,122 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { SITE } from '../consts';
+import { SITE, AUTHOR, CATEGORIES } from '../consts';
+
+// AboutPage + Organization com fundador — reforça E-E-A-T e ajuda mecanismos
+// generativos (GEO) a entenderem o que é o portal, quem responde por ele e sobre
+// o que ele tem autoridade. Complementa o WebSite/Organization do <SEO>.
+const aboutLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `Sobre o ${SITE.name}`,
+  url: new URL('/sobre/', SITE.url).href,
+  inLanguage: 'pt-BR',
+  mainEntity: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: new URL('/logo-completo.jpg', SITE.url).href,
+    slogan: SITE.taglineAlt,
+    description:
+      'Portal brasileiro dedicado à difusão de conhecimento sério sobre preparação, ' +
+      'defesa e proteção — da defesa pessoal ao tiro, sempre com rigor técnico e responsabilidade.',
+    founder: {
+      '@type': 'Person',
+      name: AUTHOR.name,
+      jobTitle: AUTHOR.role,
+      url: new URL(AUTHOR.url, SITE.url).href,
+    },
+    knowsAbout: CATEGORIES.map((c) => c.name),
+  },
+};
 ---
-<BaseLayout title="Sobre" description={`Sobre o ${SITE.name}: missão, princípios e responsabilidade editorial.`} path="/sobre/" type="website">
-  <article class="post wrap">
-    <p class="eyebrow">Sobre</p>
-    <h1>O que é o {SITE.name}</h1>
+<BaseLayout
+  title="Quem somos"
+  description="Conheça o Guia de Defesa: portal brasileiro de conhecimento sério sobre preparação, defesa e proteção — da defesa pessoal ao tiro, com rigor e responsabilidade."
+  path="/sobre/"
+  type="website"
+>
+  <section class="about-head">
+    <div class="wrap">
+      <p class="eyebrow">Sobre</p>
+      <h1>Quem somos</h1>
+      <p class="head-lead">O {SITE.name} é um projeto dedicado à difusão de conhecimento
+      sério sobre preparação, defesa e proteção — para quem leva a própria segurança,
+      e a de quem ama, a sério.</p>
+    </div>
+  </section>
+
+  <article class="wrap body">
     <div class="prose">
-      <p>O {SITE.name} reúne conteúdo sério sobre defesa pessoal, defesa residencial,
-      equipamentos e EDC, sobrevivencialismo e tiro — com um diferencial: explicar o
-      <strong>porquê</strong> por trás de cada técnica e escolha, com base em neurociência,
-      biomecânica e responsabilidade.</p>
+      <p>O {SITE.name} é um portal brasileiro que reúne, num só lugar, o conteúdo técnico
+      que costuma estar espalhado — e não raro distorcido — sobre como reduzir riscos e
+      proteger aquilo que importa: a própria vida, a família e o patrimônio. Não somos apenas
+      um blog. Somos um projeto editorial com um propósito claro: formar pessoas mais
+      conscientes, mais preparadas e mais responsáveis.</p>
+
+      <p>Nossa missão é simples de enunciar e exigente de cumprir. Tratamos a defesa não como
+      uma reação ao perigo, mas como uma <strong>competência que se constrói com
+      antecedência</strong> — feita de informação correta, treino deliberado e discernimento.
+      Quem entende antes, decide melhor. Quem decide melhor, se expõe menos. E quem se expõe
+      menos protege mais.</p>
+
+      <p>Por isso, defesa aqui é um conceito amplo. Ela atravessa a defesa pessoal e a
+      residencial, os equipamentos e o EDC (<em>everyday carry</em>, o "porte diário"), o
+      sobrevivencialismo, o tiro e a ciência do treinamento, os fundamentos legais e éticos,
+      e ainda a preparação física e mental, a gestão de riscos, a tomada de decisão sob
+      pressão e a cultura de prontidão. As armas, nesse universo, ocupam um espaço pequeno e
+      específico — uma ferramenta entre muitas, cercada de responsabilidade técnica e legal.
+      O centro de tudo é outro: <strong>o conhecimento</strong>.</p>
+
+      <p>O problema que nos propomos a resolver é a desinformação. Sobre defesa circula muito
+      mito, muita opinião vendida como fato e muito conteúdo movido a medo. O {SITE.name}
+      existe para oferecer o oposto: material verificável, escrito com rigor e sem
+      sensacionalismo, que explica o <strong>porquê</strong> por trás de cada técnica, escolha
+      e recomendação — com base em ciência do treinamento, biomecânica, legislação e
+      experiência de instrução.</p>
+
+      <h2>Nossa filosofia</h2>
+      <p>Toda a nossa linha editorial parte de um princípio simples:</p>
+      <p class="tenet">A verdadeira defesa começa antes do confronto.</p>
+      <p>Preparar-se não é procurar conflito — é justamente o contrário. Quem se prepara
+      aprende, antes de tudo, a evitar: reduz a exposição ao risco, percebe o problema mais
+      cedo, toma decisões melhores e, na imensa maioria das vezes, resolve a situação longe de
+      qualquer enfrentamento. A capacidade de defesa existe para preservar vidas, proteger a
+      família e o patrimônio e tornar o confronto a última hipótese — nunca a primeira.</p>
+
+      <p>Para isso, cada conteúdo que publicamos serve a três pilares:</p>
+      <ul>
+        <li><strong>Conhecimento.</strong> Entender o ambiente, a técnica, a lei e a si mesmo.
+        É a primeira ferramenta de defesa — e a que precede todas as outras.</li>
+        <li><strong>Prontidão.</strong> Traduzir conhecimento em capacidade real, pela
+        preparação física, mental e técnica, para agir bem quando o tempo é curto.</li>
+        <li><strong>Responsabilidade.</strong> Subordinar cada decisão a princípios éticos e ao
+        respeito à lei e à vida. É o que separa preparo de imprudência.</li>
+      </ul>
+      <p>Esses pilares não são abstrações. Eles aparecem em cada área do portal — da
+      <a href="/categoria/defesa-pessoal/">defesa pessoal</a> à
+      <a href="/categoria/legislacao/">legislação</a>, dos
+      <a href="/categoria/fundamentos/">fundamentos</a> aos
+      <a href="/categoria/primeiros-socorros/">primeiros socorros</a>. Cada texto existe para
+      deixar o leitor um pouco mais preparado e um pouco menos vulnerável.</p>
 
       <h2>Princípios editoriais</h2>
       <ul>
-        <li><strong>Método antes de moda.</strong> Recomendamos o que tem fundamento, não o que está em alta.</li>
-        <li><strong>Transparência.</strong> Quando há link de afiliado, avisamos. Recomendação não é propaganda paga disfarçada.</li>
-        <li><strong>Responsabilidade.</strong> Conteúdo informativo e educativo. Não substitui orientação jurídica, médica ou profissional individualizada, nem incentiva uso ilegal de qualquer equipamento.</li>
+        <li><strong>Método antes de moda.</strong> Recomendamos o que tem fundamento, não o
+        que está em alta.</li>
+        <li><strong>Transparência.</strong> Quando há link de afiliado, avisamos. Recomendação
+        não é propaganda paga disfarçada.</li>
+        <li><strong>Responsabilidade.</strong> Conteúdo informativo e educativo. Não substitui
+        orientação jurídica, médica ou profissional individualizada, nem incentiva o uso ilegal
+        de qualquer equipamento.</li>
       </ul>
 
       <h2>Quem escreve e quem edita</h2>
       <p>A maior parte do conteúdo é escrita por <a href="/autor/">Felipe Arrais Serodio</a>,
       instrutor de tiro credenciado pela Polícia Federal, que também responde pela
-      <strong>edição e revisão</strong> de todo o site.</p>
+      <strong>edição e revisão</strong> de todo o site. É esse crivo único que garante a
+      consistência técnica e o tom de cada publicação.</p>
 
       <h2>Autores convidados</h2>
       <p>O {SITE.name} publica, pontualmente, artigos de <strong>autores convidados</strong> —
@@ -31,20 +124,217 @@ import { SITE } from '../consts';
       a autoria fica creditada ao convidado na própria página do artigo, junto com a sua
       credencial, e o {SITE.name} assume a <strong>edição e a revisão</strong> do conteúdo antes
       da publicação — o mesmo padrão de rigor aplicado a todo o resto do site. Quer contribuir
-      com um artigo? Fale com a gente pelo contato abaixo.</p>
+      com um artigo? Fale com a gente pelo contato ao final desta página.</p>
+
+      <h2>A heráldica do {SITE.name}</h2>
+      <p>Nosso emblema não é apenas um logotipo: é a síntese visual da filosofia que orienta
+      todo o portal — conhecimento, preparação, responsabilidade e proteção.</p>
+
+      <div class="heraldry">
+        <img
+          src="/logo.jpg"
+          alt="Emblema do Guia de Defesa: um escudo dourado com uma espada encimada por uma cruz, ladeado por asas."
+          width="600" height="600" loading="lazy"
+        />
+        <div class="heraldry-text">
+          <p>O <strong>escudo</strong> é o elemento central da identidade. Símbolo universal
+          da proteção, representa a defesa da vida, da família e do patrimônio. Sua posição no
+          centro reforça uma ideia: toda capacidade de defesa existe para preservar aquilo que
+          realmente importa.</p>
+
+          <p>As <strong>asas</strong> projetam-se para além do escudo e simbolizam vigilância,
+          visão ampliada, mobilidade e consciência situacional. Inspiradas na aviação,
+          traduzem a capacidade de observar antes de agir, compreender o ambiente antes de
+          decidir e manter prontidão constante. Também fazem referência à origem do fundador
+          como piloto militar, sem recorrer a representações literais.</p>
+
+          <p>No interior do escudo está a <strong>espada</strong>, símbolo de prontidão,
+          disciplina, coragem e da capacidade de defender aquilo que é justo. Por permanecer
+          protegida pelo próprio escudo, ela comunica que a força jamais é um fim em si mesma,
+          mas um recurso responsável, destinado exclusivamente à proteção da vida, da família
+          e da liberdade.</p>
+
+          <p>Integrada ao punho da espada está a <strong>cruz</strong>, que representa a fé
+          cristã como fundamento moral da filosofia do {SITE.name}. Ela expressa que toda
+          preparação, conhecimento e capacidade técnica devem estar subordinados a princípios
+          éticos, à responsabilidade e ao respeito pela dignidade humana.</p>
+        </div>
+      </div>
+
+      <p>A composição simétrica transmite ordem, equilíbrio, disciplina e confiança — os
+      mesmos valores presentes em tudo o que publicamos. Mais do que uma marca, o emblema
+      expressa uma convicção: a verdadeira defesa começa muito antes do confronto. Ela nasce
+      do conhecimento, da preparação, do caráter e da capacidade de agir com discernimento
+      para proteger o que importa.</p>
+
+      <h2>O compromisso do {SITE.name}</h2>
+      <p>Publicar sobre defesa é assumir uma responsabilidade. Por isso, sustentamos alguns
+      compromissos que valem para cada linha do site:</p>
+      <ul>
+        <li>conteúdo <strong>baseado em evidências</strong> sempre que possível — e honesto
+        quanto aos seus limites quando a evidência ainda não é definitiva;</li>
+        <li><strong>responsabilidade</strong> ao tratar temas sensíveis, sem estímulo ao risco
+        desnecessário;</li>
+        <li>incentivo à <strong>preparação responsável</strong>, feita com método e
+        propósito;</li>
+        <li>respeito integral à <strong>legislação brasileira</strong>;</li>
+        <li><strong>valorização da vida</strong> como princípio inegociável, acima de qualquer
+        técnica ou equipamento;</li>
+        <li><strong>atualização constante</strong> do conhecimento, revendo o que publicamos à
+        medida que a ciência, a lei e a prática evoluem.</li>
+      </ul>
+    </div>
+
+    <aside class="manifesto" aria-labelledby="manifesto-title">
+      <p class="manifesto-eyebrow">Manifesto</p>
+      <h2 class="manifesto-title" id="manifesto-title">Nossa filosofia, em síntese</h2>
+      <dl class="manifesto-list">
+        <div><dt>Escudo</dt><dd>Proteção da vida, da família e do patrimônio.</dd></div>
+        <div><dt>Asas</dt><dd>Vigilância, consciência situacional e visão estratégica.</dd></div>
+        <div><dt>Espada</dt><dd>Prontidão para defender aquilo que é justo.</dd></div>
+        <div><dt>Cruz</dt><dd>Fé, princípios e valores como fundamento de toda ação.</dd></div>
+        <div><dt>Conhecimento</dt><dd>A primeira ferramenta de defesa.</dd></div>
+        <div><dt>Preparação</dt><dd>O caminho para reduzir riscos.</dd></div>
+        <div><dt>Responsabilidade</dt><dd>O princípio que orienta todas as decisões.</dd></div>
+      </dl>
+    </aside>
+
+    <div class="prose closing">
+      <h2>Uma convicção que não muda</h2>
+      <p>Tudo o que fazemos parte de uma certeza que o tempo não desgasta: a verdadeira defesa
+      começa muito antes do confronto. Ela não nasce da força, mas do conhecimento; não da
+      reação, mas da preparação; não do impulso, mas do caráter e do discernimento de quem sabe
+      o que está protegendo — e por quê.</p>
+      <p>O {SITE.name} existe para formar essas pessoas: mais conscientes, mais preparadas e
+      mais responsáveis, capazes de proteger aquilo que realmente importa — antes que o perigo
+      chegue à porta.</p>
+      <p class="signature">Conhecimento orienta.<br />Preparação protege.<br />Responsabilidade
+      preserva.</p>
+
+      <hr class="field-rule" />
 
       <h2>Contato</h2>
-      <p>Sugestões de pauta e parcerias: preencha o formulário abaixo, ou escreva direto para
-      <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+      <p>Sugestões de pauta, colaborações e parcerias: preencha o formulário abaixo ou escreva
+      direto para <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
     </div>
 
     <ContactForm />
   </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(aboutLd)} />
 </BaseLayout>
 
 <style>
-  .post { max-width: var(--measure); padding-top: 2.2rem; }
-  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
+  /* ── Cabeçalho institucional (mesma linguagem da página do autor) ── */
+  .about-head {
+    background: var(--command);
+    color: #fff;
+    padding: 2.8rem 0;
+    border-bottom: 3px solid var(--olive);
+  }
+  .about-head .eyebrow { color: var(--brass); }
+  .about-head h1 { color: #fff; margin-top: 0.4rem; }
+  .head-lead {
+    color: #cfd6cf;
+    font-size: 1.12rem;
+    line-height: 1.55;
+    max-width: var(--measure);
+    margin-top: 0.6rem;
+  }
+
+  .body { max-width: var(--measure); padding-top: 2rem; }
+  .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; margin-top: 2.2rem; }
   .prose :global(ul) { padding-left: 1.3rem; }
   .prose :global(li) { margin-bottom: 0.5rem; }
+
+  /* Princípio-âncora ("A verdadeira defesa começa antes do confronto.") */
+  .tenet {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--olive-dk);
+    border-left: 3px solid var(--brass);
+    padding-left: 1rem;
+    margin: 1.2rem 0;
+  }
+
+  /* ── Heráldica: emblema + leitura lado a lado ── */
+  .heraldry {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 1.6rem;
+    align-items: start;
+    margin: 1.4rem 0 1.2rem;
+  }
+  .heraldry img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-dk);
+    background: var(--command);
+  }
+  .heraldry-text :global(p):first-child { margin-top: 0; }
+
+  @media (max-width: 640px) {
+    .heraldry { grid-template-columns: 1fr; gap: 1rem; }
+    .heraldry img { max-width: 190px; margin: 0 auto; }
+  }
+
+  /* ── Bloco-manifesto (reutilizável futuramente no rodapé) ── */
+  .manifesto {
+    margin: 3rem 0;
+    background: var(--command);
+    color: #e8ece6;
+    border-radius: var(--radius);
+    border-top: 3px solid var(--olive);
+    padding: 2rem 1.9rem 2.1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  }
+  .manifesto-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0;
+  }
+  .manifesto-title {
+    font-family: var(--font-display);
+    color: #fff;
+    font-size: 1.65rem;
+    line-height: 1.15;
+    margin: 0.3rem 0 1.3rem;
+  }
+  .manifesto-list { margin: 0; }
+  .manifesto-list > div {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line-dk);
+  }
+  .manifesto-list > div:first-child { border-top: 0; padding-top: 0; }
+  .manifesto-list dt {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 1.08rem;
+    color: var(--brass);
+  }
+  .manifesto-list dd {
+    margin: 0.15rem 0 0;
+    color: #cfd6cf;
+    line-height: 1.5;
+  }
+
+  /* ── Assinatura filosófica ── */
+  .signature {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    color: var(--olive-dk);
+    border-left: 3px solid var(--brass);
+    padding-left: 1.1rem;
+    margin: 2rem 0;
+  }
+
+  .closing :global(.field-rule) { margin: 2.4rem 0 1.8rem; }
 </style>
