@@ -7,7 +7,10 @@ const path = Astro.url.pathname;
   <!-- Linha 1: banner full-width, com a busca sobreposta (Opção 4) -->
   <div class="banner-wrap">
     <a href="/" class="brand-band" aria-label={`${SITE.name} — início`}>
-      <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1500" height="400" />
+      <picture>
+        <source srcset="/header-banner.webp" type="image/webp" />
+        <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1600" height="533" />
+      </picture>
     </a>
     <SearchBox />
   </div>
