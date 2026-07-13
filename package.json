@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "brand:build": "node scripts/build-brand-assets.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
@@ -16,5 +17,8 @@
     "astro": "^4.16.18",
     "astro-pagefind": "^2.0.1",
     "pagefind": "^1.5.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.3"
   }
 }

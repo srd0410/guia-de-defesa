@@ -4,8 +4,6 @@ import { SITE, AUTHOR } from '../consts';
 interface Props {
   title: string;
   description: string;
-  /** caminho relativo, ex.: '/legitima-defesa-no-brasil/' */
-  path: string;
   type?: 'website' | 'article';
   publishedTime?: Date;
   modifiedTime?: Date;
@@ -18,15 +16,16 @@ interface Props {
 }
 
 const {
-  title, description, path,
+  title, description,
   type = 'website',
   publishedTime, modifiedTime, author, image,
   authorPerson, editorPerson,
 } = Astro.props;
 
+const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;
 const fullTitle = path === '/' ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
-const ogImage = image ? new URL(image, SITE.url).href : new URL('/logo-completo.jpg', SITE.url).href;
+const ogImage = image ? new URL(image, SITE.url).href : new URL('/og-image.jpg', SITE.url).href;
 const logoUrl = new URL('/logo-completo.jpg', SITE.url).href;
 
 // Organization reutilizada como publisher (com logo, que o Google recomenda para Article).

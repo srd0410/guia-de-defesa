@@ -27,7 +27,6 @@ const breadcrumbLd = {
 <BaseLayout
   title={category.name}
   description={category.blurb}
-  path={`/categoria/${category.slug}/`}
   type="website"
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />

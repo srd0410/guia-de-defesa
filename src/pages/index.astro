@@ -17,7 +17,7 @@ const RECENT_LIMIT = 9;
 const recent = rest.slice(0, RECENT_LIMIT);
 const hasMore = rest.length > RECENT_LIMIT;
 ---
-<BaseLayout title={SITE.name} description={SITE.description} path="/" type="website" stickyTitle={SITE.tagline}>
+<BaseLayout title={SITE.name} description={SITE.description} type="website" stickyTitle={SITE.tagline}>
   <section class="masthead">
     <img class="masthead-emblem" src="/logo.jpg" alt="" aria-hidden="true" />
     <div class="wrap masthead-inner">
