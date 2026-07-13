@@ -160,9 +160,35 @@ de frescor a cada vez que o acervo evolui ao redor deles.
 
 Nunca reproduza texto de outros sites. Produza síntese original, com linguagem própria e
 interpretação prática. Priorize fontes: estudos científicos, doutrina militar, publicações
-governamentais, pesquisas acadêmicas, instituições reconhecidas. Quando possível, cite
-autor, instituição e ano. Não invente citações nem dados — se não tiver a fonte, não
-afirme o número.
+governamentais, pesquisas acadêmicas, instituições reconhecidas. Não invente citações nem
+dados — se não tiver a fonte, não afirme o número.
+
+**Em legislação e saúde/primeiros socorros, citar fonte nunca é opcional.** Toda afirmação
+técnica factual — protocolo médico, número de lei, prazo legal, estatística — precisa vir
+com instituição e, quando disponível, o ano da revisão/publicação, direto na prosa (ex.:
+"segundo a revisão da American Heart Association de 2025", "conforme o Decreto
+11.615/2023"). Não é preciso link nem seção formal de referências — o site não tem esse
+componente —, mas a atribuição em texto é obrigatória, não "quando possível". Isso vale
+tanto para escrever um artigo novo quanto para revisar um já publicado: se a revisão
+encontrar um dado desatualizado, corrija citando a fonte nova e marque `updatedDate`
+(mantendo `pubDate` original), do mesmo jeito que qualquer outra atualização de conteúdo.
+
+Nessas duas áreas, **sempre checar divergência entre fontes e se a versão usada é a mais
+recente** antes de publicar ou revisar — protocolo médico e norma legal mudam (foi
+exatamente o caso do desengasgo em bebês, revisão AHA 2025), e uma fonte só, ou uma fonte
+desatualizada, não é suficiente. Se houver mais de uma versão circulando (ex.: uma
+diretriz revisada recentemente vs. o que a maioria dos sites ainda replica), sinalize a
+divergência no texto e explique qual é a atual e por quê.
+
+**Defesa pessoal é diferente: não tem o mesmo padrão de "verdade absoluta" factual** —
+muito do conteúdo é técnica, tática e julgamento situacional, onde a citação de instituição
+nem sempre se aplica ou faz sentido. Nunca decida sozinho se cita ou não nesse caso:
+**pergunte ao autor** se ele quer citação de fonte para aquele artigo/trecho específico
+antes de publicar.
+
+Fora dessas três áreas (equipamentos, EDC, sobrevivencialismo geral), a citação continua
+recomendada sempre que houver dado factual verificável, mas sem o mesmo nível de rigor
+exigido.
 
 ## Formato técnico do post (frontmatter)
 
