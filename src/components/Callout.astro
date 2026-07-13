@@ -1,0 +1,54 @@
+---
+// Caixa de destaque no meio do texto do artigo — resumo, atenção prática ou aviso jurídico.
+// Uso no MDX:
+//   import Callout from '../../components/Callout.astro';
+//   <Callout type="resumo">Texto em HTML real (<strong>, <a>), não markdown.</Callout>
+interface Props {
+  type?: 'resumo' | 'atencao' | 'juridico';
+  title?: string;
+}
+const { type = 'atencao', title } = Astro.props;
+
+const LABELS: Record<string, string> = {
+  resumo: 'Resumo',
+  atencao: 'Atenção',
+  juridico: 'Aviso jurídico',
+};
+const label = title ?? LABELS[type];
+---
+<aside class={`callout callout-${type}`}>
+  <p class="callout-label">{label}</p>
+  <div class="callout-body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    padding: 1rem 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .callout-resumo { border-left-color: var(--olive); }
+  .callout-atencao { border-left-color: var(--brass); }
+  .callout-juridico { border-left-color: var(--danger); }
+
+  .callout-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--olive-dk);
+  }
+  .callout-atencao .callout-label { color: var(--brass); }
+  .callout-juridico .callout-label { color: var(--danger); }
+
+  .callout-body { color: var(--ink); }
+  .callout-body :global(p:first-child) { margin-top: 0; }
+  .callout-body :global(p:last-child) { margin-bottom: 0; }
+</style>
