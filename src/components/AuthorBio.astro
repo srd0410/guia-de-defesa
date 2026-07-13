@@ -3,7 +3,7 @@
 import { AUTHOR } from '../consts';
 ---
 <aside class="author" aria-label="Sobre o autor">
-  <div class="author-mark" aria-hidden="true">||</div>
+  <div class="author-mark" aria-hidden="true"></div>
   <div class="author-body">
     <p class="eyebrow">Autor</p>
     <p class="author-name">{AUTHOR.name}</p>
@@ -27,12 +27,11 @@ import { AUTHOR } from '../consts';
     margin: 2.2rem 0 1rem;
   }
   .author-mark {
-    font-family: var(--font-mono);
-    color: var(--brass);
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: -2px;
-    line-height: 1;
+    flex: 0 0 auto;
+    width: 4px;
+    align-self: stretch;
+    background: var(--brass);
+    border-radius: 2px;
   }
   .author-name {
     font-family: var(--font-display);

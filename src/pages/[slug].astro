@@ -13,10 +13,24 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const cat = getCategory(post.data.category);
 const date = post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 const updated = post.data.updatedDate?.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+// Sumário: só os H2 (nível de tópico principal), na ordem em que aparecem no artigo.
+const toc = headings.filter((h) => h.depth === 2);
+
+// Tempo de leitura estimado a partir da contagem de palavras do corpo bruto (~200 palavras/min em pt-BR).
+const wordCount = post.body?.replace(/```[\s\S]*?```/g, '').split(/\s+/).filter(Boolean).length ?? 0;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// Relacionados: outros posts publicados da mesma categoria, mais recentes primeiro.
+const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date());
+const related = allPosts
+  .filter((p) => p.slug !== post.slug && p.data.category === post.data.category)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 
 // Autor convidado: quando presente, ele assina o artigo e Felipe entra como "Edição".
 const guest = post.data.guestAuthor;
@@ -92,8 +106,19 @@ const breadcrumbLd = {
         <span aria-hidden="true">·</span>
         <time datetime={post.data.pubDate.toISOString()}>{date}</time>
         {updated && <><span aria-hidden="true">·</span><span>atualizado em {updated}</span></>}
+        <span aria-hidden="true">·</span>
+        <span>{readingMinutes} min de leitura</span>
       </div>
     </header>
+
+    {toc.length > 2 && (
+      <nav class="toc toc-inline" aria-label="Sumário do artigo" data-pagefind-ignore>
+        <p class="toc-label">Neste artigo</p>
+        <ol>
+          {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+        </ol>
+      </nav>
+    )}
 
     {post.data.cover && (
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
@@ -132,12 +157,33 @@ const breadcrumbLd = {
         </div>
       )}
 
+      {related.length > 0 && (
+        <nav class="related" aria-label="Artigos relacionados">
+          <p class="related-label">Leia também</p>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={`/${r.slug}/`}>{r.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
       <AuthorBio />
     </div>
   </article>
 
   <aside class="post-rail" data-pagefind-ignore>
     <div class="rail-ad-sticky">
+      {toc.length > 2 && (
+        <nav class="toc toc-rail" aria-label="Sumário do artigo">
+          <p class="toc-label">Neste artigo</p>
+          <ol>
+            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )}
       {/* Artigo — lateral (só desktop largo) */}
       <AdSlot slot="3165556671" />
     </div>
@@ -167,6 +213,38 @@ const breadcrumbLd = {
   .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
   .tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--steel); background: var(--paper-2); padding: 0.25rem 0.55rem; border-radius: 3px; }
 
+  .toc {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin: 1.6rem 0;
+  }
+  .toc-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--olive-dk); margin: 0 0 0.5rem; text-transform: uppercase; }
+  .toc ol { margin: 0; padding-left: 1.1rem; }
+  .toc li { font-size: 0.9rem; margin-bottom: 0.35rem; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--brass); }
+  .toc-rail { display: none; }
+
+  .related { margin-top: 1.6rem; }
+  .related-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--olive-dk); text-transform: uppercase; margin: 0 0 0.6rem; }
+  .related ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .related a {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.6rem 0.9rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .related a:hover { border-color: var(--brass); color: var(--brass); }
+
   /* tipografia do corpo do artigo */
   .prose :global(h2) { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
   .prose :global(blockquote) {
@@ -193,7 +271,9 @@ const breadcrumbLd = {
       justify-content: center;
     }
     .post-rail { display: block; }
-    .rail-ad-sticky { position: sticky; top: 1.5rem; }
+    .rail-ad-sticky { position: sticky; top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .toc-inline { display: none; }
+    .toc-rail { display: block; margin: 0; max-height: calc(100vh - 3rem); overflow-y: auto; }
   }
   @media (min-width: 1200px) {
     .post-layout {
