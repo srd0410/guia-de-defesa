@@ -3,13 +3,26 @@ title: "Emergências clínicas comuns: como reconhecer e agir antes do socorro c
 description: "Como reconhecer AVC, infarto, convulsão, hipoglicemia e anafilaxia, e o que fazer nos minutos antes do SAMU chegar. Guia educativo de primeiros socorros."
 category: "primeiros-socorros"
 pubDate: 2026-07-12
+updatedDate: 2026-07-14
 tags: ["emergência clínica", "avc", "infarto", "convulsão", "anafilaxia", "hipoglicemia", "primeiros socorros"]
 affiliate: false
 draft: false
 ---
 import Faq from '../../components/Faq.astro';
+import Callout from '../../components/Callout.astro';
 
 Nem toda emergência é trauma. AVC, infarto, convulsão, hipoglicemia grave e reação alérgica anafilática são emergências clínicas — o corpo falhando por dentro, sem ferimento visível — e cada uma tem sinais próprios que, reconhecidos a tempo, mudam o desfecho. Este guia cobre como identificar as cinco mais comuns e o que fazer (e não fazer) até o socorro chegar.
+
+<Callout type="resumo" title="Resposta rápida">
+  <ul>
+    <li><strong>AVC:</strong> use o protocolo Sorriso-Abraço-Mensagem-Urgência e anote o horário do início dos sintomas.</li>
+    <li><strong>Infarto:</strong> nem sempre há dor forte no peito — falta de ar, suor frio e náusea também são sinais.</li>
+    <li><strong>Convulsão:</strong> proteja a pessoa sem contê-la, nada na boca, e ligue 192 se passar de 5 minutos.</li>
+    <li><strong>Hipoglicemia:</strong> açúcar rápido se consciente; nada por via oral se inconsciente.</li>
+    <li><strong>Anafilaxia:</strong> aplique o autoinjetor de epinefrina se disponível e ligue 192 mesmo depois.</li>
+    <li><strong>Regra geral:</strong> reconhecer o padrão, agir dentro do seguro e ligar 192 o quanto antes.</li>
+  </ul>
+</Callout>
 
 > **Aviso crítico:** este conteúdo é educativo e informativo, não substitui treinamento presencial certificado nem orientação médica. Emergências clínicas envolvem decisões rápidas em situações que variam muito de caso para caso. Diante de qualquer sinal descrito aqui, **ligue imediatamente para o SAMU (192) ou Bombeiros (193)** — o papel de quem está no local é reconhecer, agir dentro dos limites seguros e acionar o socorro, não substituir o atendimento médico.
 
@@ -87,12 +100,12 @@ Reconhecer os sinais certos e agir dentro dos limites seguros — sem tentar sub
 Para o cenário de trauma físico — hemorragia, vias aéreas, imobilização —, veja o [guia de primeiros socorros em trauma](/primeiros-socorros-trauma/); para parada cardíaca especificamente, o [guia de RCP básico](/rcp-basico/); e para engasgo, a [manobra de Heimlich](/manobra-de-heimlich-engasgo/). Para montar um kit de resposta rápida em casa ou no carro, veja o [kit IFAK de primeiros socorros](/kit-ifak-primeiros-socorros/).
 
 <Faq items={[
-  { q: "Como saber se é AVC rapidamente?", a: "Use o protocolo SAMU: peça para a pessoa sorrir (um lado caído é sinal), levantar os dois braços (um lado que não sobe é sinal) e repetir uma frase (fala arrastada é sinal). Qualquer um desses sinais é urgência — ligue 192 e anote o horário em que os sintomas começaram." },
+  { q: "O protocolo SAMU (sorriso-abraço-mensagem) garante o diagnóstico de AVC?", a: "Não — é uma triagem rápida para leigo agir, não um diagnóstico. Tem boa confiabilidade para apontar a suspeita, mas quem confirma é o hospital com exame de imagem. Qualquer sinal positivo já é motivo para ligar 192, mesmo sem certeza." },
   { q: "Infarto sempre causa dor forte no peito?", a: "Não. Especialmente em mulheres e diabéticos, os sinais podem ser mais discretos — falta de ar, suor frio, náusea ou cansaço súbito sem dor intensa. A ausência de dor típica não descarta infarto." },
   { q: "Posso colocar algo na boca de alguém tendo convulsão?", a: "Não. É um mito que a pessoa 'engole a língua' durante convulsão. Colocar objetos na boca pode causar lesão ou obstruir as vias aéreas. Proteja a pessoa do ambiente ao redor e amorteça a cabeça, sem conter os movimentos." },
-  { q: "Quanto tempo uma convulsão pode durar antes de ser emergência?", a: "Uma convulsão que ultrapassa 5 minutos, ou uma segunda convulsão que começa antes da pessoa recobrar a consciência da primeira, é emergência médica — ligue para o 192 imediatamente." },
+  { q: "Uma convulsão de menos de 5 minutos sempre dispensa ida ao hospital?", a: "Não necessariamente. Mesmo cessando sozinha e rápido, vale buscar avaliação médica se for o primeiro episódio da pessoa, se ela estiver grávida, se houve ferimento durante o episódio ou se ela não recuperar a consciência normalmente em poucos minutos." },
   { q: "O que dar para alguém com hipoglicemia?", a: "Se a pessoa está consciente e consegue engolir com segurança, ofereça algo com açúcar de absorção rápida, como suco ou refrigerante comum. Se estiver inconsciente ou com dificuldade para engolir, não ofereça nada por via oral — ligue para o SAMU imediatamente." },
   { q: "Como aplicar um autoinjetor de epinefrina em anafilaxia?", a: "Aplique na lateral da coxa, mesmo por sobre a roupa, seguindo as instruções do dispositivo. É a intervenção que reverte a reação em andamento, mas seu efeito é temporário — ligue para o 192 mesmo depois de aplicar, porque os sintomas podem retornar." },
-  { q: "Emergência clínica é diferente de trauma?", a: "Sim. Trauma envolve lesão física visível (hemorragia, fratura) e a resposta é mecânica (estancar sangramento, imobilizar). Emergência clínica é um problema interno do corpo (AVC, infarto, convulsão) que exige reconhecimento rápido de sinais e acionamento imediato do socorro." },
-  { q: "Devo ligar para o SAMU mesmo se os sintomas melhorarem sozinhos?", a: "Em geral, sim, especialmente em suspeita de AVC, infarto ou primeira convulsão de uma pessoa. Sintomas que melhoram sozinhos ainda podem indicar um evento sério que precisa de avaliação médica — a melhora aparente não descarta risco." },
+  { q: "Confusão mental é sinal de quê — AVC ou hipoglicemia?", a: "Pode ser as duas coisas, e o leigo não tem como diferenciar só por esse sintoma isolado. Combine com o protocolo SAMU (fala, sorriso, braço) e pergunte se a pessoa é diabética; na dúvida, ligue 192 e descreva os dois cenários — o atendente orienta a conduta." },
+  { q: "Posso levar alguém com suspeita de infarto de carro particular em vez de esperar a ambulância?", a: "Não é recomendado. O transporte médico permite intervenção em trânsito se o quadro piorar, e o esforço de caminhar até o carro pode agravar o infarto. Ligue 192 e mantenha a pessoa parada e confortável até a equipe chegar." },
 ]} />
