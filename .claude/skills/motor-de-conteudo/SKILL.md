@@ -41,6 +41,31 @@ Nos primeiros **150–250 caracteres** do corpo, responda claramente à pergunta
 NUNCA comece com "Neste artigo vamos falar…", "Hoje veremos…", "Antes de começar…".
 Isso desperdiça o trecho que o Google e as IAs mais leem.
 
+**Na prática, o parágrafo de abertura costuma passar desse limite** (é comum ficar em
+400–600 caracteres, porque mistura resposta + contexto + gancho). Isso é aceitável para o
+parágrafo em si — mas não deixa o artigo escaneável para quem só quer a resposta. Por isso,
+logo depois do parágrafo de abertura (antes de qualquer `<blockquote>` de aviso), adicione
+uma caixa de **resposta rápida** com o componente `<Callout>` já existente:
+
+```
+import Callout from '../../components/Callout.astro';
+...
+<Callout type="resumo" title="Resposta rápida">
+  <ul>
+    <li><strong>Rótulo curto:</strong> resposta telegráfica, 1 linha.</li>
+    <li><strong>Outro rótulo:</strong> resposta telegráfica.</li>
+  </ul>
+</Callout>
+```
+
+3 a 6 itens, cada um cobrindo uma faceta distinta da pergunta principal (quem/onde/quanto/
+prazo/o que não vale), em formato "rótulo em negrito: resposta direta" — não frases longas,
+não repita o parágrafo de abertura palavra por palavra. Pense nela como o que alguém leria
+se não fosse ler o resto do artigo. Use HTML real dentro do Callout (`<strong>`, `<a>`,
+`<em>`), não markdown — mesma regra do `<Faq>`. Artigos muito curtos ou de resposta única
+(sem múltiplas facetas) podem dispensar a caixa; a maioria dos artigos do acervo (guias de
+processo, comparativos, "o que levar") se beneficia dela.
+
 ## Subtítulos como perguntas reais
 
 Use H2/H3 que sejam perguntas que as pessoas realmente fazem. Ex.: "O red dot é mais
@@ -99,6 +124,23 @@ humana e a interpretação por IA. **Varie os conectivos** entre seções — n�
 mesma muleta (ex.: evitar "E daí?" em todas as seções; alternar com "Na prática,",
 "O resultado disso é", "Traduzindo:", ou emendar direto).
 
+**"Em resumo" é a muleta mais comum no acervo atual — tratar como quase proibida.**
+Auditoria encontrou a expressão repetida ao final de quase todo H2 em dezenas de posts,
+o que soa mecânico e repetitivo pra quem lê o artigo inteiro. Regra prática: no máximo
+**uma** ocorrência de "em resumo" (ou equivalente tipo "resumindo", "em suma") por
+artigo inteiro — e só se a seção for longa/complexa o bastante pra realmente precisar
+de um fechamento-síntese. Na maioria das seções, feche o parágrafo com a própria ideia
+(a última frase já é a conclusão) em vez de sinalizar explicitamente que está resumindo.
+Se sentir necessidade de sintetizar toda seção, varie: "Na prática,", "O que fica disso:",
+"Dito de outro jeito,", "A regra que importa aqui:", ou simplesmente não sinalizar nada.
+
+**Ao variar, cheque se você não está criando uma muleta nova.** Revisão de julho/2026 achou
+artigos onde, ao tentar evitar "em resumo", o mesmo conectivo alternativo (ex.: "na prática",
+"no fim das contas") foi usado 2+ vezes no mesmo artigo — trocou uma repetição por outra.
+Antes de fechar o artigo, dê um Ctrl+F mental (ou `grep -o` literal) nos conectivos de
+fechamento que você usou e confirme que nenhum se repete no mesmo texto. Clusters de
+legislação/CAC são onde esse chavão mais aparece (fechamento de parágrafo jurídico "denso").
+
 ## FAQ (obrigatória)
 
 Termine com uma seção de perguntas frequentes. Mínimo 5 perguntas; ideal 8 a 12. Use
@@ -122,6 +164,22 @@ O componente já renderiza o próprio título "Perguntas frequentes" — não du
 `## Perguntas frequentes` antes dele. Negrito e links dentro da resposta devem ser **HTML
 real** (`<strong>texto</strong>`, `<a href="/x/">texto</a>`), não markdown — o componente
 usa `set:html`, que não converte `**negrito**` nem `[link](url)`.
+
+**Evitar redundância entre o corpo e o FAQ.** O FAQ não é um resumo do artigo em forma de
+pergunta — leitor que já leu o corpo e chega ao FAQ não pode sentir que está lendo a mesma
+frase de novo. Formas de evitar isso: (a) a resposta do FAQ pode ser mais direta/telegráfica
+que o parágrafo correspondente, sem repetir a mesma frase quase palavra por palavra; (b)
+prefira perguntas que cobrem ângulos que o corpo não aprofundou (caso extremo, comparação
+rápida, número específico) em vez de reformular o H2 como pergunta; (c) se uma pergunta de
+FAQ só existe pra repetir o que já foi dito duas seções acima, corte-a ou mescle com outra.
+
+**Não espelhe os H2 do corpo 1:1 no FAQ.** Auditoria de julho/2026 achou esse como o padrão
+mais comum de redundância no acervo: cada pergunta do FAQ correspondia a um subtítulo do
+corpo, na mesma ordem, com a resposta só resumindo aquele parágrafo — efetivamente um
+segundo sumário do artigo. Regra prática: **pelo menos metade** das perguntas do FAQ deve
+levantar algo que nenhum H2 aprofundou (uma exceção, um caso-limite, uma comparação que só
+cabe numa resposta curta, um "e se..."). As demais podem cobrir o essencial de forma mais
+telegráfica que o corpo, mas não na mesma ordem/cobertura dos subtítulos.
 
 ## Linkagem interna e clusters
 
@@ -160,9 +218,35 @@ de frescor a cada vez que o acervo evolui ao redor deles.
 
 Nunca reproduza texto de outros sites. Produza síntese original, com linguagem própria e
 interpretação prática. Priorize fontes: estudos científicos, doutrina militar, publicações
-governamentais, pesquisas acadêmicas, instituições reconhecidas. Quando possível, cite
-autor, instituição e ano. Não invente citações nem dados — se não tiver a fonte, não
-afirme o número.
+governamentais, pesquisas acadêmicas, instituições reconhecidas. Não invente citações nem
+dados — se não tiver a fonte, não afirme o número.
+
+**Em legislação e saúde/primeiros socorros, citar fonte nunca é opcional.** Toda afirmação
+técnica factual — protocolo médico, número de lei, prazo legal, estatística — precisa vir
+com instituição e, quando disponível, o ano da revisão/publicação, direto na prosa (ex.:
+"segundo a revisão da American Heart Association de 2025", "conforme o Decreto
+11.615/2023"). Não é preciso link nem seção formal de referências — o site não tem esse
+componente —, mas a atribuição em texto é obrigatória, não "quando possível". Isso vale
+tanto para escrever um artigo novo quanto para revisar um já publicado: se a revisão
+encontrar um dado desatualizado, corrija citando a fonte nova e marque `updatedDate`
+(mantendo `pubDate` original), do mesmo jeito que qualquer outra atualização de conteúdo.
+
+Nessas duas áreas, **sempre checar divergência entre fontes e se a versão usada é a mais
+recente** antes de publicar ou revisar — protocolo médico e norma legal mudam (foi
+exatamente o caso do desengasgo em bebês, revisão AHA 2025), e uma fonte só, ou uma fonte
+desatualizada, não é suficiente. Se houver mais de uma versão circulando (ex.: uma
+diretriz revisada recentemente vs. o que a maioria dos sites ainda replica), sinalize a
+divergência no texto e explique qual é a atual e por quê.
+
+**Defesa pessoal é diferente: não tem o mesmo padrão de "verdade absoluta" factual** —
+muito do conteúdo é técnica, tática e julgamento situacional, onde a citação de instituição
+nem sempre se aplica ou faz sentido. Nunca decida sozinho se cita ou não nesse caso:
+**pergunte ao autor** se ele quer citação de fonte para aquele artigo/trecho específico
+antes de publicar.
+
+Fora dessas três áreas (equipamentos, EDC, sobrevivencialismo geral), a citação continua
+recomendada sempre que houver dado factual verificável, mas sem o mesmo nível de rigor
+exigido.
 
 ## Formato técnico do post (frontmatter)
 
@@ -223,6 +307,7 @@ genéricos. Só abrir PR após aprovação.
 
 - [ ] Responde claramente à pergunta principal?
 - [ ] Resposta direta nos primeiros 150–250 caracteres?
+- [ ] Tem a caixa `<Callout type="resumo" title="Resposta rápida">` logo após a abertura (quando o tema tem múltiplas facetas)?
 - [ ] Subtítulos em formato de pergunta?
 - [ ] Demonstra experiência real (sem inventar) / tem placeholder onde necessário?
 - [ ] Tem fundamentos (científicos/legais/técnicos) corretos e sem dados inventados?
