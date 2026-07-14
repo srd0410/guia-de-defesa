@@ -118,10 +118,21 @@ const path = Astro.url.pathname;
   }
 
   /* ── Mobile ──────────────────────────────────────── */
+  /* Grade de 10 pills em 2 colunas vira parede de botões no celular (5 linhas,
+     empurra o conteúdo pra baixo). Em vez disso, faixa única com scroll horizontal:
+     todas as categorias continuam a 1 toque, sem consumir a tela toda. */
   @media (max-width: 640px) {
     .header-banner { max-height: 100px; }
     .primary-nav ul {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      gap: 0.5rem;
+      padding: 0.55rem 0;
     }
+    .primary-nav li { flex: 0 0 auto; }
+    .pill { width: auto; white-space: nowrap; padding: 0.4rem 0.75rem; }
   }
 </style>

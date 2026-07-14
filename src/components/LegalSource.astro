@@ -1,0 +1,88 @@
+---
+// Bloco "Base legal e fontes oficiais" — para artigos de legislação, CAC e armas (conteúdo YMYL).
+// Deixa explícitos a norma usada, a data da última verificação e os links institucionais primários.
+// Uso no MDX:
+//   import LegalSource from '../../components/LegalSource.astro';
+//   <LegalSource
+//     norms={["Instrução Normativa DG/PF nº 330/2026"]}
+//     verifiedAt="2026-06-30"
+//     links={[{ label: "Polícia Federal — Sinarm", url: "https://www.gov.br/pf/pt-br/assuntos/armas" }]}
+//   />
+interface LegalLink { label: string; url: string; }
+interface Props {
+  norms: string[];
+  verifiedAt: string;
+  links: LegalLink[];
+}
+const { norms, verifiedAt, links } = Astro.props;
+const verifiedDate = new Date(`${verifiedAt}T00:00:00`).toLocaleDateString('pt-BR', {
+  day: '2-digit', month: 'long', year: 'numeric',
+});
+---
+<aside class="legal-source" aria-label="Base legal e fontes oficiais">
+  <p class="legal-label">Base legal e fontes oficiais</p>
+  <dl>
+    <div class="row">
+      <dt>Norma{norms.length > 1 ? 's' : ''}</dt>
+      <dd>{norms.join(' · ')}</dd>
+    </div>
+    <div class="row">
+      <dt>Última verificação</dt>
+      <dd><time datetime={verifiedAt}>{verifiedDate}</time></dd>
+    </div>
+    <div class="row">
+      <dt>Fontes</dt>
+      <dd>
+        <ul>
+          {links.map((l) => (
+            <li><a href={l.url} target="_blank" rel="noopener noreferrer">{l.label} ↗</a></li>
+          ))}
+        </ul>
+      </dd>
+    </div>
+  </dl>
+  <p class="legal-note">
+    Conteúdo informativo e educativo, não substitui assessoria jurídica. Normas e prazos podem
+    mudar — confirme sempre a regra vigente diretamente na fonte oficial antes de agir.
+  </p>
+</aside>
+
+<style>
+  .legal-source {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--danger);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    padding: 1.1rem 1.3rem;
+    margin: 1.8rem 0;
+  }
+  .legal-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--danger);
+    margin: 0 0 0.7rem;
+  }
+  dl { margin: 0; }
+  .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .row:last-of-type { margin-bottom: 0; }
+  dt {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--steel);
+    min-width: 8.5rem;
+  }
+  dd { margin: 0; color: var(--ink); flex: 1 1 auto; }
+  dd ul { margin: 0; padding: 0; list-style: none; }
+  dd a { color: var(--olive-dk); text-decoration: none; }
+  dd a:hover { color: var(--brass); }
+  .legal-note {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0.8rem 0 0;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+  }
+</style>
