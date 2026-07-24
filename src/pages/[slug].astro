@@ -122,9 +122,11 @@ const breadcrumbs = [
 
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
-    <div id="ad-artigo-topo" data-pagefind-ignore>
-      <AdSlot slot="6996990475" />
-    </div>
+    {post.data.ads && (
+      <div id="ad-artigo-topo" data-pagefind-ignore>
+        <AdSlot slot="6996990475" />
+      </div>
+    )}
 
     <div class="prose">
       <Content />
@@ -145,7 +147,7 @@ const breadcrumbs = [
     <div data-pagefind-ignore>
       <hr class="field-rule" />
       {/* Artigo — fim */}
-      <AdSlot slot="9142019079" />
+      {post.data.ads && <AdSlot slot="9142019079" />}
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -181,7 +183,7 @@ const breadcrumbs = [
         </nav>
       )}
       {/* Artigo — lateral (só desktop largo) */}
-      <AdSlot slot="3165556671" />
+      {post.data.ads && <AdSlot slot="3165556671" />}
     </div>
   </aside>
   </div>

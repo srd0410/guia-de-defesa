@@ -42,6 +42,9 @@ const posts = defineCollection({
       draft: z.boolean().default(false),
       // true quando o post contém links de afiliado (mostra o aviso automático).
       affiliate: z.boolean().default(false),
+      // false desativa AdSense no artigo (categorias restritas pelo Google: armas,
+      // munição, acessórios de arma de fogo). Default true.
+      ads: z.boolean().default(true),
     }),
 });
 
