@@ -1,7 +1,7 @@
 # CONTINUAR AQUI — Guia de Defesa
 
 > Documento de retomada. Leia este arquivo + o `CLAUDE.md` no início de qualquer nova
-> sessão. Aponte o Claude Code para **esta** pasta (`D:\guia-de-defesa`). A skill
+> sessão. Aponte o Claude Code para **esta** pasta (`F:\Sites\guia-de-defesa`). A skill
 > `motor-de-conteudo` (em `.claude/skills/`) carrega sozinha.
 
 ## Onde está (estado atual)

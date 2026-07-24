@@ -5,9 +5,9 @@ param(
     [switch]$DryRun
 )
 
-$revisadosDir = "D:\guia-de-defesa\revisados"
-$postsDir = "D:\guia-de-defesa\src\content\posts"
-$projectRoot = "D:\guia-de-defesa"
+$revisadosDir = "F:\Sites\guia-de-defesa\revisados"
+$postsDir = "F:\Sites\guia-de-defesa\src\content\posts"
+$projectRoot = "F:\Sites\guia-de-defesa"
 
 function Publicar-Artigo {
     param([string]$arquivo)

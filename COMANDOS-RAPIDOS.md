@@ -40,25 +40,25 @@ gerar artigo sobre [tema]
 ### 2.1 Ver o que está esperando revisão
 
 ```powershell
-Get-ChildItem "D:\guia-de-defesa\revisao\*.mdx" | Select-Object Name
+Get-ChildItem "F:\Sites\guia-de-defesa\revisao\*.mdx" | Select-Object Name
 ```
 
 ### 2.2 Abrir e editar
 
-Abra o arquivo em `D:\guia-de-defesa\revisao\{nome}.mdx` no VS Code (ou editor de sua preferência), faça as correções que quiser.
+Abra o arquivo em `F:\Sites\guia-de-defesa\revisao\{nome}.mdx` no VS Code (ou editor de sua preferência), faça as correções que quiser.
 
 **Dica:** se quiser que eu faça algum ajuste específico no texto, é só me pedir — nem precisa comando, basta falar o que quer mudar.
 
 ### 2.3 Aprovar (mover para `revisados/`)
 
 ```powershell
-Move-Item -Path "D:\guia-de-defesa\revisao\NOME-DO-ARTIGO.mdx" -Destination "D:\guia-de-defesa\revisados\"
+Move-Item -Path "F:\Sites\guia-de-defesa\revisao\NOME-DO-ARTIGO.mdx" -Destination "F:\Sites\guia-de-defesa\revisados\"
 ```
 
 **Troque `NOME-DO-ARTIGO.mdx`** pelo nome real. Exemplo:
 
 ```powershell
-Move-Item -Path "D:\guia-de-defesa\revisao\treino-a-seco.mdx" -Destination "D:\guia-de-defesa\revisados\"
+Move-Item -Path "F:\Sites\guia-de-defesa\revisao\treino-a-seco.mdx" -Destination "F:\Sites\guia-de-defesa\revisados\"
 ```
 
 ---
@@ -85,12 +85,12 @@ publica os artigos aprovados
 ### 3.1 Se preferir rodar o script sozinho (sem mim)
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 .\scripts\publicar-artigos.ps1 -Once -DryRun
 ```
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 .\scripts\publicar-artigos.ps1 -Once
 ```
 
@@ -110,7 +110,7 @@ cd D:\guia-de-defesa
 4. Suba:
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 git add .
 git commit -m "fix: retro-linkagem para NOME-DO-ARTIGO"
 git push
@@ -119,7 +119,7 @@ git push
 ### 3.3 Conferir que subiu
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 git log --oneline -n 5
 git status
 ```
@@ -135,7 +135,7 @@ Essas tarefas não passam pelas pastas de conteúdo — são mudanças de códig
 ### 4.1 Rodar o site no seu computador (ver antes de publicar)
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 npm run dev
 ```
 
@@ -144,7 +144,7 @@ Depois abra `http://localhost:4321` no navegador. `Ctrl+C` no terminal pra parar
 ### 4.2 Gerar o site completo (build de produção, teste local)
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 npm run build
 ```
 
@@ -164,7 +164,7 @@ Eu faço a mudança, te aviso o que mudou, e te dou o comando de commit no final
 ### 4.4 Subir mudança de código (depois que eu editei ou você editou)
 
 ```powershell
-cd D:\guia-de-defesa
+cd F:\Sites\guia-de-defesa
 git add .
 git commit -m "descreva a mudança aqui"
 git push
@@ -233,7 +233,7 @@ Depois disso, **tudo passa a acontecer aqui** (Parte 1 em diante).
 ## 📁 PARTE 6 — Onde Ficam as Coisas (mapa rápido)
 
 ```
-D:\guia-de-defesa\
+F:\Sites\guia-de-defesa\
 │
 ├── revisao/          ← artigos aguardando SUA revisão (eu ou você coloca aqui)
 ├── revisados/        ← artigos aprovados por você, prontos pra publicar

@@ -1,0 +1,24 @@
+name: Rebuild agendado (artigos escalonados)
+
+# Dispara um novo build/deploy na Vercel toda terça-feira. Necessário porque o site é
+# gerado estaticamente (Astro SSG) — um post com `pubDate` futura e `draft: false` só
+# aparece depois de um build feito NA data ou depois dela; sem rebuild, "pubDate futura"
+# não publica sozinho.
+#
+# Requer o secret VERCEL_DEPLOY_HOOK_URL (Settings → Secrets and variables → Actions),
+# gerado em vercel.com/.../guia-de-defesa/settings/git → Deploy Hooks.
+
+on:
+  schedule:
+    # 12:00 UTC toda terça-feira = 09:00 em Brasília (horário de verão não observado no
+    # Brasil desde 2019, então o offset é sempre UTC-3).
+    - cron: '0 12 * * 2'
+  workflow_dispatch: {} # permite disparar manualmente pela aba Actions, se precisar antecipar
+
+jobs:
+  trigger-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar Deploy Hook da Vercel
+        run: |
+          curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"

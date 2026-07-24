@@ -54,17 +54,13 @@ const articleEditorPerson = guest
     }
   : undefined;
 
-// Trilha (BreadcrumbList) — mesmo caminho mostrado visualmente em .crumbs, mas legível por
-// máquina: Início → Categoria → Artigo. Ajuda o Google a exibir a trilha no resultado.
-const breadcrumbLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Início', item: new URL('/', SITE.url).href },
-    { '@type': 'ListItem', position: 2, name: cat?.name, item: new URL(`/categoria/${cat?.slug}/`, SITE.url).href },
-    { '@type': 'ListItem', position: 3, name: post.data.title, item: new URL(`/${post.slug}/`, SITE.url).href },
-  ],
-};
+// Trilha (BreadcrumbList) — mesmo caminho mostrado visualmente em .crumbs, passada como
+// prop pro SEO.astro montar dentro do @graph único da página (mesmo padrão dos irmãos).
+const breadcrumbs = [
+  { name: 'Início', path: '/' },
+  { name: cat?.name ?? '', path: `/categoria/${cat?.slug}/` },
+  { name: post.data.title, path: `/${post.slug}/` },
+];
 ---
 <BaseLayout
   title={post.data.title}
@@ -76,9 +72,9 @@ const breadcrumbLd = {
   author={guest ? guest.name : post.data.author}
   authorPerson={articleAuthorPerson}
   editorPerson={articleEditorPerson}
+  breadcrumbs={breadcrumbs}
   stickyTitle={post.data.title}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <div class="post-layout wrap">
   <article class="post" data-pagefind-body>
     <nav class="crumbs" aria-label="Trilha" data-pagefind-ignore>

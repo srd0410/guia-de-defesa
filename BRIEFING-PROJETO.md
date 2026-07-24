@@ -8,7 +8,7 @@ Vercel conectado ao repositório GitHub srd0410/guia-de-defesa.
 - Framework: Astro 4.x com MDX
 - Deploy: Vercel (auto-deploy a cada merge no main)
 - Repositório: github.com/srd0410/guia-de-defesa
-- Pasta local: D:\guia-de-defesa
+- Pasta local: F:\Sites\guia-de-defesa
 
 ## Estrutura do projeto
 - src/content/posts/ — artigos em .mdx
@@ -59,7 +59,7 @@ Próximos a gerar: seguir a ordem e cadência do PLANO-CONTEUDO.md
 Ainda não ativado. Quando aprovado, colar o ID em src/consts.ts → adsenseClientId
 
 ## Fluxo de trabalho padrão
-1. Nova sessão do Code apontando para D:\guia-de-defesa
+1. Nova sessão do Code apontando para F:\Sites\guia-de-defesa
 2. Ler BRIEFING-PROJETO.md + PLANO-CONTEUDO.md + skill motor-de-conteudo
 3. Gerar post em src/content/posts/<slug>.mdx
 4. Rodar npm run build para validar

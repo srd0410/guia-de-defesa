@@ -20,6 +20,7 @@ interface Props {
   image?: string;
   authorPerson?: Record<string, unknown>;
   editorPerson?: Record<string, unknown>;
+  breadcrumbs?: { name: string; path?: string }[];
   stickyTitle?: string;
 }
 const props = Astro.props;

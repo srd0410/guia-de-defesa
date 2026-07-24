@@ -8,7 +8,7 @@
 
 ## Prompt
 
-Numa sessão anterior no projeto irmão **Guia de Defesa** (`D:\guia-de-defesa`), formalizei
+Numa sessão anterior no projeto irmão **Guia de Defesa** (`F:\Sites\guia-de-defesa`), formalizei
 uma regra editorial sobre citação de fonte em conteúdo YMYL (saúde, legislação) e fiz uma
 auditoria completa dos artigos publicados e em rascunho contra essa regra, encontrando e
 corrigindo divergências reais (um decreto revogado citado como vigente, uma técnica médica
