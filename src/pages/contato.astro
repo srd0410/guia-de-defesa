@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE } from '../consts';
+---
+<BaseLayout
+  title="Contato"
+  description={`Fale com o ${SITE.name}: sugestões de pauta, colaborações, parcerias ou dúvidas sobre o conteúdo do site.`}
+  path="/contato/"
+  type="website"
+>
+  <article class="post wrap">
+    <p class="eyebrow">Contato</p>
+    <h1>Contato</h1>
+
+    <div class="prose">
+      <p>Sugestões de pauta, colaborações e parcerias: preencha o formulário abaixo ou escreva
+      direto para <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+    </div>
+
+    <ContactForm />
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: var(--measure); padding-top: 2.2rem; }
+</style>

@@ -3,7 +3,6 @@ import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import AgeGate from '../components/AgeGate.astro';
 import StickyReadingBar from '../components/StickyReadingBar.astro';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
@@ -52,20 +51,6 @@ const stickyTitle = props.stickyTitle ?? props.title;
     <Analytics />
     <SpeedInsights />
 
-    {/* Verificação de idade — evita "flash" do conteúdo antes da confirmação:
-        roda de forma bloqueante (sem async/defer) e marca <html> antes do <body> pintar. */}
-    <script is:inline>
-      (function () {
-        try {
-          if (localStorage.getItem('gd_age_ok') !== 'yes') {
-            document.documentElement.classList.add('gate-active');
-          }
-        } catch (e) {
-          document.documentElement.classList.add('gate-active');
-        }
-      })();
-    </script>
-
     {/* AdSense — só carrega quando o ID estiver preenchido em consts.ts */}
     {SITE.adsenseClientId && (
       <script
@@ -85,15 +70,12 @@ const stickyTitle = props.stickyTitle ?? props.title;
     </script>
   </head>
   <body>
-    <AgeGate />
-    <div id="site-content">
-      <a href="#main" class="skip-link">Pular para o conteúdo</a>
-      <Header />
-      <StickyReadingBar title={stickyTitle} />
-      <main id="main">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <Header />
+    <StickyReadingBar title={stickyTitle} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
