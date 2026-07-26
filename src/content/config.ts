@@ -45,6 +45,12 @@ const posts = defineCollection({
       // false desativa AdSense no artigo (categorias restritas pelo Google: armas,
       // munição, acessórios de arma de fogo). Default true.
       ads: z.boolean().default(true),
+      // Quando ads:false e o artigo já recomenda um produto real (ProductCard), o
+      // SponsorSlot pode linkar direto pra esse produto em vez do CTA genérico de
+      // patrocínio. Preencher só nesse caso — não usar pra forçar afiliado onde não
+      // há produto recomendado de verdade.
+      sponsorAffiliateLabel: z.string().optional(),
+      sponsorAffiliateHref: z.string().url().optional(),
     }),
 });
 

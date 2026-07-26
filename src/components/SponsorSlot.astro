@@ -1,0 +1,92 @@
+---
+// Espaço reaproveitado quando o artigo está com `ads: false` (categorias restritas
+// pelo Google AdSense: armas, munição, acessórios de arma de fogo). Em vez de deixar
+// o espaço vazio, convida marcas do próprio nicho a patrocinar diretamente — visual
+// deliberadamente distinto do <AdSlot> (sem "Publicidade", sem formato de anúncio do
+// Google) para não parecer que o site está tentando burlar a restrição.
+interface Props {
+  compact?: boolean;
+  affiliateLabel?: string;
+  affiliateHref?: string;
+}
+const { compact = false, affiliateLabel, affiliateHref } = Astro.props;
+const hasAffiliate = Boolean(affiliateLabel && affiliateHref);
+---
+<div class:list={['sponsor-slot', { compact }]}>
+  {hasAffiliate && (
+    <div class="sponsor-variant">
+      <p class="sponsor-label">Recomendação</p>
+      <a href={affiliateHref} class="sponsor-cta sponsor-cta-primary" target="_blank" rel="noopener sponsored nofollow">{affiliateLabel}</a>
+      {!compact && <a href="/contato/" class="sponsor-secondary">Quer anunciar aqui? Fale conosco</a>}
+    </div>
+  )}
+  {!hasAffiliate && (
+    <div class="sponsor-variant">
+      <p class="sponsor-label">Espaço do patrocinador</p>
+      <p class="sponsor-text">Sua marca ou produto aqui.</p>
+      {!compact && (
+        <p class="sponsor-text sponsor-text-sub">
+          Equipamento, coldre, munição, clube de tiro — anuncie direto pra quem já está lendo sobre o assunto.
+        </p>
+      )}
+      <a href="/contato/" class="sponsor-cta">Quero anunciar aqui</a>
+    </div>
+  )}
+</div>
+
+<style>
+  .sponsor-slot {
+    margin: 2rem 0;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    background: var(--paper-2);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius, 4px);
+  }
+  .sponsor-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0 0 0.5rem;
+  }
+  .sponsor-text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.3rem;
+  }
+  .sponsor-text-sub {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--steel);
+    margin: 0 0 0.9rem;
+  }
+  .sponsor-cta {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--olive-dk);
+    text-decoration: none;
+    border: 1px solid var(--olive);
+    border-radius: var(--radius, 4px);
+    padding: 0.45rem 0.9rem;
+    margin-top: 0.4rem;
+  }
+  .sponsor-cta:hover { background: var(--olive); color: #fff; }
+  .sponsor-cta-primary { background: var(--olive); color: #fff; }
+  .sponsor-cta-primary:hover { background: var(--olive-dk); }
+  .sponsor-secondary {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--steel);
+    margin-top: 0.6rem;
+  }
+  .sponsor-slot.compact { padding: 1rem 0.8rem; }
+  .sponsor-slot.compact .sponsor-text { font-size: 0.88rem; }
+</style>

@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
 import AdSlot from '../components/AdSlot.astro';
+import SponsorSlot from '../components/SponsorSlot.astro';
 import AuthorBio from '../components/AuthorBio.astro';
 import { getCategory, AUTHOR, SITE } from '../consts';
 
@@ -24,6 +25,12 @@ const toc = headings.filter((h) => h.depth === 2);
 // Tempo de leitura estimado a partir da contagem de palavras do corpo bruto (~200 palavras/min em pt-BR).
 const wordCount = post.body?.replace(/```[\s\S]*?```/g, '').split(/\s+/).filter(Boolean).length ?? 0;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// SponsorSlot: quando ads:false e o post já recomenda um produto real, o slot linka
+// pra esse produto em vez do CTA genérico de patrocínio.
+const sponsorProps = post.data.sponsorAffiliateHref
+  ? { affiliateLabel: post.data.sponsorAffiliateLabel, affiliateHref: post.data.sponsorAffiliateHref }
+  : {};
 
 // Relacionados: outros posts publicados da mesma categoria, mais recentes primeiro.
 const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date());
@@ -122,9 +129,13 @@ const breadcrumbs = [
 
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
-    {post.data.ads && (
+    {post.data.ads ? (
       <div id="ad-artigo-topo" data-pagefind-ignore>
         <AdSlot slot="6996990475" />
+      </div>
+    ) : (
+      <div data-pagefind-ignore>
+        <SponsorSlot {...sponsorProps} />
       </div>
     )}
 
@@ -147,7 +158,7 @@ const breadcrumbs = [
     <div data-pagefind-ignore>
       <hr class="field-rule" />
       {/* Artigo — fim */}
-      {post.data.ads && <AdSlot slot="9142019079" />}
+      {post.data.ads ? <AdSlot slot="9142019079" /> : <SponsorSlot {...sponsorProps} />}
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -183,7 +194,7 @@ const breadcrumbs = [
         </nav>
       )}
       {/* Artigo — lateral (só desktop largo) */}
-      {post.data.ads && <AdSlot slot="3165556671" />}
+      {post.data.ads ? <AdSlot slot="3165556671" /> : <SponsorSlot compact {...sponsorProps} />}
     </div>
   </aside>
   </div>
