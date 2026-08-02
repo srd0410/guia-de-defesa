@@ -51,8 +51,10 @@
 ### 3. Correções (ver `REVISAO-COMPLETA.md`)
 - ✅ `clubes-de-tiro-no-brasil.mdx`: "comprovaa" → "comprova a" — **corrigido**.
 - ✅ `kit-edc-essencial.mdx`: "vantegem" → "vantagem" — **corrigido**.
-- (Opcional, em aberto) Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de
-  `defesa-pessoal` para `cac-tiro-desportivo` — decisão de taxonomia ainda em aberto.
+- ✅ Recategorizar `como-tirar-cac` e `quais-armas-cac-pode-ter` de `defesa-pessoal`
+  para `cac-tiro-desportivo` — **feito** (02/08). Tag "defesa pessoal" removida das
+  duas (redundante com a nova categoria); `updatedDate` atualizado. `npm run build`
+  limpo, 81 páginas.
 
 ### ✅ Busca no site (feito)
 Busca full-text com **Pagefind** (client-side, site estático). Campo translúcido sobreposto no
