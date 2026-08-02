@@ -79,5 +79,5 @@ Vercel → merge. Node em `C:\Program Files\nodejs`. `npm run dev` / `npm run bu
 Categorias válidas (10): ver enum em `src/content/config.ts` (precisa bater com `consts.ts`).
 
 ## ⛔ Não misturar
-Não trazer a pasta `D:\blog-pamela` (blog da Dra. Pâmela) para esta sessão. São projetos e
-repositórios independentes (guia-de-defesa x blog-dra-pamela).
+Não trazer a pasta `F:\Sites\regenere-saude` (portal Regenere Saúde, com a Dra. Pâmela
+como autora) para esta sessão. São projetos e repositórios independentes.
