@@ -144,6 +144,7 @@ export const STORES = {
   amazon: { label: 'Amazon', color: '#FF9900', text: '#131A22' },
   shopee: { label: 'Shopee', color: '#EE4D2D', text: '#FFFFFF' },
   aliexpress: { label: 'AliExpress', color: '#E62E04', text: '#FFFFFF' },
+  instagram: { label: 'Instagram', color: '#E1306C', text: '#FFFFFF' },
   outro: { label: 'Ver oferta', color: '#687843', text: '#FFFFFF' },
 } as const;
 
