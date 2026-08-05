@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
 import AdSlot from '../components/AdSlot.astro';
 import SponsorSlot from '../components/SponsorSlot.astro';
-import AuthorBio from '../components/AuthorBio.astro';
 import { getCategory, AUTHOR, SITE } from '../consts';
 
 export async function getStaticPaths() {
@@ -94,19 +93,15 @@ const breadcrumbs = [
       <h1>{post.data.title}</h1>
       <p class="dek">{post.data.description}</p>
       <div class="byline" data-pagefind-ignore>
-        {guest ? (
+        {guest && (
           <>
             <span>Por {guest.url
               ? <a href={guest.url} class="byline-author" target={guestIsExternal ? '_blank' : undefined} rel={guestIsExternal ? 'noopener nofollow' : undefined}>{guest.name}</a>
               : guest.name}</span>
             {guest.credential && <><span aria-hidden="true">·</span><span>{guest.credential}</span></>}
             <span aria-hidden="true">·</span>
-            <span>Edição: <a href={AUTHOR.url} class="byline-author">{AUTHOR.name}</a></span>
           </>
-        ) : (
-          <span>Por <a href={AUTHOR.url} class="byline-author">{post.data.author}</a></span>
         )}
-        <span aria-hidden="true">·</span>
         <time datetime={post.data.pubDate.toISOString()}>{date}</time>
         {updated && <><span aria-hidden="true">·</span><span>atualizado em {updated}</span></>}
         <span aria-hidden="true">·</span>
@@ -178,8 +173,6 @@ const breadcrumbs = [
           </ul>
         </nav>
       )}
-
-      <AuthorBio />
     </div>
   </article>
 
