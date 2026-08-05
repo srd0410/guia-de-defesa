@@ -1,0 +1,449 @@
+---
+// Ferramenta client-side: descobre em qual regime de renovação o CRAF se encaixa
+// (calendário escalonado da IN DG/PF nº 330/2026 x validade impressa individual),
+// devolve a data-limite e um roteiro de prazos regressivos.
+//
+// 100% no navegador: nenhum dado sai da máquina do leitor, nenhuma requisição de rede.
+// Uso no MDX:
+//   import CalculadoraCraf from '../../components/CalculadoraCraf.astro';
+//   <CalculadoraCraf />
+---
+
+<section class="craf-calc" aria-labelledby="craf-calc-title">
+  <header class="cc-head">
+    <p class="cc-eyebrow">Ferramenta</p>
+    <h2 id="craf-calc-title">Verificador de prazo do CRAF</h2>
+    <p class="cc-sub">
+      Preencha os três campos com o que está <strong>impresso no seu CRAF</strong> e o
+      resultado aparece na hora. Tudo roda no seu navegador — nada é enviado ou salvo.
+    </p>
+  </header>
+
+  <form class="cc-form" novalidate>
+    <div class="cc-field">
+      <label for="cc-emissao">1. Data de emissão / concessão do CRAF</label>
+      <input type="date" id="cc-emissao" name="emissao" min="1990-01-01" max="2030-12-31" />
+      <p class="cc-hint">É a data em que o certificado foi concedido ou revalidado pela última vez.</p>
+    </div>
+
+    <div class="cc-field">
+      <label for="cc-validade">2. Data de validade impressa no CRAF</label>
+      <input type="date" id="cc-validade" name="validade" min="1990-01-01" max="2040-12-31" />
+      <p class="cc-hint">A data de vencimento que consta no próprio documento, mesmo que já tenha passado.</p>
+    </div>
+
+    <div class="cc-field">
+      <label for="cc-mes">3. Seu mês de nascimento</label>
+      <select id="cc-mes" name="mes">
+        <option value="">Selecione…</option>
+        <option value="0">Janeiro</option>
+        <option value="1">Fevereiro</option>
+        <option value="2">Março</option>
+        <option value="3">Abril</option>
+        <option value="4">Maio</option>
+        <option value="5">Junho</option>
+        <option value="6">Julho</option>
+        <option value="7">Agosto</option>
+        <option value="8">Setembro</option>
+        <option value="9">Outubro</option>
+        <option value="10">Novembro</option>
+        <option value="11">Dezembro</option>
+      </select>
+      <p class="cc-hint">Só o mês importa; o dia do aniversário não muda o prazo.</p>
+    </div>
+
+    <div class="cc-actions">
+      <button type="submit" class="cc-btn">Verificar meu prazo</button>
+      <button type="reset" class="cc-btn cc-btn-ghost">Limpar</button>
+    </div>
+  </form>
+
+  <output class="cc-result" hidden aria-live="polite"></output>
+
+  <p class="cc-disclaimer">
+    Resultado informativo e educativo, baseado na Instrução Normativa DG/PF nº 330/2026 e no
+    Decreto nº 11.615/2023. <strong>Não substitui consulta à Polícia Federal nem assessoria
+    jurídica.</strong> Confirme a sua situação real no sistema oficial da PF antes de agir.
+  </p>
+</section>
+
+<script>
+  const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+  // Anexo I da IN DG/PF nº 330/2026 — data-limite de protocolo por mês de nascimento.
+  const CALENDARIO = [
+    '2027-02-01', '2027-03-01', '2027-03-31', '2027-04-30',
+    '2027-05-31', '2027-06-30', '2027-08-02', '2026-08-31',
+    '2026-09-30', '2026-11-03', '2026-11-30', '2027-01-04',
+  ];
+
+  const CORTE_DECRETO = d('2023-07-21'); // Decreto 11.615/2023 entra em vigor
+  const CORTE_UNIFICADO = d('2026-07-20'); // vencimento unificado que a IN 330 escalonou
+
+  function d(iso) { return new Date(iso + 'T00:00:00'); }
+  function fmt(date) {
+    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+  function menos(date, dias) {
+    const nova = new Date(date.getTime());
+    nova.setDate(nova.getDate() - dias);
+    return nova;
+  }
+  function diasEntre(a, b) {
+    return Math.round((b.getTime() - a.getTime()) / 86400000);
+  }
+
+  // Caminho crítico: só o que depende de agenda de terceiro. Documentos correm em paralelo
+  // (ver bloco "cc-r-paralelo") e por isso não entram como etapas datadas — não é o papel
+  // que atrasa a renovação.
+  const ETAPAS = [
+    { dias: 60, titulo: 'Busque as duas agendas', texto: 'Psicólogo e instrutor credenciados pela PF. Você pode marcar direto com eles — e às vezes consegue data melhor assim.' },
+    { dias: 45, titulo: 'Avaliação psicológica', texto: 'Laudo conclusivo de psicólogo credenciado. Vale 1 ano — não faça cedo demais.' },
+    { dias: 35, titulo: 'Teste de capacidade técnica', texto: 'Com instrutor de armamento e tiro credenciado. Também vale 1 ano. Conte com dia separado do psicológico.' },
+    { dias: 28, titulo: 'Certidões criminais', texto: 'Pode emitir a qualquer momento, inclusive antes das avaliações — a data aqui é só uma referência para chegarem válidas ao protocolo. Valem de 30 a 90 dias conforme o tribunal.' },
+    { dias: 21, titulo: 'Protocole o pedido', texto: 'Com folga de umas três semanas. Guarde o comprovante de protocolo com número e data.' },
+  ];
+
+  function situacaoDoRelogio(dias) {
+    if (dias >= 70) return { classe: 'cc-ritmo-ok', texto: 'Você tem folga. Siga o roteiro no ritmo natural e não deixe a etapa das agendas para depois.' };
+    if (dias >= 35) return { classe: 'cc-ritmo-atencao', texto: `Restam ${dias} dias: o roteiro está apertado. Vá atrás das duas agendas <strong>esta semana</strong> — é o único item que trava todo o resto.` };
+    if (dias >= 15) return { classe: 'cc-ritmo-urgente', texto: `Restam ${dias} dias. Trate as agendas do psicólogo e do instrutor como prioridade de hoje: em cidade menor, a espera por uma vaga pode passar de duas semanas.` };
+    return { classe: 'cc-ritmo-urgente', texto: `Restam ${dias} dias. Ligue <strong>hoje</strong> para psicólogo e instrutor credenciados pedindo encaixe, e pergunte no clube quem está com vaga mais próxima. Se as agendas não couberem no prazo, peça orientação à PF antes que a data passe — chegar ao limite sem protocolo é o que gera irregularidade.` };
+  }
+
+  function roteiro(limite, hoje, rotuloFinal) {
+    const linhas = ETAPAS.map((e) => {
+      const data = menos(limite, e.dias);
+      const vencida = diasEntre(hoje, data) < 0;
+      return `<li class="${vencida ? 'cc-etapa-vencida' : ''}">
+        <span class="cc-etapa-data">${fmt(data)}</span>
+        <span class="cc-etapa-titulo">${e.titulo}</span>
+        <span class="cc-etapa-txt">${e.texto}</span>
+        ${vencida ? '<span class="cc-etapa-tag">data ideal já passou — resolva o quanto antes</span>' : ''}
+      </li>`;
+    });
+    linhas.push(`<li class="cc-etapa-limite">
+      <span class="cc-etapa-data">${fmt(limite)}</span>
+      <span class="cc-etapa-titulo">Sua data-limite</span>
+      <span class="cc-etapa-txt">${rotuloFinal}</span>
+    </li>`);
+    return linhas.join('');
+  }
+
+  function contagem(limite, hoje) {
+    const dias = diasEntre(hoje, limite);
+    if (dias > 1) return `Faltam <strong>${dias} dias</strong> para essa data.`;
+    if (dias === 1) return 'Falta <strong>1 dia</strong> para essa data.';
+    if (dias === 0) return '<strong>É hoje.</strong> Protocole ainda hoje.';
+    return `Essa data <strong>já passou há ${Math.abs(dias)} dias</strong>.`;
+  }
+
+  function analisar({ emissao, validade, mes }) {
+    const hoje = d(new Date().toISOString().slice(0, 10));
+
+    // Caso A — CRAF concedido antes de 21/07/2023 e vigente em 20/07/2026: entra no calendário.
+    if (emissao < CORTE_DECRETO && validade >= CORTE_UNIFICADO) {
+      const limite = d(CALENDARIO[mes]);
+      const atrasado = diasEntre(hoje, limite) < 0;
+      return {
+        tom: atrasado ? 'alerta' : 'ok',
+        titulo: 'Seu CRAF segue o calendário por mês de aniversário',
+        porque: `O certificado foi concedido em ${fmt(emissao)} (antes de 21 de julho de 2023) e estava vigente em 20 de julho de 2026. Esse é exatamente o universo alcançado pela IN DG/PF nº 330/2026 — a data impressa de validade não é mais a que vale para você.`,
+        rotulo: `Sua data-limite para protocolar (nascido em ${MESES[mes]})`,
+        data: fmt(limite),
+        contagem: contagem(limite, hoje),
+        situacao: atrasado
+          ? 'A data-limite do seu mês já passou. Segundo a norma, a regularidade estava assegurada <strong>até</strong> ela — passado o prazo sem protocolo, a situação do registro fica irregular. Procure a Polícia Federal e considere orientação jurídica antes de manusear ou transportar a arma.'
+          : 'Até essa data, o seu CRAF <strong>permanece regular no Sinarm para todos os fins</strong>, mesmo com a validade impressa vencida. A irregularidade só surge se você deixar esse prazo passar sem ter protocolado.',
+        etapas: atrasado ? '' : roteiro(limite, hoje, 'Último dia para <strong>protocolar</strong> o pedido, pelo Anexo I da IN nº 330/2026. A análise da PF pode terminar depois — o que precisa acontecer até aqui é a entrada do processo.'),
+        ritmo: atrasado ? null : situacaoDoRelogio(diasEntre(hoje, limite)),
+      };
+    }
+
+    // Caso B — CRAF concedido a partir de 21/07/2023: regra dos 3 anos, validade individual.
+    if (emissao >= CORTE_DECRETO) {
+      const limite = menos(validade, 30);
+      const venceu = diasEntre(hoje, validade) < 0;
+      return {
+        tom: venceu ? 'alerta' : 'ok',
+        titulo: 'Seu CRAF NÃO entra no calendário de aniversário',
+        porque: `O certificado foi concedido em ${fmt(emissao)}, já sob o Decreto nº 11.615/2023. Ele nasceu com validade individual de três anos e nunca fez parte do "vencimento em massa" de 20 de julho de 2026 — por isso, o seu mês de nascimento é irrelevante aqui.`,
+        rotulo: 'Vale a data impressa no seu certificado',
+        data: fmt(validade),
+        contagem: contagem(validade, hoje),
+        situacao: venceu
+          ? 'A validade impressa já passou e não há prorrogação que o alcance. O registro está irregular: procure a Polícia Federal para regularizar e considere orientação jurídica antes de qualquer manuseio ou transporte.'
+          : `Pela IN DG/PF nº 311/2025, o pedido de revalidação deve ser iniciado até <strong>30 dias antes</strong> do vencimento — ou seja, até <strong>${fmt(limite)}</strong>.`,
+        etapas: venceu ? '' : roteiro(limite, hoje, `Último dia para <strong>iniciar</strong> a revalidação, pelo art. 69 da IN nº 311/2025 — trinta dias antes da validade impressa, que termina em ${fmt(validade)}.`),
+        ritmo: venceu ? null : situacaoDoRelogio(diasEntre(hoje, limite)),
+      };
+    }
+
+    // Caso C — concedido antes de 21/07/2023, mas já vencido antes de 20/07/2026.
+    return {
+      tom: 'alerta',
+      titulo: 'Seu CRAF ficou fora do calendário — e está vencido',
+      porque: `O certificado foi concedido em ${fmt(emissao)}, mas a validade terminou em ${fmt(validade)}, antes de 20 de julho de 2026. O calendário da IN nº 330/2026 alcança apenas os CRAFs que ainda estavam vigentes naquela data, então ele não prorroga o seu.`,
+      rotulo: 'Sua validade terminou em',
+      data: fmt(validade),
+      contagem: contagem(validade, hoje),
+      situacao: 'O registro está irregular desde então. Deixar o CRAF vencer não faz você perder a propriedade da arma, mas a coloca em situação irregular, com possível repercussão penal. Procure a Polícia Federal para regularizar e considere orientação jurídica <strong>antes</strong> de manusear, transportar ou deslocar a arma.',
+      etapas: '',
+    };
+  }
+
+  function render(box, r) {
+    box.className = `cc-result cc-result-${r.tom}`;
+    box.hidden = false;
+    box.innerHTML = `
+      <p class="cc-r-titulo">${r.titulo}</p>
+      <p class="cc-r-porque">${r.porque}</p>
+      <div class="cc-r-data">
+        <span class="cc-r-rotulo">${r.rotulo}</span>
+        <strong class="cc-r-valor">${r.data}</strong>
+        <span class="cc-r-contagem">${r.contagem}</span>
+      </div>
+      <p class="cc-r-situacao">${r.situacao}</p>
+      ${r.etapas ? `<div class="cc-r-plano">
+        <p class="cc-r-plano-titulo">Linha do tempo até o protocolo</p>
+        ${r.ritmo ? `<p class="cc-r-ritmo ${r.ritmo.classe}">${r.ritmo.texto}</p>` : ''}
+        <ol class="cc-etapas">${r.etapas}</ol>
+        <div class="cc-r-paralelo">
+          <p class="cc-r-paralelo-titulo">Em paralelo — não alonga o prazo</p>
+          <p><strong>Ocupação lícita, comprovantes de residência e conferência dos seus dados no cadastro da PF</strong> não têm fila nem data própria: resolva quando for mais cômodo, inclusive antes de tudo. Vale o mesmo para as certidões criminais — a data no roteiro é referência, não trava. O único cuidado é conferir, na véspera do protocolo, se todas ainda estão válidas; reemitir leva minutos e é feito pela internet.</p>
+        </div>
+        <p class="cc-r-dica"><strong>O gargalo são as agendas, não os documentos.</strong> O laudo psicológico e o teste de capacidade técnica dependem de profissionais credenciados pela PF, e dificilmente saem no mesmo dia — normalmente são duas datas separadas, e conseguir cada vaga leva de alguns dias a algumas semanas conforme a cidade. Você pode <strong>marcar direto com o psicólogo e com o instrutor</strong>, e às vezes consegue data melhor do que pela via do clube. Ainda assim, vale perguntar na secretaria do <strong>clube onde você é associado</strong>: mesmo quando não faz o agendamento, o clube costuma saber qual é a espera típica na região e consegue orientar por onde começar.</p>
+      </div>` : ''}
+    `;
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function erro(box, msg) {
+    box.className = 'cc-result cc-result-erro';
+    box.hidden = false;
+    box.innerHTML = `<p class="cc-r-titulo">${msg}</p>`;
+  }
+
+  document.querySelectorAll('.craf-calc').forEach((raiz) => {
+    const form = raiz.querySelector('.cc-form');
+    const box = raiz.querySelector('.cc-result');
+    if (!form || !box) return;
+
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const emissaoRaw = form.querySelector('[name="emissao"]').value;
+      const validadeRaw = form.querySelector('[name="validade"]').value;
+      const mesRaw = form.querySelector('[name="mes"]').value;
+
+      if (!emissaoRaw || !validadeRaw || mesRaw === '') {
+        erro(box, 'Preencha os três campos para ver o resultado.');
+        return;
+      }
+
+      const emissao = d(emissaoRaw);
+      const validade = d(validadeRaw);
+      if (validade <= emissao) {
+        erro(box, 'A data de validade precisa ser posterior à data de emissão. Confira o que está impresso no certificado.');
+        return;
+      }
+
+      render(box, analisar({ emissao, validade, mes: Number(mesRaw) }));
+    });
+
+    form.addEventListener('reset', () => {
+      box.hidden = true;
+      box.innerHTML = '';
+    });
+  });
+</script>
+
+<style>
+  .craf-calc {
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--olive);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    padding: 1.4rem 1.5rem 1.2rem;
+    margin: 2.2rem 0;
+  }
+
+  .cc-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--olive-dk);
+    margin: 0 0 0.3rem;
+  }
+  .cc-head h2 { margin: 0 0 0.5rem; font-size: 1.3rem; }
+  .cc-sub { margin: 0 0 1.2rem; color: var(--ink-soft); font-size: 0.94rem; }
+
+  .cc-field { margin-bottom: 1rem; }
+  .cc-field label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.94rem;
+    margin-bottom: 0.35rem;
+    color: var(--ink);
+  }
+  .cc-field input,
+  .cc-field select {
+    width: 100%;
+    max-width: 22rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+  }
+  .cc-field input:focus,
+  .cc-field select:focus {
+    outline: 2px solid var(--olive);
+    outline-offset: 1px;
+  }
+  .cc-hint {
+    margin: 0.3rem 0 0;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .cc-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem; }
+  .cc-btn {
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--olive-dk);
+    background: var(--olive-dk);
+    color: #fff;
+    cursor: pointer;
+  }
+  .cc-btn:hover { background: var(--olive); border-color: var(--olive); }
+  .cc-btn-ghost { background: transparent; color: var(--olive-dk); }
+  .cc-btn-ghost:hover { background: transparent; color: var(--brass); border-color: var(--brass); }
+
+  .cc-result {
+    display: block;
+    margin-top: 1.4rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+  .cc-result-alerta { border-left-color: var(--danger); }
+  .cc-result-erro { border-left-color: var(--brass); }
+
+  .cc-result :global(.cc-r-titulo) {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+  }
+  .cc-result :global(.cc-r-porque) { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink-soft); }
+
+  .cc-result :global(.cc-r-data) {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 0.8rem 0.9rem;
+    margin-bottom: 0.9rem;
+    background: var(--paper-2);
+  }
+  .cc-result :global(.cc-r-rotulo) {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-bottom: 0.25rem;
+  }
+  .cc-result :global(.cc-r-valor) { display: block; font-size: 1.35rem; line-height: 1.2; color: var(--ink); }
+  .cc-result :global(.cc-r-contagem) { display: block; margin-top: 0.3rem; font-size: 0.88rem; color: var(--ink-soft); }
+
+  .cc-result :global(.cc-r-situacao) { margin: 0; font-size: 0.94rem; }
+
+  .cc-result :global(.cc-r-plano) { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+  .cc-result :global(.cc-r-plano-titulo) {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--olive-dk);
+    margin: 0 0 0.6rem;
+  }
+  .cc-result :global(.cc-r-ritmo) {
+    margin: 0 0 0.9rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    background: var(--paper-2);
+    border-left: 3px solid var(--olive);
+  }
+  .cc-result :global(.cc-ritmo-atencao) { border-left-color: var(--brass); }
+  .cc-result :global(.cc-ritmo-urgente) { border-left-color: var(--danger); }
+
+  .cc-result :global(.cc-etapas) { margin: 0; padding-left: 1.1rem; }
+  .cc-result :global(.cc-etapas li) { margin-bottom: 0.9rem; font-size: 0.92rem; }
+  .cc-result :global(.cc-etapa-data) {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--steel);
+  }
+  .cc-result :global(.cc-etapa-titulo) { display: block; font-weight: 600; color: var(--ink); }
+  .cc-result :global(.cc-etapa-txt) { display: block; color: var(--ink-soft); }
+  .cc-result :global(.cc-etapa-limite) { list-style: none; margin-left: -1.1rem; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+  .cc-result :global(.cc-etapa-limite .cc-etapa-titulo) { color: var(--danger); }
+  .cc-result :global(.cc-r-paralelo) {
+    margin-top: 0.9rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+  }
+  .cc-result :global(.cc-r-paralelo-titulo) {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0 0 0.35rem;
+  }
+  .cc-result :global(.cc-r-paralelo p:last-child) { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+
+  .cc-result :global(.cc-r-dica) {
+    margin: 1rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  .cc-result :global(.cc-etapa-tag) {
+    display: inline-block;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    color: var(--danger);
+  }
+  .cc-result :global(.cc-etapa-vencida .cc-etapa-data) { text-decoration: line-through; }
+  .cc-result :global(.cc-etapa-vencida .cc-etapa-titulo) { color: var(--steel); }
+
+  .cc-disclaimer {
+    margin: 1.2rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 520px) {
+    .craf-calc { padding: 1.1rem 1rem; }
+    .cc-field input, .cc-field select { max-width: 100%; }
+    .cc-btn { flex: 1 1 auto; }
+  }
+</style>
