@@ -68,10 +68,16 @@ const breadcrumbs = [
   { name: cat?.name ?? '', path: `/categoria/${cat?.slug}/` },
   { name: post.data.title, path: `/${post.slug}/` },
 ];
+
+// Imagem de compartilhamento (og:image/Discover): usa a capa real quando o artigo tem
+// uma (`cover` no frontmatter); senão cai na capa gerada automaticamente em /og/[slug].png
+// (ver src/pages/og/[slug].png.ts) — nunca fica no logo genérico só por falta de foto.
+const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
 ---
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
+  image={ogImage}
   path={`/${post.slug}/`}
   type="article"
   publishedTime={post.data.pubDate}
