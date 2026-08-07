@@ -129,17 +129,14 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
       </nav>
     )}
 
-    {/* Sem capa real (`cover` no frontmatter), usa a capa decorativa por categoria
-        (/cover/[categoria].png — sem título, pra não repetir o que já está no H1 logo
-        abaixo). Diferente do /og/[slug].png usado no og:image, que leva o título porque
-        precisa se explicar sozinho fora do site. */}
-    <img
-      class="cover"
-      src={post.data.cover ? post.data.cover.src : `/cover/${post.data.category}.png`}
-      alt={post.data.cover ? (post.data.coverAlt ?? post.data.title) : ''}
-      width={post.data.cover ? post.data.cover.width : 1200}
-      height={post.data.cover ? post.data.cover.height : 630}
-    />
+    {/* Revertido (2026-08-07): capa decorativa por categoria testada e reprovada
+        visualmente pelo autor. Volta a só mostrar imagem quando há `cover` real no
+        frontmatter. Os endpoints /og/[slug].png e /cover/[categoria].png continuam
+        existindo (o primeiro segue em uso no og:image/compartilhamento) — só a exibição
+        da capa decorativa dentro da página foi desligada. */}
+    {post.data.cover && (
+      <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
+    )}
 
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
