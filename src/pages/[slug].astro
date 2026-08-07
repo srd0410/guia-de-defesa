@@ -129,11 +129,6 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
       </nav>
     )}
 
-    {/* Revertido (2026-08-07): capa decorativa por categoria testada e reprovada
-        visualmente pelo autor. Volta a só mostrar imagem quando há `cover` real no
-        frontmatter. Os endpoints /og/[slug].png e /cover/[categoria].png continuam
-        existindo (o primeiro segue em uso no og:image/compartilhamento) — só a exibição
-        da capa decorativa dentro da página foi desligada. */}
     {post.data.cover && (
       <img class="cover" src={post.data.cover.src} alt={post.data.coverAlt ?? ''} width={post.data.cover.width} height={post.data.cover.height} />
     )}
