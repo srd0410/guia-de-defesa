@@ -129,12 +129,14 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
       </nav>
     )}
 
-    {/* Sem capa real (`cover` no frontmatter), usa a mesma imagem gerada em /og/[slug].png
-        como header do artigo — nunca fica sem imagem nenhuma na página. */}
+    {/* Sem capa real (`cover` no frontmatter), usa a capa decorativa por categoria
+        (/cover/[categoria].png — sem título, pra não repetir o que já está no H1 logo
+        abaixo). Diferente do /og/[slug].png usado no og:image, que leva o título porque
+        precisa se explicar sozinho fora do site. */}
     <img
       class="cover"
-      src={post.data.cover ? post.data.cover.src : ogImage}
-      alt={post.data.coverAlt ?? post.data.title}
+      src={post.data.cover ? post.data.cover.src : `/cover/${post.data.category}.png`}
+      alt={post.data.cover ? (post.data.coverAlt ?? post.data.title) : ''}
       width={post.data.cover ? post.data.cover.width : 1200}
       height={post.data.cover ? post.data.cover.height : 630}
     />
