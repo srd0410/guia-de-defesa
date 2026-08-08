@@ -96,18 +96,22 @@ Sinais de experiência real elevam o E-E-A-T. MAS:
   de operações reais, combate ou missões militares, nem insinue passado operacional —
   ainda que o tema seja "tiro de combate". A autoridade vem da instrução e do estudo, não
   de operação.
-- Quando um trecho pediria experiência de primeira mão, **insira um placeholder** para o
-  autor preencher, sempre dentro desse escopo, no formato:
-  `> [EXPERIÊNCIA DO AUTOR: observação real de instrução/curso/estudo sobre X]`
-- Pode escrever em linguagem técnica e impessoal o que é conhecimento consolidado do
-  campo ("observa-se que, sob estresse agudo, a motricidade fina se degrada"), sem
-  fingir uma experiência pessoal específica.
-- **Este placeholder nunca deve ir para produção sem resolução.** Antes de publicar
-  (mergear o PR), o autor precisa: (a) preencher com o relato real, ou (b) pedir para
-  remover o callout, caindo de volta na linguagem técnica impessoal acima. Um placeholder
-  `[EXPERIÊNCIA DO AUTOR: ...]` esquecido e publicado é um bug visível no site (já
-  aconteceu — ver `CONTINUAR-AQUI.md`/memória do projeto). Ao revisar um PR antes do
-  merge, sempre grep por essa string nos arquivos tocados.
+- **Nunca insira o placeholder de experiência por conta própria (regra revisada em
+  2026-08-08).** Um trecho que "pediria" experiência de primeira mão **não** deve virar
+  automaticamente um placeholder — o padrão é escrever em linguagem técnica e impessoal
+  o que é conhecimento consolidado do campo ("observa-se que, sob estresse agudo, a
+  motricidade fina se degrada"), sem fingir uma experiência pessoal específica. Um
+  placeholder inacabado é pior do que nenhum placeholder: é um item pendente publicável
+  por engano, e isso já aconteceu (ver `CONTINUAR-AQUI.md`/memória do projeto).
+- **Só insira o placeholder quando o autor pedir explicitamente** que um trecho específico
+  traga uma vivência pessoal dele. Nesse caso — e só nesse caso —, use o formato:
+  `> [EXPERIÊNCIA DO AUTOR: observação real de instrução/curso/estudo sobre X]`, sempre
+  dentro do escopo acima (instrução/curso/estudo).
+- Se um placeholder já existir num artigo (de um pedido anterior do autor) e ele não foi
+  preenchido, resolva antes de publicar: (a) preencha com o relato real que o autor deu,
+  ou (b) remova o callout e caia na linguagem técnica impessoal. Ao revisar um PR antes do
+  merge, sempre grep por essa string nos arquivos tocados para garantir que nenhum
+  placeholder pendente vá para produção.
 
 ## E-E-A-T e tom
 
@@ -309,7 +313,7 @@ genéricos. Só abrir PR após aprovação.
 - [ ] Resposta direta nos primeiros 150–250 caracteres?
 - [ ] Tem a caixa `<Callout type="resumo" title="Resposta rápida">` logo após a abertura (quando o tema tem múltiplas facetas)?
 - [ ] Subtítulos em formato de pergunta?
-- [ ] Demonstra experiência real (sem inventar) / tem placeholder onde necessário?
+- [ ] Demonstra experiência real (sem inventar), em linguagem técnica impessoal onde não há vivência real do autor — nenhum placeholder de experiência inserido a não ser que o autor tenha pedido explicitamente?
 - [ ] Tem fundamentos (científicos/legais/técnicos) corretos e sem dados inventados?
 - [ ] Tem FAQ (5+ perguntas)?
 - [ ] Tem 3+ links internos, e satélite linka pro pilar?
