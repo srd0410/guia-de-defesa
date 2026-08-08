@@ -36,6 +36,10 @@ const breadcrumbs = [
     </div>
   </section>
 
+  <div class="wrap cat-intro">
+    {category.intro.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+
   <div class="wrap stream">
     {posts.length === 0 && <p class="empty">Ainda não há artigos nesta seção. Em breve.</p>}
 
@@ -59,6 +63,9 @@ const breadcrumbs = [
   .cat-head .eyebrow { color: var(--brass); }
   .cat-head h1 { color: #fff; margin-top: 0.4rem; }
   .blurb { color: #cfd6cf; max-width: 56ch; margin-top: 0.6rem; }
+  .cat-intro { max-width: var(--measure); padding-top: 2rem; }
+  .cat-intro p { color: var(--ink-soft); line-height: 1.7; margin-bottom: 1rem; }
+  .cat-intro p:last-child { margin-bottom: 0; }
   .stream { max-width: var(--measure); padding-top: 1.5rem; }
   .empty { color: var(--ink-soft); padding: 1.5rem 0; }
 </style>
