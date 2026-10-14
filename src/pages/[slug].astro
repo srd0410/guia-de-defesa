@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
-import AdSlot from '../components/AdSlot.astro';
+import ProductSlot from '../components/ProductSlot.astro';
 import SponsorSlot from '../components/SponsorSlot.astro';
 import AuthorBio from '../components/AuthorBio.astro';
 import { getCategory, AUTHOR, SITE } from '../consts';
@@ -26,8 +26,9 @@ const toc = headings.filter((h) => h.depth === 2);
 const wordCount = post.body?.replace(/```[\s\S]*?```/g, '').split(/\s+/).filter(Boolean).length ?? 0;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 
-// SponsorSlot: quando ads:false e o post já recomenda um produto real, o slot linka
-// pra esse produto em vez do CTA genérico de patrocínio.
+// Espaços que eram do AdSense agora mostram produtos de afiliado (<ProductSlot>). Se o post
+// já define o próprio produto (sponsorAffiliateHref), o slot linka pra ele em vez da vitrine.
+const hasOwnSponsor = Boolean(post.data.sponsorAffiliateHref);
 const sponsorProps = post.data.sponsorAffiliateHref
   ? { affiliateLabel: post.data.sponsorAffiliateLabel, affiliateHref: post.data.sponsorAffiliateHref }
   : {};
@@ -135,15 +136,11 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
 
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
-    {post.data.ads ? (
-      <div id="ad-artigo-topo" data-pagefind-ignore>
-        <AdSlot slot="6996990475" />
-      </div>
-    ) : (
-      <div data-pagefind-ignore>
-        <SponsorSlot {...sponsorProps} />
-      </div>
-    )}
+    <div id="ad-artigo-topo" data-pagefind-ignore>
+      {hasOwnSponsor
+        ? <SponsorSlot {...sponsorProps} />
+        : <ProductSlot seed={post.slug} indice={0} categoria={post.data.category} />}
+    </div>
 
     <div class="prose">
       <Content />
@@ -164,7 +161,9 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     <div data-pagefind-ignore>
       <hr class="field-rule" />
       {/* Artigo — fim */}
-      {post.data.ads ? <AdSlot slot="9142019079" /> : <SponsorSlot {...sponsorProps} />}
+      {hasOwnSponsor
+        ? <SponsorSlot {...sponsorProps} />
+        : <ProductSlot seed={post.slug} indice={1} categoria={post.data.category} />}
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -200,7 +199,9 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
         </nav>
       )}
       {/* Artigo — lateral (só desktop largo) */}
-      {post.data.ads ? <AdSlot slot="3165556671" /> : <SponsorSlot compact {...sponsorProps} />}
+      {hasOwnSponsor
+        ? <SponsorSlot compact {...sponsorProps} />
+        : <ProductSlot seed={post.slug} indice={2} categoria={post.data.category} compact />}
     </div>
   </aside>
   </div>
