@@ -139,7 +139,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     <div id="ad-artigo-topo" data-pagefind-ignore>
       {hasOwnSponsor
         ? <SponsorSlot {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={0} categoria={post.data.category} />}
+        : <ProductSlot seed={post.slug} indice={0} />}
     </div>
 
     <div class="prose">
@@ -163,7 +163,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
       {/* Artigo — fim */}
       {hasOwnSponsor
         ? <SponsorSlot {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={1} categoria={post.data.category} />}
+        : <ProductSlot seed={post.slug} indice={1} />}
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -201,7 +201,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
       {/* Artigo — lateral (só desktop largo) */}
       {hasOwnSponsor
         ? <SponsorSlot compact {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={2} categoria={post.data.category} compact />}
+        : <ProductSlot seed={post.slug} indice={2} compact />}
     </div>
   </aside>
   </div>
