@@ -1,179 +1,69 @@
-// Vitrine de produtos com link de afiliado (Mercado Livre; AliExpress quando houver links).
-// Usada pelo <ProductSlot> no lugar dos espaços de AdSense enquanto o Google não aprova o site.
-// Fonte: os mesmos links já usados no resolvesimples.com.br (meli.la = link de afiliado do autor).
-// Imagens em /public/produtos/ (cópia local, 360px) — nada de hotlink.
-// Preço não é exibido de propósito: muda toda semana e ficaria desatualizado no site.
-// Para adicionar produto: copie a imagem para public/produtos/ e acrescente um item abaixo.
+// Produtos de afiliado (Mercado Livre) usados no meio dos artigos (<ProdutoContexto ids="..." />)
+// e na rotação de lateral/fim de artigo (<ProductSlot>). Os códigos (S1, R5...) vêm das listas
+// AFILIADOS-LOTE-1.md/2.md. Nota e vendas: consulta em 14/10/2026 no Mercado Livre.
+// Preço não é exibido de propósito (muda toda semana). Imagens em /public/produtos/.
 
-export type Loja = 'mercadolivre' | 'aliexpress';
+export const DATA_CONSULTA = '14/10/2026';
 
 export interface ProdutoAfiliado {
   id: string;
-  loja: Loja;
   nome: string;
-  /** 1–2 frases, factuais, sem promessa que não dá para conferir */
   descricao: string;
-  /** caminho em /public */
   imagem: string;
   href: string;
-  /** usado para dar preferência a produtos afins ao tema do artigo */
-  tema: 'energia' | 'casa' | 'cozinha' | 'beleza' | 'auto';
+  nota: string;
+  vendas: string;
 }
 
-export const PRODUTOS: ProdutoAfiliado[] = [
-  {
-    id: 'powerbank-10k',
-    loja: 'mercadolivre',
-    nome: 'Power Bank 10.000 mAh Turbo 22,5 W com display digital',
-    descricao: 'Carregador portátil que cabe no bolso, com carga rápida e display que mostra a bateria restante. Bom para a mochila do dia a dia e para apagões curtos.',
-    imagem: '/produtos/ml-2TYLNx2.webp',
-    href: 'https://meli.la/2TYLNx2',
-    tema: 'energia',
-  },
-  {
-    id: 'powerbank-i2go',
-    loja: 'mercadolivre',
-    nome: 'Power Bank i2GO Turbo 20.000 mAh 20 W com display digital',
-    descricao: 'Capacidade para recarregar o celular várias vezes. Útil em viagem, em trilha e como reserva de energia em casa.',
-    imagem: '/produtos/ml-2fftTns.webp',
-    href: 'https://meli.la/2fftTns',
-    tema: 'energia',
-  },
-  {
-    id: 'powerbank-20k',
-    loja: 'mercadolivre',
-    nome: 'Power Bank 20.000 mAh 22,5 W carga rápida',
-    descricao: 'Opção de 20.000 mAh com carga rápida de 22,5 W, para quem carrega mais de um aparelho ou passa o dia fora.',
-    imagem: '/produtos/ml-2zhLnsz.webp',
-    href: 'https://meli.la/2zhLnsz',
-    tema: 'energia',
-  },
-  {
-    id: 'airfryer-mondial-12l',
-    loja: 'mercadolivre',
-    nome: 'Air Fryer Forno Mondial Oven 12 L',
-    descricao: 'Fritadeira sem óleo com capacidade de forno, para a família toda de uma vez. É a que o autor do Resolve Simples usa há mais de um ano.',
-    imagem: '/produtos/ml-25Z84td.webp',
-    href: 'https://meli.la/25Z84td',
-    tema: 'cozinha',
-  },
-  {
-    id: 'tabua-descongelar',
-    loja: 'mercadolivre',
-    nome: 'Tábua de descongelar rápido em alumínio',
-    descricao: 'Descongela carne, frango e peixe só pela condução do alumínio, sem água quente e sem micro-ondas.',
-    imagem: '/produtos/ml-2yAuVW5.webp',
-    href: 'https://meli.la/2yAuVW5',
-    tema: 'cozinha',
-  },
-  {
-    id: 'tabua-magica',
-    loja: 'mercadolivre',
-    nome: 'Tábua mágica para descongelar alimentos',
-    descricao: 'Versão mais em conta da tábua de descongelamento rápido, para acelerar o preparo do dia a dia.',
-    imagem: '/produtos/ml-2ZpQzdc.webp',
-    href: 'https://meli.la/2ZpQzdc',
-    tema: 'cozinha',
-  },
-  {
-    id: 'kit-silicone-12',
-    loja: 'mercadolivre',
-    nome: 'Kit 12 utensílios de cozinha em silicone',
-    descricao: 'Conjunto de espátulas, colheres e pegadores em silicone, que não riscam panela antiaderente.',
-    imagem: '/produtos/ml-2Sng2x9.webp',
-    href: 'https://meli.la/2Sng2x9',
-    tema: 'cozinha',
-  },
-  {
-    id: 'cortador-14-em-1',
-    loja: 'mercadolivre',
-    nome: 'Cortador, picador e fatiador de legumes 14 em 1',
-    descricao: 'Pica, fatia e rala legumes em segundos, com recipiente para recolher. Reduz o tempo de preparo das refeições.',
-    imagem: '/produtos/ml-23h98yo.webp',
-    href: 'https://meli.la/23h98yo',
-    tema: 'cozinha',
-  },
-  {
-    id: 'fatiadores-kitop',
-    loja: 'mercadolivre',
-    nome: 'Kit 2 fatiadores Kitop corta-tudo',
-    descricao: 'Dois fatiadores manuais para legumes e verduras em fatias finas e uniformes.',
-    imagem: '/produtos/ml-2wv6YAE.webp',
-    href: 'https://meli.la/2wv6YAE',
-    tema: 'cozinha',
-  },
-  {
-    id: 'aspirador-electrolux',
-    loja: 'mercadolivre',
-    nome: 'Aspirador de pó vertical sem fio Electrolux Ergorapido',
-    descricao: 'Aspirador 2 em 1 sem fio, leve, que também vira portátil. Prático para a limpeza rápida do dia a dia.',
-    imagem: '/produtos/ml-1ZMBUHk.webp',
-    href: 'https://meli.la/1ZMBUHk',
-    tema: 'casa',
-  },
-  {
-    id: 'aspirador-redroad',
-    loja: 'mercadolivre',
-    nome: 'Aspirador vertical sem fio Redroad W15 (seco e úmido)',
-    descricao: 'Aspira e passa pano ao mesmo tempo, para quem quer resolver o piso em uma única passada.',
-    imagem: '/produtos/ml-1SnmUPX.webp',
-    href: 'https://meli.la/1SnmUPX',
-    tema: 'casa',
-  },
-  {
-    id: 'robo-xiaomi-s40',
-    loja: 'mercadolivre',
-    nome: 'Robô aspirador de pó Xiaomi Vacuum S40',
-    descricao: 'Robô inteligente que mapeia a casa e limpa sozinho, com controle pelo celular.',
-    imagem: '/produtos/ml-2NviqeP.webp',
-    href: 'https://meli.la/2NviqeP',
-    tema: 'casa',
-  },
-  {
-    id: 'vassoura-rodo-silicone',
-    loja: 'mercadolivre',
-    nome: 'Vassoura rodo mágico de silicone UTZ',
-    descricao: 'Junta pelo e poeira do piso e ainda serve de rodo para vidro e box, com a lâmina de silicone.',
-    imagem: '/produtos/ml-137gUnK.webp',
-    href: 'https://meli.la/137gUnK',
-    tema: 'casa',
-  },
-  {
-    id: 'escova-secadora-3em1',
-    loja: 'mercadolivre',
-    nome: 'Escova secadora 3 em 1 alisadora e modeladora 1000 W',
-    descricao: 'Seca, alisa e modela com um só aparelho. Atenção: este modelo é 127 V.',
-    imagem: '/produtos/ml-2E5qDZW.webp',
-    href: 'https://meli.la/2E5qDZW',
-    tema: 'beleza',
-  },
-  {
-    id: 'escova-mondial-bivolt',
-    loja: 'mercadolivre',
-    nome: 'Escova rotativa Mondial cerâmica Tourmaline íon 3x1 bivolt',
-    descricao: 'Escova rotativa de marca conhecida, bivolt, para funcionar em qualquer tomada de casa ou de viagem.',
-    imagem: '/produtos/ml-1y6VpXF.webp',
-    href: 'https://meli.la/1y6VpXF',
-    tema: 'beleza',
-  },
-  {
-    id: 'camera-de-re',
-    loja: 'mercadolivre',
-    nome: 'Câmera de ré universal HD 170° com visão noturna',
-    descricao: 'Câmera colorida à prova d’água com cabo de 6 m, para ajudar nas manobras de estacionamento.',
-    imagem: '/produtos/ml-2BG7B8e.webp',
-    href: 'https://meli.la/2BG7B8e',
-    tema: 'auto',
-  },
-];
-
-/** Temas preferidos por categoria do site (energia/casa combinam com defesa residencial, sobrevivência etc.). */
-export const TEMAS_POR_CATEGORIA: Record<string, ProdutoAfiliado['tema'][]> = {
-  'defesa-residencial': ['casa', 'energia'],
-  sobrevivencialismo: ['energia', 'casa'],
-  'primeiros-socorros': ['energia', 'casa'],
-  equipamentos: ['energia', 'auto'],
+export const PRODUTOS: Record<string, ProdutoAfiliado> = {
+  "S1": { id: "S1", nome: "Mochila militar tática 40 L impermeável", descricao: "Mochila de 40 litros, impermeável segundo o anúncio, na faixa de capacidade usada em kits de emergência de 72 horas.", imagem: '/produtos/ml-1MkdVcA.webp', href: 'https://meli.la/1MkdVcA', nota: '4,9', vendas: 'mais de 10 mil' },
+  "S2": { id: "S2", nome: "Lanterna de cabeça recarregável Hytalux HY093 2000 lm", descricao: "Lanterna de cabeça recarregável com zoom, que deixa as duas mãos livres para trocar um pneu, cozinhar ou se deslocar no escuro.", imagem: '/produtos/ml-2zZetmb.webp', href: 'https://meli.la/2zZetmb', nota: '4,8', vendas: 'mais de 10 mil' },
+  "S3": { id: "S3", nome: "Lampião LED recarregável de camping", descricao: "Lampião LED recarregável de camping, para iluminar o ambiente durante uma queda de energia.", imagem: '/produtos/ml-2xzfPLc.webp', href: 'https://meli.la/2xzfPLc', nota: '4,8', vendas: 'mais de 10 mil' },
+  "S4": { id: "S4", nome: "Rádio de emergência solar/manivela AM/FM com lanterna e 10.000 mAh", descricao: "Rádio AM/FM solar e de manivela, com lanterna e bateria de 10.000 mAh, para se informar quando a energia e a internet caem.", imagem: '/produtos/ml-2TKFy1N.webp', href: 'https://meli.la/2TKFy1N', nota: '4,8', vendas: 'mais de 1 mil' },
+  "S4b": { id: "S4b", nome: "Rádio digital solar/manivela FM/AM USB", descricao: "Rádio digital AM/FM solar e de manivela, com lanterna e entrada USB. Opção mais barata para ouvir notícias sem energia.", imagem: '/produtos/ml-2LUgTAP.webp', href: 'https://meli.la/2LUgTAP', nota: '4,8', vendas: 'mais de 500' },
+  "S5": { id: "S5", nome: "Fogareiro Nautika Frontier 1 boca", descricao: "Fogareiro de uma boca a gás, da linha Frontier da Nautika, para cozinhar e ferver água sem luz.", imagem: '/produtos/ml-1d4x1Kr.webp', href: 'https://meli.la/1d4x1Kr', nota: '4,9', vendas: 'mais de 10 mil' },
+  "S5b": { id: "S5b", nome: "Fogareiro portátil dobrável ignição automática", descricao: "Fogareiro portátil dobrável a gás, com ignição automática, que ocupa pouco espaço no kit.", imagem: '/produtos/ml-1Hh6QHE.webp', href: 'https://meli.la/1Hh6QHE', nota: '4,9', vendas: 'mais de 5 mil' },
+  "S6": { id: "S6", nome: "Manta térmica aluminizada de emergência (kit 3)", descricao: "Kit com 3 mantas térmicas aluminizadas (2,10 x 1,40 m): ajudam a reter o calor do corpo e ocupam quase nenhum espaço.", imagem: '/produtos/ml-2yhEJ1K.webp', href: 'https://meli.la/2yhEJ1K', nota: '4,9', vendas: 'mais de 5 mil' },
+  "S7": { id: "S7", nome: "Alicate multiferramenta Nautika Bulldog 21 funções", descricao: "Alicate multiferramenta Nautika Bulldog com 21 funções, para o kit de emergência ou o EDC.", imagem: '/produtos/ml-27e5jCc.webp', href: 'https://meli.la/27e5jCc', nota: '4,9', vendas: 'mais de 1 mil' },
+  "S8": { id: "S8", nome: "Filtro de água portátil de sobrevivência (Blue Purifier)", descricao: "Filtro de água portátil tipo canudo, para camping e emergências. Confira no anúncio o que ele filtra e a vida útil antes de comprar.", imagem: '/produtos/ml-2cahkjN.webp', href: 'https://meli.la/2cahkjN', nota: '4,8', vendas: 'mais de 500' },
+  "S9": { id: "S9", nome: "Galão de água dobrável 8 L com torneira", descricao: "Galão dobrável de 8 litros com torneira: guarda água para uso doméstico e dobra quando vazio.", imagem: '/produtos/ml-1N4FuYM.webp', href: 'https://meli.la/1N4FuYM', nota: '4,7', vendas: 'mais de 100' },
+  "S10": { id: "S10", nome: "Power bank solar 50.000 mAh", descricao: "Power bank solar de 50.000 mAh com saída USB-C. A carga pelo sol é lenta; use o painel como apoio e carregue pela tomada.", imagem: '/produtos/ml-1vPXMeV.webp', href: 'https://meli.la/1vPXMeV', nota: '4,8', vendas: 'mais de 5 mil' },
+  "S11": { id: "S11", nome: "Kit 12 potes herméticos Electrolux", descricao: "Kit com 12 potes herméticos retangulares da Electrolux, para guardar mantimentos secos e proteger da umidade.", imagem: '/produtos/ml-2WeEWPC.webp', href: 'https://meli.la/2WeEWPC', nota: '4,9', vendas: 'mais de 250 mil' },
+  "S12": { id: "S12", nome: "Compressor de ar portátil Vonder CAV 150", descricao: "Compressor de ar elétrico portátil Vonder CAV 150, de 120 W, para calibrar pneus na estrada ou na garagem.", imagem: '/produtos/ml-1ZUMupe.webp', href: 'https://meli.la/1ZUMupe', nota: '4,8', vendas: 'mais de 50 mil' },
+  "S13": { id: "S13", nome: "Cabo chupeta 400 A, 5 m reforçado", descricao: "Cabo de chupeta de 5 metros e 400 A, reforçado, para dar partida usando a bateria de outro veículo.", imagem: '/produtos/ml-1PBBmUX.webp', href: 'https://meli.la/1PBBmUX', nota: '4,8', vendas: 'mais de 10 mil' },
+  "P1": { id: "P1", nome: "Kit completo de primeiros socorros com maleta", descricao: "Kit de primeiros socorros com maleta resistente. Confira a lista de itens no anúncio e complete o que faltar.", imagem: '/produtos/ml-2bn87Ge.webp', href: 'https://meli.la/2bn87Ge', nota: '4,7', vendas: 'mais de 10 mil' },
+  "P2": { id: "P2", nome: "Kit primeiros socorros compacto p/ bolsa, mochila e carro (Curatec)", descricao: "Kit compacto de primeiros socorros, feito para bolsa, mochila, camping e carro.", imagem: '/produtos/ml-1jN4dKe.webp', href: 'https://meli.la/1jN4dKe', nota: '4,8', vendas: 'mais de 5 mil' },
+  "P3": { id: "P3", nome: "Bolsa organizadora de primeiros socorros (tática, SOS)", descricao: "Bolsa organizadora de primeiros socorros em estilo tático, para montar o seu kit individual e achá-lo rápido.", imagem: '/produtos/ml-1e6MB9Q.webp', href: 'https://meli.la/1e6MB9Q', nota: '4,9', vendas: 'mais de 1 mil' },
+  "P4": { id: "P4", nome: "Bandagem israelense 4\" estéril", descricao: "Bandagem israelense elástica de 4 polegadas, estéril, com velcro: permite aplicar pressão sobre o ferimento.", imagem: '/produtos/ml-2LBFamV.webp', href: 'https://meli.la/2LBFamV', nota: '4,9', vendas: 'mais de 1 mil' },
+  "P5": { id: "P5", nome: "Tesoura ponta romba corta-vestes (APH)", descricao: "Tesoura de ponta romba para cortar roupas no socorro sem ferir a pele.", imagem: '/produtos/ml-1itdpXQ.webp', href: 'https://meli.la/1itdpXQ', nota: '4,8', vendas: 'mais de 5 mil' },
+  "P6": { id: "P6", nome: "Máscara pocket para RCP com válvula e estojo", descricao: "Máscara de bolso (pocket mask) para RCP, com válvula e estojo. O uso correto se aprende em curso presencial.", imagem: '/produtos/ml-2J5Sh7c.webp', href: 'https://meli.la/2J5Sh7c', nota: '4,9', vendas: 'mais de 5 mil' },
+  "P7": { id: "P7", nome: "Luva nitrílica Descarpack, caixa 100 un", descricao: "Luvas nitrílicas pretas, caixa com 100 unidades (tamanho M), como barreira de proteção no atendimento.", imagem: '/produtos/ml-1JbGjMU.webp', href: 'https://meli.la/1JbGjMU', nota: '4,8', vendas: 'mais de 100 mil' },
+  "R1": { id: "R1", nome: "Kit 2 câmeras de segurança Wi-Fi iCSee, interna/externa, à prova d'água", descricao: "Kit com 2 câmeras Wi-Fi iCSee, internas ou externas, com infravermelho e resistência a água.", imagem: '/produtos/ml-1CYpbXo.webp', href: 'https://meli.la/1CYpbXo', nota: '4,8', vendas: 'mais de 250 mil' },
+  "R1b": { id: "R1b", nome: "Câmera Wi-Fi Intelbras 3 MP", descricao: "Câmera Wi-Fi Intelbras de 3 MP, de marca conhecida no Brasil, para cobrir um ponto cego da casa.", imagem: '/produtos/ml-1tjXKS7.webp', href: 'https://meli.la/1tjXKS7', nota: '4,9', vendas: 'mais de 50 mil' },
+  "R2": { id: "R2", nome: "Campainha sem fio com câmera e Wi-Fi (Quick)", descricao: "Campainha sem fio com função fotográfica, Wi-Fi e sensor, da Quick, para ver quem está no portão.", imagem: '/produtos/ml-1tYjtFj.webp', href: 'https://meli.la/1tYjtFj', nota: '4,5', vendas: 'mais de 1 mil' },
+  "R3": { id: "R3", nome: "Sensor de movimento que acende a luz Intelbras ESPI 360 A", descricao: "Sensor de movimento Intelbras ESPI 360 A, que acende a luz automaticamente quando detecta presença.", imagem: '/produtos/ml-1riFPb8.webp', href: 'https://meli.la/1riFPb8', nota: '4,8', vendas: 'mais de 10 mil' },
+  "R3b": { id: "R3b", nome: "Interruptor com sensor de presença e fotocélula", descricao: "Interruptor com sensor de presença e fotocélula, para acender a iluminação só quando necessário.", imagem: '/produtos/ml-32uiTY8.webp', href: 'https://meli.la/32uiTY8', nota: '4,8', vendas: 'mais de 100 mil' },
+  "R4": { id: "R4", nome: "Sensor magnético sem fio de porta/janela Intelbras (bateria)", descricao: "Sensor magnético sem fio da Intelbras (a bateria) para detectar a abertura de porta ou janela. Confira a compatibilidade com o seu alarme.", imagem: '/produtos/ml-1KALVaF.webp', href: 'https://meli.la/1KALVaF', nota: '4,8', vendas: 'mais de 10 mil' },
+  "R5": { id: "R5", nome: "Fechadura digital biométrica de embutir Intelbras FR 221V", descricao: "Fechadura digital biométrica de embutir Intelbras FR 221V, para quem quer abrir a porta sem chave.", imagem: '/produtos/ml-2GVSicF.webp', href: 'https://meli.la/2GVSicF', nota: '4,9', vendas: 'mais de 5 mil' },
+  "R5b": { id: "R5b", nome: "Fechadura eletrônica digital biometria/senha/cartão/app", descricao: "Fechadura eletrônica digital com biometria, senha, cartão e aplicativo. Opção de preço menor.", imagem: '/produtos/ml-1m6gBBj.webp', href: 'https://meli.la/1m6gBBj', nota: '4,9', vendas: 'mais de 10 mil' },
+  "R6": { id: "R6", nome: "Pasta sanfonada A4 12 divisórias (documentos da família)", descricao: "Pasta sanfonada A4 com 12 divisórias, para organizar os documentos da família em um só lugar.", imagem: '/produtos/ml-2KhHVm7.webp', href: 'https://meli.la/2KhHVm7', nota: '4,9', vendas: 'mais de 10 mil' },
+  "D2": { id: "D2", nome: "Smart tag localizador (Find My / Find Hub)", descricao: "Localizador (smart tag) compatível com Apple Find My e Android Find Hub, com alarme sonoro de 100 dB.", imagem: '/produtos/ml-2iaDLkq.webp', href: 'https://meli.la/2iaDLkq', nota: '4,7', vendas: 'mais de 1 mil' },
+  "D3": { id: "D3", nome: "Rastreador GPS veicular Tkstar TK905 com ímã", descricao: "Rastreador GPS veicular com ímã e bateria. Verifique no anúncio o chip e o plano de dados necessários.", imagem: '/produtos/ml-1K1bCgV.webp', href: 'https://meli.la/1K1bCgV', nota: '4,5', vendas: 'mais de 5 mil' },
+  "D4": { id: "D4", nome: "Mochila antifurto impermeável com porta USB", descricao: "Mochila para notebook, impermeável, com porta USB e fecho com senha.", imagem: '/produtos/ml-1bnEELz.webp', href: 'https://meli.la/1bnEELz', nota: '4,9', vendas: 'mais de 10 mil' },
+  "E1": { id: "E1", nome: "Protetor auricular abafador Confort Plus 26 dB, CA 4805", descricao: "Protetor auricular tipo concha (abafador) de 26 dB, passivo. Confira o número do CA no anúncio.", imagem: '/produtos/ml-22wrC6c.webp', href: 'https://meli.la/22wrC6c', nota: '4,8', vendas: 'mais de 10 mil' },
+  "E2": { id: "E2", nome: "Óculos de proteção para tiro/airsoft (teste balístico)", descricao: "Óculos de proteção para tiro e airsoft. Confira se o anúncio informa certificação (CA); sem ela é só acessório.", imagem: '/produtos/ml-2uMq4o3.webp', href: 'https://meli.la/2uMq4o3', nota: '4,8', vendas: 'mais de 500' },
+  "E3": { id: "E3", nome: "Lanterna tática LED recarregável T9 Apfer", descricao: "Lanterna tática LED recarregável, modelo T9 da Apfer, com zoom.", imagem: '/produtos/ml-1VXuZDC.webp', href: 'https://meli.la/1VXuZDC', nota: '4,8', vendas: 'mais de 100 mil' },
+  "E4": { id: "E4", nome: "Carregador digital de bateria 18650/26650 bivolt", descricao: "Carregador digital para baterias 18650 e 26650, bivolt, para quem usa lanterna recarregável.", imagem: '/produtos/ml-1QhVoE8.webp', href: 'https://meli.la/1QhVoE8', nota: '4,8', vendas: 'mais de 5 mil' },
+  "A1": { id: "A1", nome: "Carregador GaN 65 W USB-C com 3 portas (Dapon)", descricao: "Carregador GaN de 65 W com 3 portas USB-C, que atende celular e notebook.", imagem: '/produtos/ml-2Bw72GW.webp', href: 'https://meli.la/2Bw72GW', nota: '4,9', vendas: 'mais de 1 mil' },
+  "A2": { id: "A2", nome: "Caixa de som Bluetooth portátil com FM/SD 20 W", descricao: "Caixa de som Bluetooth portátil com entrada para cartão SD e rádio FM.", imagem: '/produtos/ml-2pjbX91.webp', href: 'https://meli.la/2pjbX91', nota: '4,6', vendas: 'mais de 50 mil' },
+  "A3": { id: "A3", nome: "Garrafa térmica Termolar Lúmina 1 L com bomba", descricao: "Garrafa térmica Termolar Lúmina de 1 litro com bomba de pressão.", imagem: '/produtos/ml-2YscgTS.webp', href: 'https://meli.la/2YscgTS', nota: '4,7', vendas: 'mais de 100 mil' },
+  "A4": { id: "A4", nome: "Suporte magnético de celular para carro", descricao: "Suporte magnético de celular para o carro, com base rotativa.", imagem: '/produtos/ml-1NwSyt8.webp', href: 'https://meli.la/1NwSyt8', nota: '4,8', vendas: 'mais de 10 mil' },
+  "A5": { id: "A5", nome: "Mochila executiva antifurto impermeável (USB)", descricao: "Mochila executiva impermeável com porta USB e compartimento para notebook, com recursos antifurto.", imagem: '/produtos/ml-21SNXHH.webp', href: 'https://meli.la/21SNXHH', nota: '5,0', vendas: 'mais de 50 mil' },
+  "A6": { id: "A6", nome: "Lanterna tática \"T9\" recarregável (outra loja)", descricao: "Lanterna tática T9 recarregável, versão preta.", imagem: '/produtos/ml-2gUMrWZ.webp', href: 'https://meli.la/2gUMrWZ', nota: '4,9', vendas: 'mais de 10 mil' },
 };
+
+/** Rotação de lateral e fim de artigo (nunca no meio do texto): itens gerais e também equipamento de combate/tiro e kit de trauma, que só entram no meio do artigo se forem recomendação pessoal do autor. */
+export const ROTACAO = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'S1', 'S2', 'S3', 'S10', 'S12', 'S13', 'E1', 'E2', 'E3', 'E4', 'P3', 'P4', 'P5'];
 
 function hash(s: string): number {
   let h = 2166136261;
@@ -185,20 +75,10 @@ function hash(s: string): number {
 }
 
 /**
- * Escolhe um produto de forma determinística (mesma página = mesmo produto em todo build)
- * e garante que posições diferentes da MESMA página recebam produtos diferentes.
- * `indice` = 0 (topo), 1 (fim), 2 (lateral)...
+ * Escolhe um produto da rotação de forma determinística (mesma página = mesmo produto em todo
+ * build); posições diferentes da mesma página (indice 0, 1, 2) recebem produtos diferentes.
  */
-export function escolherProduto(seed: string, indice = 0, categoria?: string): ProdutoAfiliado {
-  const preferidos = categoria ? TEMAS_POR_CATEGORIA[categoria] : undefined;
-  const ordenados = [...PRODUTOS].sort((a, b) => {
-    const pa = preferidos?.includes(a.tema) ? 0 : 1;
-    const pb = preferidos?.includes(b.tema) ? 0 : 1;
-    return pa - pb || a.id.localeCompare(b.id);
-  });
-  const pool = preferidos ? ordenados.filter((p) => preferidos.includes(p.tema)) : ordenados;
+export function escolherProduto(seed: string, indice = 0): ProdutoAfiliado {
   const base = hash(seed);
-  // quando há poucos afins, as posições seguintes caem no catálogo inteiro
-  const lista = indice < pool.length && pool.length >= 3 ? pool : ordenados;
-  return lista[(base + indice * 5) % lista.length];
+  return PRODUTOS[ROTACAO[(base + indice * 5) % ROTACAO.length]];
 }

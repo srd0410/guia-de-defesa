@@ -1,0 +1,71 @@
+---
+// Card único de produto de afiliado (Mercado Livre). Usado por <ProdutoContexto> (meio do
+// artigo) e <ProductSlot> (lateral/fim). Texto sempre honesto: diz o critério da escolha
+// (nota e vendas na data da consulta) e que é sugestão sem uso próprio.
+import { STORES } from '../consts';
+import { DATA_CONSULTA, type ProdutoAfiliado } from '../data/produtos-afiliados';
+
+interface Props {
+  produto: ProdutoAfiliado;
+  compact?: boolean;
+}
+const { produto: p, compact = false } = Astro.props;
+const loja = STORES.mercadolivre;
+---
+<aside class:list={['pcard', { compact }]} aria-label={`Sugestão de produto: ${p.nome}`} data-pagefind-ignore>
+  <p class="pcard-label">Sugestão · link de afiliado</p>
+  <a class="pcard-main" href={p.href} target="_blank" rel="sponsored nofollow noopener">
+    <img src={p.imagem} alt={p.nome} loading="lazy" width="120" height="120" />
+    <span class="pcard-text">
+      <strong class="pcard-name">{p.nome}</strong>
+      {!compact && <span class="pcard-desc">{p.descricao}</span>}
+    </span>
+  </a>
+  {!compact && (
+    <p class="pcard-crit">
+      Escolhido pela nota ({p.nota}) e pelo volume de vendas ({p.vendas}) no Mercado Livre em {DATA_CONSULTA}.
+      Sugestão sem uso próprio: não testamos este produto.
+    </p>
+  )}
+  <a class="pcard-btn" href={p.href} target="_blank" rel="sponsored nofollow noopener"
+     style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</a>
+  <p class="pcard-note">Se você comprar por este link, o Guia de Defesa pode receber uma comissão, sem custo extra para você.</p>
+</aside>
+
+<style>
+  .pcard {
+    margin: 1.8rem 0;
+    padding: 0.9rem 1rem 0.8rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius, 4px);
+  }
+  .pcard-label {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--steel); margin: 0 0 0.6rem;
+  }
+  .pcard-main { display: flex; gap: 0.9rem; align-items: center; text-decoration: none; color: inherit; }
+  .pcard-main img {
+    flex: 0 0 auto; width: 96px; height: 96px; object-fit: contain;
+    background: #fff; border: 1px solid var(--line); border-radius: 3px;
+  }
+  .pcard-text { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .pcard-name { font-family: var(--font-display); font-size: 1rem; line-height: 1.3; color: var(--ink); }
+  .pcard-desc { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
+  .pcard-main:hover .pcard-name { color: var(--brass); }
+  .pcard-crit { font-size: 0.76rem; line-height: 1.4; color: var(--steel); margin: 0.6rem 0 0; }
+  .pcard-btn {
+    display: inline-block; margin-top: 0.7rem; padding: 0.42rem 0.9rem; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; text-decoration: none;
+  }
+  .pcard-btn:hover { filter: brightness(0.94); }
+  .pcard-note { font-size: 0.68rem; color: var(--steel); margin: 0.6rem 0 0; }
+  .pcard.compact { text-align: center; padding: 0.8rem; margin: 2rem 0; }
+  .pcard.compact .pcard-main { flex-direction: column; }
+  .pcard.compact .pcard-main img { width: 100%; max-width: 140px; height: auto; aspect-ratio: 1; }
+  .pcard.compact .pcard-btn { display: block; }
+  @media (max-width: 520px) {
+    .pcard:not(.compact) .pcard-main img { width: 80px; height: 80px; }
+  }
+</style>

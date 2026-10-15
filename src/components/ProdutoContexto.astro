@@ -1,0 +1,18 @@
+---
+// Produto(s) de afiliado ligados ao assunto da seção, colocados no fim da seção dentro do .mdx:
+//   <ProdutoContexto ids={['S6']} />
+// Os códigos vêm de src/data/produtos-afiliados.ts. Código inexistente derruba o build (de propósito).
+import ProdutoCard from './ProdutoCard.astro';
+import { PRODUTOS } from '../data/produtos-afiliados';
+
+interface Props {
+  ids: string[];
+}
+const { ids } = Astro.props;
+const produtos = ids.map((id) => {
+  const p = PRODUTOS[id];
+  if (!p) throw new Error(`ProdutoContexto: código de produto desconhecido "${id}"`);
+  return p;
+});
+---
+{produtos.map((p) => <ProdutoCard produto={p} />)}
