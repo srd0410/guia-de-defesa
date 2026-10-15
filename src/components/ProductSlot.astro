@@ -1,0 +1,19 @@
+---
+// Vitrine de produto com link de afiliado nos espaços que eram do AdSense (topo/fim/lateral do
+// artigo, topo da categoria, lateral da home) enquanto o Google não aprova o site. Produtos de
+// utilidade geral, sem ligação com o texto (os ligados ao texto ficam em <ProdutoContexto>).
+// Para voltar ao AdSense: trocar <ProductSlot> por <AdSlot> nas páginas ([slug],
+// categoria/[category], index).
+import ProdutoCard from './ProdutoCard.astro';
+import { escolherProduto } from '../data/produtos-afiliados';
+
+interface Props {
+  /** identifica a página (ex.: slug) — define qual produto aparece, de forma estável */
+  seed: string;
+  /** 0 = topo, 1 = fim, 2 = lateral... (posições diferentes mostram produtos diferentes) */
+  indice?: number;
+  compact?: boolean;
+}
+const { seed, indice = 0, compact = false } = Astro.props;
+---
+<ProdutoCard produto={escolherProduto(seed, indice)} compact={compact} />
