@@ -2,8 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
-import ProductSlot from '../components/ProductSlot.astro';
-import SponsorSlot from '../components/SponsorSlot.astro';
+import EspacoPublicitario from '../components/EspacoPublicitario.astro';
 import AuthorBio from '../components/AuthorBio.astro';
 import { getCategory, AUTHOR, SITE } from '../consts';
 
@@ -26,9 +25,8 @@ const toc = headings.filter((h) => h.depth === 2);
 const wordCount = post.body?.replace(/```[\s\S]*?```/g, '').split(/\s+/).filter(Boolean).length ?? 0;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 
-// Espaços que eram do AdSense agora mostram produtos de afiliado (<ProductSlot>). Se o post
-// já define o próprio produto (sponsorAffiliateHref), o slot linka pra ele em vez da vitrine.
-const hasOwnSponsor = Boolean(post.data.sponsorAffiliateHref);
+// Espaços de publicidade: <EspacoPublicitario> escolhe entre vitrine de afiliados e AdSense
+// conforme SITE.espacos (por posição). Se o post define o próprio produto (sponsorAffiliateHref), ele vence a vitrine.
 const sponsorProps = post.data.sponsorAffiliateHref
   ? { affiliateLabel: post.data.sponsorAffiliateLabel, affiliateHref: post.data.sponsorAffiliateHref }
   : {};
@@ -137,9 +135,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
     <div id="ad-artigo-topo" data-pagefind-ignore>
-      {hasOwnSponsor
-        ? <SponsorSlot {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={0} />}
+      <EspacoPublicitario posicao="artigo-topo" seed={post.slug} indice={0} ads={post.data.ads} patrocinio={sponsorProps} />
     </div>
 
     <div class="prose">
@@ -161,9 +157,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     <div data-pagefind-ignore>
       <hr class="field-rule" />
       {/* Artigo — fim */}
-      {hasOwnSponsor
-        ? <SponsorSlot {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={1} />}
+      <EspacoPublicitario posicao="artigo-fim" seed={post.slug} indice={1} ads={post.data.ads} patrocinio={sponsorProps} />
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -199,9 +193,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
         </nav>
       )}
       {/* Artigo — lateral (só desktop largo) */}
-      {hasOwnSponsor
-        ? <SponsorSlot compact {...sponsorProps} />
-        : <ProductSlot seed={post.slug} indice={2} compact />}
+      <EspacoPublicitario posicao="artigo-lateral" seed={post.slug} indice={2} compact ads={post.data.ads} patrocinio={sponsorProps} />
     </div>
   </aside>
   </div>

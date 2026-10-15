@@ -24,6 +24,21 @@ export const SITE = {
   // index.astro, categoria/[category].astro) só ativa de verdade quando também tiver o
   // "slot" (ID da unidade de anúncio) preenchido — ver COMANDOS-RAPIDOS.md, seção 4.5.
   adsenseClientId: 'ca-pub-8473582368044331',
+  // O QUE OCUPA CADA ESPAÇO DE PUBLICIDADE do site. Para cada posição, escolha:
+  //   'afiliados' = vitrine de produtos com link de afiliado (<ProductSlot>);
+  //   'adsense'   = anúncio do Google (<AdSlot>), com os IDs de bloco em
+  //                 src/components/EspacoPublicitario.astro.
+  // Dá para misturar à vontade (ex.: topo do artigo = 'adsense', fim = 'afiliados'). O script do
+  // AdSense, o ads.txt e o campo `ads` dos artigos ficam configurados em qualquer combinação.
+  // Artigo com `ads: false` nunca recebe anúncio do Google (mostra o patrocínio/afiliado).
+  espacos: {
+    'artigo-topo': 'afiliados',     // logo após o 1º parágrafo do artigo
+    'artigo-fim': 'afiliados',      // depois do conteúdo, antes das tags
+    'artigo-lateral': 'afiliados',  // coluna da direita (telas largas)
+    categoria: 'afiliados',         // topo da página de categoria
+    'categoria-extra': 'afiliados', // blocos intercalados na lista de categoria (só afiliados; no AdSense ficam ocultos)
+    home: 'afiliados',              // lateral da home
+  } as Record<'artigo-topo' | 'artigo-fim' | 'artigo-lateral' | 'categoria' | 'categoria-extra' | 'home', 'afiliados' | 'adsense'>,
 };
 
 // Autor padrão dos artigos (sinal forte de E-E-A-T para Google e IAs).
