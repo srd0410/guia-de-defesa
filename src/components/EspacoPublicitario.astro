@@ -1,0 +1,50 @@
+---
+// Ponto único dos espaços de publicidade do site. O que aparece em cada posição depende de
+// SITE.espacos (src/consts.ts), posição por posição:
+//   'afiliados' → <ProductSlot> (vitrine de produtos com link de afiliado);
+//   'adsense'   → <AdSlot> com os blocos de anúncio abaixo. Artigos com `ads: false` (categorias
+//                 restritas pelo Google: armas, munição, acessórios) mostram <SponsorSlot>,
+//                 como antes — nunca anúncio do Google.
+// As posições "extra" (blocos a mais na página de categoria) só existem quando 'categoria-extra' = 'afiliados':
+// no AdSense a página mantém um único bloco, como era.
+import { SITE } from '../consts';
+import AdSlot from './AdSlot.astro';
+import ProductSlot from './ProductSlot.astro';
+import SponsorSlot from './SponsorSlot.astro';
+
+// IDs das unidades de anúncio criadas no painel do AdSense (ca-pub-8473582368044331).
+const SLOTS = {
+  'artigo-topo': '6996990475',
+  'artigo-fim': '9142019079',
+  'artigo-lateral': '3165556671',
+  categoria: '8310072144',
+  home: '3524649329',
+} as const;
+
+interface Props {
+  posicao: keyof typeof SLOTS;
+  /** identifica a página (slug etc.) para a escolha estável do produto */
+  seed: string;
+  /** posição do produto na rotação (0, 1, 2...) — posições diferentes da mesma página variam */
+  indice?: number;
+  compact?: boolean;
+  /** artigo permite anúncio do Google? (campo `ads` do frontmatter; padrão: sim) */
+  ads?: boolean;
+  /** produto do próprio artigo (sponsorAffiliateHref), que tem prioridade sobre a vitrine */
+  patrocinio?: { affiliateLabel?: string; affiliateHref?: string };
+  /** bloco adicional: só aparece quando 'categoria-extra' = 'afiliados' */
+  extra?: boolean;
+}
+const { posicao, seed, indice = 0, compact = false, ads = true, patrocinio = {}, extra = false } = Astro.props;
+const modoAdsense = SITE.espacos[extra ? 'categoria-extra' : posicao] === 'adsense';
+const temPatrocinioProprio = Boolean(patrocinio.affiliateHref);
+---
+{modoAdsense
+  ? (extra
+      ? null
+      : ads
+        ? <AdSlot slot={SLOTS[posicao]} />
+        : <SponsorSlot compact={compact} {...patrocinio} />)
+  : (temPatrocinioProprio
+      ? <SponsorSlot compact={compact} {...patrocinio} />
+      : <ProductSlot seed={seed} indice={indice} compact={compact} />)}
