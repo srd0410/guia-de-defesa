@@ -31,6 +31,11 @@ export const SITE = {
   // Dá para misturar à vontade (ex.: topo do artigo = 'adsense', fim = 'afiliados'). O script do
   // AdSense, o ads.txt e o campo `ads` dos artigos ficam configurados em qualquer combinação.
   // Artigo com `ads: false` nunca recebe anúncio do Google (mostra o patrocínio/afiliado).
+  // Vitrine de afiliados (só vale para 'afiliados'): em categorias de assunto sensível para o
+  // leitor (lei, CAC, saúde, fundamentos) o topo do artigo fica sem produto, e nenhum artigo passa
+  // de `maxBlocosAfiliado` blocos de produto (os cards próprios do autor contam).
+  semVitrineNoTopo: ['legislacao', 'cac-tiro-desportivo', 'primeiros-socorros', 'ciencia-do-treinamento', 'fundamentos'],
+  maxBlocosAfiliado: 4,
   espacos: {
     'artigo-topo': 'afiliados',     // logo após o 1º parágrafo do artigo
     'artigo-fim': 'afiliados',      // depois do conteúdo, antes das tags

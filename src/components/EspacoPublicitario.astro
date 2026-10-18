@@ -34,8 +34,10 @@ interface Props {
   patrocinio?: { affiliateLabel?: string; affiliateHref?: string };
   /** bloco adicional: só aparece quando 'categoria-extra' = 'afiliados' */
   extra?: boolean;
+  /** false = esconde a vitrine de afiliados neste espaço (limites de densidade); não afeta o AdSense */
+  mostrar?: boolean;
 }
-const { posicao, seed, indice = 0, compact = false, ads = true, patrocinio = {}, extra = false } = Astro.props;
+const { posicao, seed, indice = 0, compact = false, ads = true, patrocinio = {}, extra = false, mostrar = true } = Astro.props;
 const modoAdsense = SITE.espacos[extra ? 'categoria-extra' : posicao] === 'adsense';
 const temPatrocinioProprio = Boolean(patrocinio.affiliateHref);
 ---
@@ -45,6 +47,8 @@ const temPatrocinioProprio = Boolean(patrocinio.affiliateHref);
       : ads
         ? <AdSlot slot={SLOTS[posicao]} />
         : <SponsorSlot compact={compact} {...patrocinio} />)
-  : (temPatrocinioProprio
+  : !mostrar
+    ? null
+    : (temPatrocinioProprio
       ? <SponsorSlot compact={compact} {...patrocinio} />
       : <ProductSlot seed={seed} indice={indice} compact={compact} />)}

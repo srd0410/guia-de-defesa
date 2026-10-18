@@ -27,6 +27,19 @@ const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 
 // Espaços de publicidade: <EspacoPublicitario> escolhe entre vitrine de afiliados e AdSense
 // conforme SITE.espacos (por posição). Se o post define o próprio produto (sponsorAffiliateHref), ele vence a vitrine.
+// Densidade da vitrine (modo 'afiliados'): cards próprios do autor (<ProductCard>) e cards
+// contextuais (<ProdutoContexto>) entram na conta; o que sobrar até SITE.maxBlocosAfiliado vai
+// para os espaços fixos, na ordem fim > lateral > topo. Categorias sensíveis ficam sem o topo.
+const corpo = post.body ?? '';
+const blocosNoTexto =
+  (corpo.match(/<ProductCard\b/g) ?? []).length +
+  [...corpo.matchAll(/<ProdutoContexto\s+ids=\{\[([^\]]*)\]\}/g)].reduce((n, m) => n + (m[1].match(/'[^']+'/g) ?? []).length, 0);
+const orcamento = Math.max(0, SITE.maxBlocosAfiliado - blocosNoTexto);
+const ordem = ['artigo-fim', 'artigo-lateral', 'artigo-topo'].filter(
+  (p) => !(p === 'artigo-topo' && SITE.semVitrineNoTopo.includes(post.data.category))
+);
+const vitrine = new Set(ordem.slice(0, orcamento));
+
 const sponsorProps = post.data.sponsorAffiliateHref
   ? { affiliateLabel: post.data.sponsorAffiliateLabel, affiliateHref: post.data.sponsorAffiliateHref }
   : {};
@@ -135,7 +148,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     {/* Artigo — topo. Fica logo após o 1º parágrafo (a introdução) via script abaixo —
         a posição SSR aqui (antes do <Content />) é só o fallback se o JS não rodar. */}
     <div id="ad-artigo-topo" data-pagefind-ignore>
-      <EspacoPublicitario posicao="artigo-topo" seed={post.slug} indice={0} ads={post.data.ads} patrocinio={sponsorProps} />
+      <EspacoPublicitario posicao="artigo-topo" seed={post.slug} indice={0} mostrar={vitrine.has('artigo-topo')} ads={post.data.ads} patrocinio={sponsorProps} />
     </div>
 
     <div class="prose">
@@ -157,7 +170,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
     <div data-pagefind-ignore>
       <hr class="field-rule" />
       {/* Artigo — fim */}
-      <EspacoPublicitario posicao="artigo-fim" seed={post.slug} indice={1} ads={post.data.ads} patrocinio={sponsorProps} />
+      <EspacoPublicitario posicao="artigo-fim" seed={post.slug} indice={1} mostrar={vitrine.has('artigo-fim')} ads={post.data.ads} patrocinio={sponsorProps} />
 
       {post.data.tags.length > 0 && (
         <div class="tags">
@@ -193,7 +206,7 @@ const ogImage = post.data.cover ? post.data.cover.src : `/og/${post.slug}.png`;
         </nav>
       )}
       {/* Artigo — lateral (só desktop largo) */}
-      <EspacoPublicitario posicao="artigo-lateral" seed={post.slug} indice={2} compact ads={post.data.ads} patrocinio={sponsorProps} />
+      <EspacoPublicitario posicao="artigo-lateral" seed={post.slug} indice={2} mostrar={vitrine.has('artigo-lateral')} compact ads={post.data.ads} patrocinio={sponsorProps} />
     </div>
   </aside>
   </div>

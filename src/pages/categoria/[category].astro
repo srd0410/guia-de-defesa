@@ -55,9 +55,9 @@ const breadcrumbs = [
           category={p.data.category}
           pubDate={p.data.pubDate}
         />
-        {/* Categoria — intercalados: depois do 3º (ou do 1º, em seção curta) e do 7º artigo */}
-        {(i === (posts.length > 3 ? 2 : 0) || (posts.length > 7 && i === 6)) && (
-          <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={i === 6 ? 2 : 1} extra />
+        {/* Categoria — intercalado: depois do 3º artigo (ou do 1º, em seção curta) */}
+        {i === (posts.length > 3 ? 2 : 0) && (
+          <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={1} extra />
         )}
       </>
     ))}
