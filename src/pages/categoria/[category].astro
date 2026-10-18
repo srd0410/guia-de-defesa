@@ -3,13 +3,31 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import EspacoPublicitario from '../../components/EspacoPublicitario.astro';
+import BannerHead from '../../components/BannerHead.astro';
 import { CATEGORIES, getCategory } from '../../consts';
+import type { ImageMetadata } from 'astro';
+
+// Banner por categoria: src/assets/banners/categoria-<slug>-banner.jpg (opcional).
+const banners = import.meta.glob<{ default: ImageMetadata }>('../../assets/banners/categoria-*-banner.jpg', { eager: true });
+const BANNER_ALT: Record<string, string> = {
+  "defesa-pessoal": "Duas mãos abertas em postura de guarda, com rua noturna desfocada ao fundo.",
+  "defesa-residencial": "Porta de madeira escura com fechadura, trava reforçada e chaves sob luz quente.",
+  "equipamentos": "Mochila oliva, lanterna, canivete fechado e carteira sobre bancada escura.",
+  "sobrevivencialismo": "Bússola sobre mapa topográfico, com fogareiro e garrafa diante de uma floresta.",
+  "tiro": "Abafador e óculos de proteção sobre bancada de um estande vazio.",
+  "ciencia-do-treinamento": "Cronômetro, bandagens, kettlebell e caderno fechado sobre piso de madeira escura.",
+  "fundamentos": "Livro verde fechado, bússola e caneta sobre mesa, com vela desfocada ao fundo.",
+  "legislacao": "Balança de latão, livro fechado e caneta em escritório de madeira escura.",
+  "cac-tiro-desportivo": "Luneta em tripé, abafador e óculos sobre bancada de estande ao ar livre.",
+  "primeiros-socorros": "Bolsa oliva aberta com ataduras, gaze, tesoura e torniquete limpos."
+};
 
 export async function getStaticPaths() {
   return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { category: c } }));
 }
 
 const { category } = Astro.props;
+const banner = banners[`../../assets/banners/categoria-${category.slug}-banner.jpg`]?.default;
 // Só publicados: não-rascunho e com data já alcançada (ver index.astro).
 const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date() && data.category === category.slug))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -28,13 +46,11 @@ const breadcrumbs = [
   type="website"
   breadcrumbs={breadcrumbs}
 >
-  <section class="cat-head">
-    <div class="wrap">
-      <p class="eyebrow">Seção</p>
-      <h1>{category.name}</h1>
-      <p class="blurb">{category.blurb}</p>
-    </div>
-  </section>
+  <BannerHead image={banner} alt={BANNER_ALT[category.slug] ?? ''}>
+    <p class="eyebrow">Seção</p>
+    <h1>{category.name}</h1>
+    <p slot="detail" class="blurb">{category.blurb}</p>
+  </BannerHead>
 
   <div class="wrap cat-intro">
     {category.intro.map((paragraph) => <p>{paragraph}</p>)}
@@ -68,9 +84,6 @@ const breadcrumbs = [
 </BaseLayout>
 
 <style>
-  .cat-head { background: var(--command); color: #fff; padding: 2.8rem 0; border-bottom: 3px solid var(--olive); }
-  .cat-head .eyebrow { color: var(--brass); }
-  .cat-head h1 { color: #fff; margin-top: 0.4rem; }
   .blurb { color: #cfd6cf; max-width: 56ch; margin-top: 0.6rem; }
   .cat-intro { max-width: var(--measure); padding-top: 2rem; }
   .cat-intro p { color: var(--ink-soft); line-height: 1.7; margin-bottom: 1rem; }

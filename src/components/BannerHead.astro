@@ -1,0 +1,56 @@
+---
+// Cabeçalho com banner fotográfico (categorias e acervo), versão escura.
+// Celular e tablet: o título (slot padrão) fica SOBRE a base da foto, que desce
+// para o verde do cabeçalho (--command); a descrição (slot "detail") vem logo abaixo.
+// O assunto da foto fica entre 40% e 90% da largura (recorte em 65%).
+// Computador: foto atrás do cabeçalho, com degradê escuro à esquerda para o título.
+// Banners em src/assets/banners/ (1920 × 800).
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { image?: ImageMetadata; alt?: string; }
+const { image, alt = '' } = Astro.props;
+---
+<section class:list={['banner-head', { 'has-banner': !!image }]}>
+  {image && (
+    <div class="banner-media">
+      <Image src={image} alt={alt} widths={[480, 800, 1200, 1920]} sizes="100vw" width={1920} height={800} format="webp" quality={78} loading="eager" decoding="async" />
+    </div>
+  )}
+  <div class="wrap banner-content">
+    <div class="banner-title"><slot /></div>
+    <div class="banner-detail"><slot name="detail" /></div>
+  </div>
+</section>
+<style>
+  .banner-head { position: relative; overflow: hidden; background: var(--command); color: #fff; border-bottom: 3px solid var(--olive); }
+  .banner-content { position: relative; z-index: 1; padding-block: 2.8rem; }
+  .banner-media { aspect-ratio: 5 / 4; background: var(--command); }
+  .banner-media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 65% 50%; }
+  .banner-title :global(.eyebrow) { color: var(--brass); }
+  .banner-title :global(h1) { color: #fff; margin-top: 0.4rem; }
+
+  /* Celular e tablet com banner: título sobre a base da foto, descrição abaixo */
+  .has-banner { display: grid; }
+  .has-banner .banner-media, .has-banner .banner-title { grid-area: 1 / 1; }
+  .has-banner .banner-content { display: contents; }
+  .has-banner .banner-title {
+    position: relative; z-index: 1; align-self: end;
+    padding: 2.6rem max(1.25rem, calc((100% - 720px) / 2)) .6rem;
+    background: linear-gradient(to top, var(--command) 0%, rgba(24, 36, 30, .93) 55%, rgba(24, 36, 30, 0) 100%);
+  }
+  .has-banner .banner-title :global(h1) { margin-bottom: 0; }
+  .has-banner .banner-detail { grid-area: 2 / 1; padding: .2rem max(1.25rem, calc((100% - 720px) / 2)) 1.8rem; background: var(--command); }
+  @media (min-width: 600px) {
+    .banner-media { aspect-ratio: 2.1 / 1; }
+    .banner-media :global(img) { object-position: 60% 50%; }
+  }
+  @media (min-width: 900px) {
+    .has-banner { display: flex; align-items: center; min-height: 340px; }
+    .has-banner .banner-content { display: block; position: relative; z-index: 1; padding-block: 3.2rem; }
+    .has-banner .banner-title { position: static; padding: 0; background: none; }
+    .has-banner .banner-detail { padding: 0; background: none; }
+    .has-banner .banner-media { position: absolute; inset: 0; aspect-ratio: auto; }
+    .has-banner .banner-media :global(img) { object-position: center 50%; }
+    .has-banner .banner-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--command) 0%, rgba(24, 36, 30, .92) 34%, rgba(24, 36, 30, .35) 58%, rgba(24, 36, 30, 0) 75%); }
+  }
+</style>
