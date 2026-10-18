@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import ProductSlot from '../../components/ProductSlot.astro';
+import EspacoPublicitario from '../../components/EspacoPublicitario.astro';
 import { CATEGORIES, getCategory } from '../../consts';
 
 export async function getStaticPaths() {
@@ -44,17 +44,26 @@ const breadcrumbs = [
     {posts.length === 0 && <p class="empty">Ainda não há artigos nesta seção. Em breve.</p>}
 
     {/* Categoria — topo */}
-    {posts.length > 0 && <ProductSlot seed={`categoria-${category.slug}`} indice={0} />}
+    {posts.length > 0 && <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={0} />}
 
-    {posts.map((p) => (
-      <PostCard
-        url={`/${p.slug}/`}
-        title={p.data.title}
-        description={p.data.description}
-        category={p.data.category}
-        pubDate={p.data.pubDate}
-      />
+    {posts.map((p, i) => (
+      <>
+        <PostCard
+          url={`/${p.slug}/`}
+          title={p.data.title}
+          description={p.data.description}
+          category={p.data.category}
+          pubDate={p.data.pubDate}
+        />
+        {/* Categoria — intercalado: depois do 3º artigo (ou do 1º, em seção curta) */}
+        {i === (posts.length > 3 ? 2 : 0) && (
+          <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={1} extra />
+        )}
+      </>
     ))}
+
+    {/* Categoria — fim da lista */}
+    {posts.length > 0 && <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={3} extra />}
   </div>
 </BaseLayout>
 
