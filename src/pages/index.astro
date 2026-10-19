@@ -39,7 +39,7 @@ const hasMore = rest.length > RECENT_LIMIT;
           title={lead.data.title}
           description={lead.data.description}
           category={lead.data.category}
-          pubDate={lead.data.pubDate}
+          pubDate={lead.data.pubDate} cover={lead.data.cover} coverAlt={lead.data.coverAlt}
           feature={true}
         />
       </section>
@@ -59,7 +59,7 @@ const hasMore = rest.length > RECENT_LIMIT;
             title={p.data.title}
             description={p.data.description}
             category={p.data.category}
-            pubDate={p.data.pubDate}
+            pubDate={p.data.pubDate} cover={p.data.cover} coverAlt={p.data.coverAlt}
           />
         ))}
         {hasMore && (

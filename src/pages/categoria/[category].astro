@@ -69,7 +69,7 @@ const breadcrumbs = [
           title={p.data.title}
           description={p.data.description}
           category={p.data.category}
-          pubDate={p.data.pubDate}
+          pubDate={p.data.pubDate} cover={p.data.cover} coverAlt={p.data.coverAlt}
         />
         {/* Categoria — intercalado: depois do 3º artigo (ou do 1º, em seção curta) */}
         {i === (posts.length > 3 ? 2 : 0) && (
