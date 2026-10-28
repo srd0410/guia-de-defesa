@@ -62,13 +62,34 @@ const stickyTitle = props.stickyTitle ?? props.title;
       ></script>
     )}
 
-    {/* Google Analytics */}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KEC9LRFXER"></script>
-    <script>
+    {/* Google Analytics — a fila (dataLayer) é montada já, mas o gtag.js só é baixado
+        depois do load + ocioso (ou 4s), pra não competir com o LCP no celular. */}
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-KEC9LRFXER');
+      (function () {
+        var loaded = false;
+        function load() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-KEC9LRFXER';
+          document.head.appendChild(s);
+        }
+        function schedule() {
+          if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 4000 });
+          else setTimeout(load, 4000);
+        }
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule);
+        // visitante que sai/rola cedo ainda é contado
+        ['pointerdown', 'scroll', 'keydown'].forEach(function (e) {
+          window.addEventListener(e, load, { once: true, passive: true });
+        });
+      })();
     </script>
   </head>
   <body>
