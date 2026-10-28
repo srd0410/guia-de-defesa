@@ -1,8 +1,12 @@
 ---
-// FAQ com schema FAQPage (JSON-LD) — legível por humanos e por mecanismos de IA.
+// FAQ recolhida (clica para abrir) com schema FAQPage (JSON-LD) — legível por humanos e IAs.
+// O conteúdo recolhido continua no HTML da página (indexável); só fica fechado visualmente.
 // Uso no MDX:
 //   import Faq from '../../components/Faq.astro';
 //   <Faq items={[{ q: "Pergunta?", a: "Resposta direta em 1–3 frases." }]} />
+// Regra editorial (26/10/2026): 3 a 5 perguntas por artigo, só as que trazem informação NOVA
+// em relação ao corpo e à "Resposta rápida". A página /perguntas-frequentes/ é gerada a partir
+// destas listas (src/lib/faq.ts), sem copiar nada à mão.
 interface FaqItem { q: string; a: string; }
 interface Props { items: FaqItem[]; title?: string; }
 const { items, title = 'Perguntas frequentes' } = Astro.props;
@@ -17,37 +21,41 @@ const jsonLd = {
   })),
 };
 ---
-<section class="faq" aria-labelledby="faq-title">
+<section class="faq" id="perguntas-frequentes" aria-labelledby="faq-title">
   <h2 id="faq-title">{title}</h2>
-  <dl>
+  <div class="qa-list">
     {items.map((it) => (
-      <div class="qa">
-        <dt>{it.q}</dt>
-        <dd set:html={it.a} />
-      </div>
+      <details class="qa">
+        <summary>{it.q}</summary>
+        <div class="answer" set:html={it.a} />
+      </details>
     ))}
-  </dl>
+  </div>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </section>
 
 <style>
   .faq { margin: 2.4rem 0 1rem; }
   .faq h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; }
-  .faq dl { margin: 0; }
-  .qa {
-    border-bottom: 1px solid var(--line);
-    padding: 1rem 0;
-  }
-  .qa dt {
+  .qa-list { margin: 0; }
+  .qa { border-bottom: 1px solid var(--line); }
+  .qa summary {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    cursor: pointer; list-style: none;
+    padding: 0.95rem 0;
+    min-height: 44px;
     font-family: var(--font-display);
-    font-size: 1.18rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
+    font-size: 1.12rem; font-weight: 600; letter-spacing: 0.01em;
     color: var(--ink);
-    margin-bottom: 0.35rem;
   }
-  .qa dd {
-    margin: 0;
-    color: var(--ink-soft);
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after {
+    content: '+'; flex-shrink: 0;
+    font-family: var(--font-mono); font-size: 1.3rem; line-height: 1.1; color: var(--olive-dk);
+    transition: transform 0.15s ease;
   }
+  .qa[open] summary::after { content: '–'; }
+  .qa summary:hover { color: var(--olive-dk); }
+  .qa summary:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
+  .answer { margin: 0 0 1rem; color: var(--ink-soft); }
 </style>

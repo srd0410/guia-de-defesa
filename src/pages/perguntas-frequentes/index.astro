@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CATEGORIES } from '../../consts';
+import { getAllFaqs } from '../../lib/faq';
+
+const all = await getAllFaqs();
+const byCat = CATEGORIES.map((c) => ({ ...c, count: all.filter((f) => f.category === c.slug).length })).filter((c) => c.count > 0);
+---
+<BaseLayout
+  title="Perguntas frequentes"
+  description="Respostas rápidas sobre defesa, tiro, CAC, legislação e preparo, organizadas por assunto, com link para o artigo completo."
+  path="/perguntas-frequentes/"
+  type="website"
+  noindex
+  breadcrumbs={[{ name: 'Início', path: '/' }, { name: 'Perguntas frequentes', path: '/perguntas-frequentes/' }]}
+>
+  <section class="cat-head">
+    <div class="wrap">
+      <p class="eyebrow">Respostas rápidas</p>
+      <h1>Perguntas frequentes</h1>
+      <p class="blurb">{all.length} perguntas dos nossos artigos, por assunto. Cada resposta leva ao texto completo.</p>
+    </div>
+  </section>
+
+  <div class="wrap faq-hub">
+    <label class="search" for="faq-q">
+      <span class="sr-only">Buscar nas perguntas</span>
+      <input id="faq-q" type="search" placeholder="Buscar: cofre, CRAF, legítima defesa" autocomplete="off" />
+    </label>
+    <div id="faq-results" class="results" aria-live="polite" hidden></div>
+
+    <h2 id="assuntos">Por assunto</h2>
+    <ul class="topics">
+      {byCat.map((c) => (
+        <li><a href={`/perguntas-frequentes/${c.slug}/`}><strong>{c.name}</strong><span>{c.count} perguntas</span></a></li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var input = document.getElementById('faq-q');
+    var box = document.getElementById('faq-results');
+    var topics = document.querySelector('.topics');
+    var topicsTitle = document.getElementById('assuntos');
+    var data = null, loading = false;
+    function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+    function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function render() {
+      var terms = norm(input.value).split(/\s+/).filter(Boolean);
+      if (!terms.length || !data) { box.hidden = true; topics.hidden = false; topicsTitle.hidden = false; return; }
+      var hits = data.filter(function (d) {
+        var hay = norm(d.q + ' ' + d.s + ' ' + d.t + ' ' + d.g);
+        return terms.every(function (t) { return hay.indexOf(t) !== -1; });
+      }).slice(0, 40);
+      topics.hidden = true; topicsTitle.hidden = true; box.hidden = false;
+      box.innerHTML = hits.length
+        ? hits.map(function (d) { return '<article class="hit"><h3>' + esc(d.q) + '</h3><p>' + esc(d.s) + '</p><a href="' + d.u + '">Ver no artigo: ' + esc(d.t) + ' →</a></article>'; }).join('')
+        : '<p class="none">Nenhuma pergunta encontrada. Tente outra palavra ou veja os assuntos abaixo.</p>';
+    }
+    function load() {
+      if (data || loading) return; loading = true;
+      fetch('/perguntas-frequentes.json').then(function (r) { return r.json(); }).then(function (j) { data = j; render(); });
+    }
+    input.addEventListener('focus', load);
+    input.addEventListener('input', function () { load(); render(); });
+  })();
+</script>
+
+<style>
+  .cat-head { background: var(--command); color: #fff; padding: 2.8rem 0; border-bottom: 3px solid var(--olive); }
+  .cat-head .eyebrow { color: var(--brass); }
+  .cat-head h1 { color: #fff; margin-top: 0.4rem; }
+  .blurb { color: #cfd6cf; max-width: 56ch; margin-top: 0.6rem; }
+  .faq-hub { max-width: var(--measure); padding-top: 1.6rem; padding-bottom: 3rem; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .search input {
+    width: 100%; font: inherit; font-size: 1.05rem; padding: 0.85rem 1rem; min-height: 48px;
+    border: 1px solid var(--line-dk); border-radius: var(--radius); background: #fff; color: var(--ink);
+  }
+  .results { margin-top: 1.2rem; }
+  .hit { border-bottom: 1px solid var(--line); padding: 1rem 0; }
+  .hit h3 { font-size: 1.15rem; margin: 0 0 0.3rem; }
+  .hit p { margin: 0 0 0.4rem; color: var(--ink-soft); }
+  .hit a { font-family: var(--font-mono); font-size: 0.78rem; color: var(--olive-dk); }
+  .none { color: var(--ink-soft); }
+  .topics { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .topics a {
+    display: flex; flex-direction: column; gap: 0.2rem; min-height: 64px; justify-content: center;
+    padding: 0.9rem 1.1rem; border: 1px solid var(--line); border-left: 3px solid var(--olive);
+    border-radius: var(--radius); background: var(--paper); text-decoration: none; color: var(--ink);
+  }
+  .topics a:hover { border-color: var(--olive); box-shadow: 0 6px 18px rgba(22,32,27,0.10); }
+  .topics span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--steel); }
+</style>
