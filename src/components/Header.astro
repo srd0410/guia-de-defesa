@@ -8,8 +8,8 @@ const path = Astro.url.pathname;
   <div class="banner-wrap">
     <a href="/" class="brand-band" aria-label={`${SITE.name} — início`}>
       <picture>
-        <source srcset="/header-banner.webp" type="image/webp" />
-        <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1600" height="533" />
+        <source srcset="/header-banner-800.webp 800w, /header-banner.webp 1600w" sizes="100vw" type="image/webp" />
+        <img class="header-banner" src="/header-banner.jpeg" alt={SITE.name} width="1600" height="533" fetchpriority="high" />
       </picture>
     </a>
     <SearchBox />
