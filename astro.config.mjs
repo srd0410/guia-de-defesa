@@ -45,6 +45,8 @@ export default defineConfig({
     }),
     pagefind(),
   ],
+  // CSS tem poucos KiB: inline elimina o request que bloqueia a renderização (LCP/FCP).
+  build: { inlineStylesheets: 'always' },
   markdown: {
     shikiConfig: { theme: 'github-light' },
   },
