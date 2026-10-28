@@ -27,6 +27,8 @@ interface Props {
   editorPerson?: Record<string, unknown>;
   /** trilha de navegação (Início > Categoria > ...) para o schema BreadcrumbList */
   breadcrumbs?: BreadcrumbItem[];
+  /** páginas de navegação/utilitárias que não devem ser indexadas (ex.: hub de perguntas frequentes) */
+  noindex?: boolean;
 }
 
 const {
@@ -111,7 +113,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': jsonLdGraph };
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="robots" content={Astro.props.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
 
 <meta property="og:type" content={type} />
 <meta property="og:title" content={fullTitle} />

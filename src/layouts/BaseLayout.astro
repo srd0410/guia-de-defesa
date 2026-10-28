@@ -21,6 +21,7 @@ interface Props {
   editorPerson?: Record<string, unknown>;
   breadcrumbs?: { name: string; path?: string }[];
   stickyTitle?: string;
+  noindex?: boolean;
 }
 const props = Astro.props;
 // Padrão: título da própria página. A home passa a tagline (o próprio nome do
