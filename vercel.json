@@ -4,9 +4,18 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     }
   ],
@@ -19,6 +28,16 @@
     {
       "source": "/saque-da-coldre-tecnica/",
       "destination": "/saque-do-coldre-tecnica/",
+      "permanent": true
+    },
+    {
+      "source": "/clima-tenso-como-proteger-familia-boato-armadilha",
+      "destination": "/tumulto-apagao-crise-como-proteger-a-familia/",
+      "permanent": true
+    },
+    {
+      "source": "/clima-tenso-como-proteger-familia-boato-armadilha/",
+      "destination": "/tumulto-apagao-crise-como-proteger-a-familia/",
       "permanent": true
     }
   ]
