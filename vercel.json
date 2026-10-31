@@ -29,16 +29,6 @@
       "source": "/saque-da-coldre-tecnica/",
       "destination": "/saque-do-coldre-tecnica/",
       "permanent": true
-    },
-    {
-      "source": "/clima-tenso-como-proteger-familia-boato-armadilha",
-      "destination": "/tumulto-apagao-crise-como-proteger-a-familia/",
-      "permanent": true
-    },
-    {
-      "source": "/clima-tenso-como-proteger-familia-boato-armadilha/",
-      "destination": "/tumulto-apagao-crise-como-proteger-a-familia/",
-      "permanent": true
     }
   ]
 }
