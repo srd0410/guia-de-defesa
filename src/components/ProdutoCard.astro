@@ -23,7 +23,7 @@ const loja = STORES.mercadolivre;
   </a>
   {!compact && (
     <p class="pcard-crit">
-      Escolhido pela nota ({p.nota}) e pelo volume de vendas ({p.vendas}) no Mercado Livre em {DATA_CONSULTA}.
+      Escolhido pela nota ({p.nota}) e pelo volume de vendas ({p.vendas}) no Mercado Livre em {p.consulta ?? DATA_CONSULTA}.
       Sugestão sem uso próprio: não testamos este produto.
     </p>
   )}
