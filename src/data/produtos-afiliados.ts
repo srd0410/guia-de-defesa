@@ -13,6 +13,8 @@ export interface ProdutoAfiliado {
   href: string;
   nota: string;
   vendas: string;
+  // Data da consulta de nota/vendas, quando difere de DATA_CONSULTA (produtos adicionados depois).
+  consulta?: string;
 }
 
 export const PRODUTOS: Record<string, ProdutoAfiliado> = {
@@ -54,6 +56,9 @@ export const PRODUTOS: Record<string, ProdutoAfiliado> = {
   "E2": { id: "E2", nome: "Óculos de proteção para tiro/airsoft (teste balístico)", descricao: "Óculos de proteção para tiro e airsoft. Confira se o anúncio informa certificação (CA); sem ela é só acessório.", imagem: '/produtos/ml-2uMq4o3.webp', href: 'https://meli.la/2uMq4o3', nota: '4,8', vendas: 'mais de 500' },
   "E3": { id: "E3", nome: "Lanterna tática LED recarregável T9 Apfer", descricao: "Lanterna tática LED recarregável, modelo T9 da Apfer, com zoom.", imagem: '/produtos/ml-1VXuZDC.webp', href: 'https://meli.la/1VXuZDC', nota: '4,8', vendas: 'mais de 100 mil' },
   "E4": { id: "E4", nome: "Carregador digital de bateria 18650/26650 bivolt", descricao: "Carregador digital para baterias 18650 e 26650, bivolt, para quem usa lanterna recarregável.", imagem: '/produtos/ml-1QhVoE8.webp', href: 'https://meli.la/1QhVoE8', nota: '4,8', vendas: 'mais de 5 mil' },
+  "N1": { id: "N1", nome: "Kit 2 abridores de lata e garrafa em aço inox (Boa Dica)", descricao: "Dois abridores manuais de aço inox para lata e garrafa: um fica na cozinha e outro na mochila de emergência.", imagem: '/produtos/ml-2E5WaCt.webp', href: 'https://meli.la/2E5WaCt', nota: '4,9', vendas: 'mais de 1000', consulta: '06/11/2026' },
+  "N2": { id: "N2", nome: "Galão de 20 L para água mineral, novo, com tampa", descricao: "Galão novo de 20 litros, do tipo usado para água mineral, para guardar a reserva de água da casa.", imagem: '/produtos/ml-2YhdESg.webp', href: 'https://meli.la/2YhdESg', nota: '4,8', vendas: 'mais de 500', consulta: '06/11/2026' },
+  "N3": { id: "N3", nome: "Pilhas alcalinas AA Energizer Max (8 unidades)", descricao: "Oito pilhas AA alcalinas (4 cartelas de 2) para lanterna, rádio e outros aparelhos durante um apagão.", imagem: '/produtos/ml-1NhBdm4.webp', href: 'https://meli.la/1NhBdm4', nota: '4,6', vendas: 'mais de 100', consulta: '06/11/2026' },
   "A1": { id: "A1", nome: "Carregador GaN 65 W USB-C com 3 portas (Dapon)", descricao: "Carregador GaN de 65 W com 3 portas USB-C, que atende celular e notebook.", imagem: '/produtos/ml-2Bw72GW.webp', href: 'https://meli.la/2Bw72GW', nota: '4,9', vendas: 'mais de 1 mil' },
   "A2": { id: "A2", nome: "Caixa de som Bluetooth portátil com FM/SD 20 W", descricao: "Caixa de som Bluetooth portátil com entrada para cartão SD e rádio FM.", imagem: '/produtos/ml-2pjbX91.webp', href: 'https://meli.la/2pjbX91', nota: '4,6', vendas: 'mais de 50 mil' },
   "A3": { id: "A3", nome: "Garrafa térmica Termolar Lúmina 1 L com bomba", descricao: "Garrafa térmica Termolar Lúmina de 1 litro com bomba de pressão.", imagem: '/produtos/ml-2YscgTS.webp', href: 'https://meli.la/2YscgTS', nota: '4,7', vendas: 'mais de 100 mil' },

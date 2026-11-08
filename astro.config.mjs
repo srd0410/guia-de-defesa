@@ -34,6 +34,8 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      // Hub de perguntas frequentes: página de navegação (noindex), fora do sitemap.
+      filter: (page) => !page.includes('/perguntas-frequentes'),
       // Preenche <lastmod> por URL de post, a partir das datas do frontmatter.
       serialize(item) {
         const slug = item.url.match(/\/([^/]+)\/$/)?.[1];
@@ -43,6 +45,8 @@ export default defineConfig({
     }),
     pagefind(),
   ],
+  // CSS tem poucos KiB: inline elimina o request que bloqueia a renderização (LCP/FCP).
+  build: { inlineStylesheets: 'always' },
   markdown: {
     shikiConfig: { theme: 'github-light' },
   },
