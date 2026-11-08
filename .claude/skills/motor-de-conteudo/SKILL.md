@@ -229,11 +229,19 @@ dados — se não tiver a fonte, não afirme o número.
 técnica factual — protocolo médico, número de lei, prazo legal, estatística — precisa vir
 com instituição e, quando disponível, o ano da revisão/publicação, direto na prosa (ex.:
 "segundo a revisão da American Heart Association de 2025", "conforme o Decreto
-11.615/2023"). Não é preciso link nem seção formal de referências — o site não tem esse
-componente —, mas a atribuição em texto é obrigatória, não "quando possível". Isso vale
+11.615/2023"). A atribuição em texto é obrigatória, não "quando possível", e o artigo termina com a seção
+`## Fontes consultadas` (ver abaixo). Isso vale
 tanto para escrever um artigo novo quanto para revisar um já publicado: se a revisão
 encontrar um dado desatualizado, corrija citando a fonte nova e marque `updatedDate`
 (mantendo `pubDate` original), do mesmo jeito que qualquer outra atualização de conteúdo.
+
+**Seção final `## Fontes consultadas` (regra de 08/11/2026): texto simples, sem link clicável.**
+Lista em duas partes, só com fontes que foram realmente abertas e lidas: **Bibliografia e
+documentos técnicos** (mínimo de 3) e **Opinião e imprensa especializada** (mínimo de 2). Cada item:
+`- Título — instituição ou veículo, data: o que a fonte acrescenta.` **Nunca** usar `[texto](url)`,
+`<a href>` nem URL solta nessa seção: o objetivo é manter o leitor no site, sem levá-lo a outros
+sites (mesma regra do Regenere e do Guia de Voo). Links **internos** no corpo do texto continuam
+normais. Vale para qualquer cabeçalho de referências (`Fontes oficiais consultadas`, `Referências`).
 
 Nessas duas áreas, **sempre checar divergência entre fontes e se a versão usada é a mais
 recente** antes de publicar ou revisar — protocolo médico e norma legal mudam (foi
@@ -317,6 +325,7 @@ genéricos. Só abrir PR após aprovação.
 - [ ] Tem fundamentos (científicos/legais/técnicos) corretos e sem dados inventados?
 - [ ] Tem FAQ (5+ perguntas)?
 - [ ] Tem 3+ links internos, e satélite linka pro pilar?
+- [ ] Termina com `## Fontes consultadas` em texto simples, sem nenhum link clicável?
 - [ ] Retro-linkagem feita: os artigos antigos relacionados agora apontam para o novo, com `updatedDate` atualizado (e `pubDate` original mantido)?
 - [ ] Conteúdo original, linguagem própria?
 - [ ] Profundidade real (responde o que/por quê/como/quando/vantagens/limites/aplicar/erros)?
