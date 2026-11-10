@@ -326,8 +326,9 @@ completar a conta; se faltar, informe a lacuna ao autor.
 
 - **Só cite o que foi realmente aberto e lido.** Obra conhecida só por catálogo vai em
   "Leitura recomendada", nunca em "Fontes consultadas" nem como respaldo de uma afirmação.
-- Cada item: título com link, autor/instituição, ano e **uma linha dizendo o que a fonte
-  acrescenta ao leitor**. O nível de acesso (texto completo, resumo, trecho) vai no
+- Cada item: título **sem link clicável** (regra de 08/11/2026: texto simples, nem `[texto](url)`,
+  nem `<a href>`, nem URL solta; o leitor fica no site), autor/instituição, ano e **uma linha
+  dizendo o que a fonte acrescenta ao leitor**. O nível de acesso (texto completo, resumo, trecho) vai no
   **relatório ao autor**, não no artigo.
 - Blog não vira evidência científica por usar linguagem técnica. Dois textos que repetem o
   mesmo estudo não são duas confirmações.
@@ -337,11 +338,11 @@ completar a conta; se faltar, informe a lacuna ao autor.
 
 **Bibliografia e documentos técnicos**
 
-- [Título — Autor ou instituição, ano](https://link): o que a fonte acrescenta.
+- Título — Autor ou instituição, ano: o que a fonte acrescenta.
 
 **Opinião e blogs especializados**
 
-- [Título — Autor, veículo, ano](https://link): experiência ou contraponto que traz.
+- Título — Autor, veículo, ano: experiência ou contraponto que traz.
 ```
 
 **Como obter as fontes na prática:** muitos sites recusam leitura automática (erro 403).
@@ -454,7 +455,7 @@ restantes.
 - [ ] FAQ (5+ perguntas) com respostas que de fato respondem, metade com ângulo novo?
 - [ ] 3+ links internos válidos, nenhum para rascunho; satélite linka pro pilar?
 - [ ] Retro-linkagem feita, com `updatedDate` (e `pubDate` original mantido)?
-- [ ] "Fontes consultadas" com 3 técnicas + 2 de opinião, todas realmente lidas?
+- [ ] "Fontes consultadas" com 3 técnicas + 2 de opinião, todas realmente lidas, em texto simples e sem nenhum link clicável?
 - [ ] Profundidade real (o que/por quê/como/quando/vantagens/limites/aplicar/erros)?
 - [ ] Execução variada (não é cópia da fôrma; sem muletas repetidas)?
 - [ ] Legível no celular; frontmatter completo (`affiliate`, `ads`) e slug correto?
