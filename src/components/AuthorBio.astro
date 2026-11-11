@@ -1,5 +1,6 @@
 ---
-// Caixa de autor exibida ao final dos artigos — sinal de E-E-A-T.
+// Caixa de autor exibida ao final dos artigos: nome, tempo de experiência, credenciais atuais em texto
+// e o link para o perfil. O selo (imagem) só aparece na página /autor/.
 import { AUTHOR } from '../consts';
 ---
 <aside class="author" aria-label="Sobre o autor">
@@ -7,10 +8,11 @@ import { AUTHOR } from '../consts';
   <div class="author-body">
     <p class="eyebrow">Autor</p>
     <p class="author-name">{AUTHOR.name}</p>
+    <p class="author-exp">{AUTHOR.experience}</p>
+    <p class="author-now">Atualmente:</p>
     <ul class="creds">
       {AUTHOR.credentials.map((c) => <li>{c}</li>)}
     </ul>
-    <img class="seal" src={AUTHOR.seal.src} alt={AUTHOR.seal.alt} loading="lazy" />
     <a class="author-link" href={AUTHOR.url}>Ver perfil do autor →</a>
   </div>
 </aside>
@@ -38,11 +40,16 @@ import { AUTHOR } from '../consts';
     font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 0.01em;
-    margin: 0.2rem 0 0.5rem;
+    margin: 0.2rem 0 0.4rem;
   }
-  .creds { margin: 0 0 0.7rem; padding-left: 1.1rem; }
+  .author-exp {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.6rem;
+  }
+  .author-now { font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 0.3rem; }
+  .creds { margin: 0 0 0.8rem; padding-left: 1.1rem; }
   .creds li { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.15rem; }
-  .seal { height: 42px; width: auto; display: block; margin: 0 0 0.8rem; }
   .author-link {
     font-family: var(--font-mono);
     font-size: 0.76rem;

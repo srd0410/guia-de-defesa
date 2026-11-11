@@ -34,7 +34,7 @@ export const SITE = {
   // Vitrine de afiliados (só vale para 'afiliados'): em categorias de assunto sensível para o
   // leitor (lei, CAC, saúde, fundamentos) o topo do artigo fica sem produto, e nenhum artigo passa
   // de `maxBlocosAfiliado` blocos de produto (os cards próprios do autor contam).
-  semVitrineNoTopo: ['legislacao', 'cac-tiro-desportivo', 'primeiros-socorros', 'ciencia-do-treinamento', 'fundamentos'],
+  semVitrineNoTopo: ['legislacao', 'cac-tiro-desportivo', 'primeiros-socorros', 'ciencia-do-treinamento', 'fundamentos', 'noticias'],
   maxBlocosAfiliado: 4,
   espacos: {
     'artigo-topo': 'afiliados',     // logo após o 1º parágrafo do artigo
@@ -50,6 +50,8 @@ export const SITE = {
 export const AUTHOR = {
   name: 'Felipe Arrais Serodio',
   role: 'Instrutor de Tiro',
+  // Linha curta exibida no fim de cada artigo (sem selo nem credenciais; essas ficam em /autor/).
+  experience: 'Atleta de tiro há mais de 25 anos e instrutor de tiro há mais de 15 anos.',
   url: '/autor/',
   credentials: [
     'Instrutor de Armamento e Tiro - Credenciado pela Polícia Federal',
@@ -82,7 +84,8 @@ export type CategorySlug =
   | 'fundamentos'
   | 'legislacao'
   | 'cac-tiro-desportivo'
-  | 'primeiros-socorros';
+  | 'primeiros-socorros'
+  | 'noticias';
 
 export interface Category {
   slug: CategorySlug;
@@ -204,6 +207,17 @@ export const CATEGORIES: Category[] = [
       'Nos primeiros minutos depois de um trauma grave, o que se faz — ou deixa de fazer — antes do socorro profissional chegar pode determinar o desfecho. Esta seção cobre exatamente essa janela: controle de hemorragia com torniquete e agente hemostático, montagem e uso de um kit IFAK, reconhecimento de trauma penetrante e resposta a emergências clínicas comuns, sempre com base em protocolo revisado, não em intuição.',
       'O conteúdo aqui é baseado em evidência e nas diretrizes mais recentes de entidades como a American Heart Association, sempre citadas com a instituição e o ano de revisão. Isso inclui RCP e resposta à parada cardíaca, além de orientação clara sobre quando uma situação exige atendimento médico imediato em vez de intervenção leiga.',
       'Nenhum artigo aqui substitui treinamento presencial certificado: ler sobre controle de hemorragia é preparação necessária, mas não é o mesmo que praticar a técnica sob supervisão. Esta seção existe para que, quando os minutos contarem, a teoria já esteja internalizada — o treino presencial continua sendo indispensável.',
+    ],
+  },
+  {
+    slug: 'noticias',
+    name: 'Notícias',
+    blurb:
+      'Fatos recentes que mexem com CAC, armas, segurança e preparo, com data e fonte. Textos datados: o que muda é atualizado ou arquivado.',
+    intro: [
+      'Esta seção reúne notícias: fatos recentes que afetam quem é CAC, quem se prepara ou quem cuida da própria segurança, como um ataque ao gov.br, uma orientação da Defesa Civil ou uma norma ainda em andamento. Cada texto responde ao que o leitor precisa saber agora e separa o que está confirmado por fonte oficial do que ainda é boato ou possibilidade.',
+      'São textos datados. A situação muda, e por isso cada notícia mostra a data de publicação e, quando há mudança relevante, a de atualização. A notícia que perde a utilidade é atualizada, arquivada ou retirada; os guias que não envelhecem ficam nas outras seções do site.',
+      'Sempre que existir um guia permanente sobre o assunto, a notícia aponta para ele.',
     ],
   },
 ];
