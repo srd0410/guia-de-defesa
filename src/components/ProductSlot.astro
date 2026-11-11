@@ -16,4 +16,4 @@ interface Props {
 }
 const { seed, indice = 0, compact = false } = Astro.props;
 ---
-<ProdutoCard produto={escolherProduto(seed, indice)} compact={compact} />
+<ProdutoCard produto={escolherProduto(seed, indice)} compact={compact} pos={indice === 0 ? 'topo' : indice === 1 ? 'fim' : 'lateral'} />

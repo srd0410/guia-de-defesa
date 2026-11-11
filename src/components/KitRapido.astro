@@ -1,0 +1,62 @@
+---
+// Quadro compacto "monte o kit gastando pouco": itens baratos do catálogo, em grade, para o
+// leitor que chega procurando o que comprar. Uso: <KitRapido ids={['K2','K1']} titulo="..." />
+import { STORES } from '../consts';
+import { DATA_CONSULTA, PRODUTOS } from '../data/produtos-afiliados';
+
+interface Props {
+  ids: string[];
+  titulo?: string;
+}
+const { ids, titulo = 'Monte o kit básico gastando pouco' } = Astro.props;
+const loja = STORES.mercadolivre;
+const itens = ids.map((id) => {
+  const p = PRODUTOS[id];
+  if (!p) throw new Error(`KitRapido: código de produto desconhecido "${id}"`);
+  return p;
+});
+---
+<aside class="kit-rapido" aria-label={titulo} data-pagefind-ignore>
+  <p class="kr-label">Sugestões · links de afiliado</p>
+  <h2 class="kr-titulo">{titulo}</h2>
+  <ul class="kr-grid">
+    {itens.map((p) => (
+      <li>
+        <a class="kr-item" href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos="quadro">
+          <img src={p.imagem} alt={p.nome} loading="lazy" width="64" height="64" />
+          <span class="kr-nome">{p.curto ?? p.nome}</span>
+          <span class="kr-btn" style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p class="kr-note">Se você comprar por estes links, o Guia de Defesa pode receber uma comissão, sem custo extra. Escolhidos por preço baixo e avaliação no Mercado Livre em {itens[0].consulta ?? DATA_CONSULTA}, sem uso próprio.</p>
+</aside>
+
+<style>
+  .kit-rapido {
+    margin: 1.6rem 0; padding: 0.9rem 1rem 0.8rem;
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-left: 4px solid var(--olive); border-radius: var(--radius, 4px);
+  }
+  .kr-label {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--steel); margin: 0 0 0.3rem;
+  }
+  .kr-titulo { font-family: var(--font-display); font-size: 1.1rem; line-height: 1.25; margin: 0 0 0.7rem; }
+  .kr-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .kr-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem; height: 100%;
+    padding: 0.55rem 0.4rem; text-align: center; text-decoration: none; color: inherit;
+    background: var(--paper, #fff); border: 1px solid var(--line); border-radius: 3px;
+  }
+  .kr-item img { width: 64px; height: 64px; object-fit: contain; background: #fff; }
+  .kr-nome { font-size: 0.82rem; line-height: 1.25; color: var(--ink); }
+  .kr-btn {
+    margin-top: auto; padding: 0.25rem 0.6rem; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+  }
+  .kr-item:hover .kr-nome { color: var(--brass); }
+  .kr-note { font-size: 0.68rem; line-height: 1.4; color: var(--steel); margin: 0.7rem 0 0; }
+  @media (min-width: 640px) { .kr-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

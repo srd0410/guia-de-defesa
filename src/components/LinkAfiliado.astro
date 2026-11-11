@@ -1,0 +1,15 @@
+---
+// Link de texto para um produto de afiliado do catálogo, dentro de uma frase ou lista:
+//   <LinkAfiliado id="K2">pastilhas de água</LinkAfiliado>
+// Sempre com rel="sponsored nofollow" e marcado para o evento affiliate_click do GA4.
+import { PRODUTOS } from '../data/produtos-afiliados';
+
+interface Props {
+  id: string;
+  pos?: string;
+}
+const { id, pos = 'lista' } = Astro.props;
+const p = PRODUTOS[id];
+if (!p) throw new Error(`LinkAfiliado: código de produto desconhecido "${id}"`);
+---
+<a href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos={pos} class="link-afiliado"><slot /></a>
