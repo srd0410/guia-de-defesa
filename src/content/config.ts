@@ -19,6 +19,7 @@ const posts = defineCollection({
         'legislacao',
         'cac-tiro-desportivo',
         'primeiros-socorros',
+        'noticias',
       ]),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
