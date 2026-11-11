@@ -8,13 +8,15 @@ import { DATA_CONSULTA, type ProdutoAfiliado } from '../data/produtos-afiliados'
 interface Props {
   produto: ProdutoAfiliado;
   compact?: boolean;
+  /** posição para o evento affiliate_click do GA4 (secao, lateral, fim...) */
+  pos?: string;
 }
-const { produto: p, compact = false } = Astro.props;
+const { produto: p, compact = false, pos = 'secao' } = Astro.props;
 const loja = STORES.mercadolivre;
 ---
 <aside class:list={['pcard', { compact }]} aria-label={`Sugestão de produto: ${p.nome}`} data-pagefind-ignore>
   <p class="pcard-label">Sugestão · link de afiliado</p>
-  <a class="pcard-main" href={p.href} target="_blank" rel="sponsored nofollow noopener">
+  <a class="pcard-main" href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos={pos}>
     <img src={p.imagem} alt={p.nome} loading="lazy" width="120" height="120" />
     <span class="pcard-text">
       <strong class="pcard-name">{p.nome}</strong>
@@ -23,13 +25,14 @@ const loja = STORES.mercadolivre;
   </a>
   {!compact && (
     <p class="pcard-crit">
-      Escolhido pela nota ({p.nota}) e pelo volume de vendas ({p.vendas}) no Mercado Livre em {p.consulta ?? DATA_CONSULTA}.
-      Sugestão sem uso próprio: não testamos este produto.
+      {p.nota
+        ? `Sugestão por nota (${p.nota}) e vendas (${p.vendas}) no Mercado Livre em ${p.consulta ?? DATA_CONSULTA}, sem uso próprio.`
+        : `Sugestão por preço baixo e avaliação no Mercado Livre em ${p.consulta ?? DATA_CONSULTA}, sem uso próprio.`}
     </p>
   )}
-  <a class="pcard-btn" href={p.href} target="_blank" rel="sponsored nofollow noopener"
+  <a class="pcard-btn" href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos={pos}
      style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</a>
-  <p class="pcard-note">Se você comprar por este link, o Guia de Defesa pode receber uma comissão, sem custo extra para você.</p>
+  <p class="pcard-note">Link de afiliado: se você comprar por ele, o Guia de Defesa pode receber uma comissão, sem custo extra.</p>
 </aside>
 
 <style>

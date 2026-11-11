@@ -15,6 +15,8 @@ export interface ProdutoAfiliado {
   vendas: string;
   // Data da consulta de nota/vendas, quando difere de DATA_CONSULTA (produtos adicionados depois).
   consulta?: string;
+  // Nome curto para o quadro compacto (<KitRapido>).
+  curto?: string;
 }
 
 export const PRODUTOS: Record<string, ProdutoAfiliado> = {
@@ -68,11 +70,24 @@ export const PRODUTOS: Record<string, ProdutoAfiliado> = {
   Q1: { id: 'Q1', nome: "Compressa de gaze estéril 13 fios, 500 unidades (Nobre)", descricao: "Compressas de gaze estéril em pacotes de 10 unidades, para cobrir a queimadura ou o ferimento com material limpo. Gaze comum pode grudar na ferida: troque a cobertura com cuidado.", imagem: '/produtos/ml-2WCucWf.webp', href: 'https://meli.la/2WCucWf', nota: '4,9', vendas: 'mais de 100 mil' },
   C1: { id: 'C1', nome: "Scanner de mesa Canon Lide 300 (USB)", descricao: "Scanner de mesa para digitalizar CR, CRAF, guias, protocolos e certidões e ter uma cópia digital de tudo.", imagem: '/produtos/ml-2KgPvEC.webp', href: 'https://meli.la/2KgPvEC', nota: '4,8', vendas: 'mais de 10 mil' },
   C2: { id: 'C2', nome: "HD externo portátil Toshiba Canvio 1 TB (USB 3.0)", descricao: "HD externo para guardar a cópia de segurança dos documentos digitalizados, longe do computador principal.", imagem: '/produtos/ml-1RFAGt5.webp', href: 'https://meli.la/1RFAGt5', nota: '4,8', vendas: 'mais de 10 mil' },
+  "K1": { id: "K1", nome: "Kit com 2 mantas térmicas aluminizadas de emergência", curto: "Mantas térmicas", descricao: "Duas mantas aluminizadas de emergência: ajudam a reter o calor do corpo, dobram bem pequenas e cabem em qualquer canto da mochila.", imagem: '/produtos/ml-K1.webp', href: 'https://meli.la/2w1bWup', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K2": { id: "K2", nome: "Pastilhas purificadoras de água Clorin (10 un.)", curto: "Pastilhas de água", descricao: "Pastilhas para tornar a água potável. Siga a dose e o tempo de espera da embalagem; elas não tiram sujeira visível, então coe a água turva antes.", imagem: '/produtos/ml-K2.webp', href: 'https://meli.la/1ZhA5NG', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K3": { id: "K3", nome: "Pilhas alcalinas AA Elgin (8 unidades)", curto: "Pilhas AA", descricao: "Oito pilhas AA alcalinas para lanterna e rádio, que se acham em qualquer mercado quando a energia volta.", imagem: '/produtos/ml-K3.webp', href: 'https://meli.la/1MJ9p2s', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K4": { id: "K4", nome: "Pilhas alcalinas AAA Elgin (4 unidades)", curto: "Pilhas AAA", descricao: "Quatro pilhas AAA alcalinas, para as lanternas e aparelhos pequenos que usam esse tamanho.", imagem: '/produtos/ml-K4.webp', href: 'https://meli.la/1MfTcU8', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K5": { id: "K5", nome: "Kit com 2 lanternas de cabeça LED recarregáveis (USB)", curto: "Lanterna de cabeça", descricao: "Duas lanternas de cabeça recarregáveis por USB, que deixam as mãos livres. Deixe-as carregadas e guarde um power bank para repor a carga.", imagem: '/produtos/ml-K5.webp', href: 'https://meli.la/13je8Fb', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K6": { id: "K6", nome: "Abridor de latas e garrafas em aço inox", curto: "Abridor de latas", descricao: "Abridor manual de aço inox para lata e garrafa: pequeno, barato e faz falta quando a comida é enlatada.", imagem: '/produtos/ml-K6.webp', href: 'https://meli.la/1WDGQdh', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K7": { id: "K7", nome: "Apito de emergência com cordão", curto: "Apito", descricao: "Apito para sinalizar sua posição quando a voz não alcança, de pouco peso e que cabe no bolso ou na alça da mochila.", imagem: '/produtos/ml-K7.webp', href: 'https://meli.la/27iKHBk', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K8": { id: "K8", nome: "Saco estanque impermeável de 10 litros", curto: "Saco estanque", descricao: "Saco impermeável de 10 litros para proteger documentos, dinheiro e celular da água numa enchente.", imagem: '/produtos/ml-K8.webp', href: 'https://meli.la/1gDpLcw', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K9": { id: "K9", nome: "Rádio portátil AM/FM Lelong LE-661 (pilha, bateria e USB)", curto: "Rádio AM/FM", descricao: "Rádio AM/FM que funciona com pilha, bateria e USB, para ouvir o aviso oficial quando a internet cai.", imagem: '/produtos/ml-K9.webp', href: 'https://meli.la/1FB7u4y', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K10": { id: "K10", nome: "Kit portátil de primeiros socorros Plastcor", curto: "Primeiros socorros", descricao: "Estojo portátil de primeiros socorros, para curativos e pequenos ferimentos. Confira a lista de itens no anúncio e complete o que faltar, como os remédios da família.", imagem: '/produtos/ml-K10.webp', href: 'https://meli.la/1BC3HGd', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K11": { id: "K11", nome: "Saco de dormir aluminizado térmico, de emergência", curto: "Saco térmico", descricao: "Saco térmico aluminizado para reter calor numa emergência. É peça de socorro, não substitui um saco de dormir de acampamento.", imagem: '/produtos/ml-K11.webp', href: 'https://meli.la/2AcCbdo', nota: '', vendas: '', consulta: '11/11/2026' },
+  "K12": { id: "K12", nome: "Lanterna LED de mão com zoom", curto: "Lanterna de mão", descricao: "Lanterna LED de mão com foco ajustável, que funciona com pilhas AAA. Guarde pilhas reserva junto.", imagem: '/produtos/ml-K12.webp', href: 'https://meli.la/334qmqG', nota: '4,5', vendas: 'mais de 5 mil', consulta: '11/11/2026' },
+  "K13": { id: "K13", nome: "Rádio retrô AM/FM recarregável com Bluetooth e USB", curto: "Rádio para casa", descricao: "Rádio AM/FM de mesa e portátil, recarregável, com Bluetooth e entrada USB. Fica melhor em casa do que na mochila.", imagem: '/produtos/ml-K13.webp', href: 'https://meli.la/1C6HZSK', nota: '', vendas: '', consulta: '11/11/2026' },
   C3: { id: 'C3', nome: "SSD externo portátil SanDisk 1 TB (USB 3.2)", descricao: "SSD externo, mais rápido e resistente a quedas que o HD, para a cópia de segurança dos documentos.", imagem: '/produtos/ml-25DvPZ6.webp', href: 'https://meli.la/25DvPZ6', nota: '4,9', vendas: 'mais de 10 mil' },
 };
 
 /** Rotação de lateral e fim de artigo (nunca no meio do texto): itens gerais e também equipamento de combate/tiro e kit de trauma, que só entram no meio do artigo se forem recomendação pessoal do autor. */
-export const ROTACAO = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'S1', 'S2', 'S3', 'S10', 'S12', 'S13', 'E1', 'E2', 'E3', 'E4', 'P3', 'P4', 'P5'];
+export const ROTACAO = ['A3', 'A4', 'A5', 'A6', 'S1', 'S2', 'S12', 'S13', 'E1', 'E2', 'E4', 'P3', 'P4', 'P5', 'K1', 'K3', 'K5', 'K8', 'K12'];
 
 function hash(s: string): number {
   let h = 2166136261;
