@@ -1,6 +1,6 @@
 ---
-// Caixa de autor exibida ao final dos artigos: só nome e link para o perfil.
-// As credenciais (e o selo) ficam na página /autor/, não em cada artigo.
+// Caixa de autor exibida ao final dos artigos: nome, uma linha de experiência e o link para o perfil.
+// As credenciais e o selo ficam na página /autor/, não em cada artigo.
 import { AUTHOR } from '../consts';
 ---
 <aside class="author" aria-label="Sobre o autor">
@@ -8,6 +8,7 @@ import { AUTHOR } from '../consts';
   <div class="author-body">
     <p class="eyebrow">Autor</p>
     <p class="author-name">{AUTHOR.name}</p>
+    <p class="author-exp">{AUTHOR.experience}</p>
     <a class="author-link" href={AUTHOR.url}>Ver perfil do autor →</a>
   </div>
 </aside>
@@ -35,7 +36,12 @@ import { AUTHOR } from '../consts';
     font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 0.01em;
-    margin: 0.2rem 0 0.7rem;
+    margin: 0.2rem 0 0.4rem;
+  }
+  .author-exp {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.8rem;
   }
   .author-link {
     font-family: var(--font-mono);
