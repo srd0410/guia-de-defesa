@@ -51,7 +51,7 @@ export const AUTHOR = {
   name: 'Felipe Arrais Serodio',
   role: 'Instrutor de Tiro',
   // Linha curta exibida no fim de cada artigo (sem selo nem credenciais; essas ficam em /autor/).
-  experience: 'Instrutor de tiro com mais de 15 anos de experiência, atleta de tiro há mais de 25 anos.',
+  experience: 'Atleta de tiro há mais de 25 anos e instrutor de tiro há mais de 15 anos.',
   url: '/autor/',
   credentials: [
     'Instrutor de Armamento e Tiro - Credenciado pela Polícia Federal',
