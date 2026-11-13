@@ -1,5 +1,5 @@
 ---
-// Card único de produto de afiliado (Mercado Livre). Usado por <ProdutoContexto> (meio do
+// Card único de produto de afiliado (Mercado Livre), com UM link só (o card inteiro). Usado por <ProdutoContexto> (meio do
 // artigo) e <ProductSlot> (lateral/fim). Texto sempre honesto: diz o critério da escolha
 // (nota e vendas na data da consulta) e que é sugestão sem uso próprio.
 import { STORES } from '../consts';
@@ -21,6 +21,7 @@ const loja = STORES.mercadolivre;
     <span class="pcard-text">
       <strong class="pcard-name">{p.nome}</strong>
       {!compact && <span class="pcard-desc">{p.descricao}</span>}
+      <span class="pcard-btn" style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</span>
     </span>
   </a>
   {!compact && (
@@ -30,8 +31,6 @@ const loja = STORES.mercadolivre;
         : `Sugestão por preço baixo e avaliação no Mercado Livre em ${p.consulta ?? DATA_CONSULTA}, sem uso próprio.`}
     </p>
   )}
-  <a class="pcard-btn" href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos={pos}
-     style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</a>
   <p class="pcard-note">Link de afiliado: se você comprar por ele, o Guia de Defesa pode receber uma comissão, sem custo extra.</p>
 </aside>
 
@@ -59,15 +58,16 @@ const loja = STORES.mercadolivre;
   .pcard-main:hover .pcard-name { color: var(--brass); }
   .pcard-crit { font-size: 0.76rem; line-height: 1.4; color: var(--steel); margin: 0.6rem 0 0; }
   .pcard-btn {
-    display: inline-block; margin-top: 0.7rem; padding: 0.42rem 0.9rem; border-radius: 3px;
+    display: inline-block; align-self: flex-start; margin-top: 0.35rem; padding: 0.42rem 0.9rem; border-radius: 3px;
     font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; text-decoration: none;
   }
-  .pcard-btn:hover { filter: brightness(0.94); }
+  .pcard-main:hover .pcard-btn { filter: brightness(0.94); }
   .pcard-note { font-size: 0.68rem; color: var(--steel); margin: 0.6rem 0 0; }
   .pcard.compact { text-align: center; padding: 0.8rem; margin: 2rem 0; }
   .pcard.compact .pcard-main { flex-direction: column; }
   .pcard.compact .pcard-main img { width: 100%; max-width: 140px; height: auto; aspect-ratio: 1; }
-  .pcard.compact .pcard-btn { display: block; }
+  .pcard.compact .pcard-text { width: 100%; }
+  .pcard.compact .pcard-btn { display: block; align-self: stretch; }
   @media (max-width: 520px) {
     .pcard:not(.compact) .pcard-main img { width: 80px; height: 80px; }
   }

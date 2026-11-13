@@ -111,3 +111,20 @@ export function escolherProduto(seed: string, indice = 0): ProdutoAfiliado {
   const base = hash(seed);
   return PRODUTOS[ROTACAO[(base + indice * 5) % ROTACAO.length]];
 }
+
+/**
+ * Até `n` produtos distintos da rotação para uma página, sem repetir os códigos em `excluir`
+ * (os que o artigo já mostra). Determinístico: mesma página = mesmos produtos em todo build.
+ */
+export function escolherProdutos(seed: string, n: number, excluir: string[] = []): ProdutoAfiliado[] {
+  const base = hash(seed);
+  const fora = new Set(excluir);
+  const out: ProdutoAfiliado[] = [];
+  for (let i = 0; i < ROTACAO.length && out.length < n; i++) {
+    const id = ROTACAO[(base + i * 5) % ROTACAO.length];
+    if (fora.has(id)) continue;
+    fora.add(id);
+    out.push(PRODUTOS[id]);
+  }
+  return out;
+}
