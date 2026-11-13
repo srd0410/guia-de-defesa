@@ -1,0 +1,117 @@
+---
+title: "DPA-BASE para clubes de tiro: como lançar a habitualidade (CSV ou manual)"
+description: "Passo a passo da entidade de tiro no DPA-BASE: usuários, filiados, carga do arquivo .CSV de habitualidade, lançamento manual e o layout completo do arquivo."
+category: "legislacao"
+pubDate: 2026-11-13
+tags: ["DPA-BASE", "clube de tiro", "habitualidade", "entidade de tiro", "CSV", "portaria 19109"]
+affiliate: false
+ads: false
+---
+import Callout from '../../components/Callout.astro';
+import Faq from '../../components/Faq.astro';
+
+**No DPA-BASE, o clube comprova a habitualidade dos atiradores lançando cada treino e competição: por carga de arquivo .CSV, gerado pelo sistema do clube, ou um a um, à mão.** O prazo da portaria é de até 30 dias depois de cada evento, e o lançamento cabe à entidade que promoveu a atividade.
+
+Este passo a passo foi escrito pelo Guia de Defesa a partir do guia rápido da Polícia Federal para entidades de tiro, publicado em 12/11/2026. A PF publicou os guias, mas ainda não anunciou a data em que o acesso será liberado. A visão geral está no [guia do DPA-BASE e da Portaria PF 19.109/2026](/dpa-base-portaria-pf-19109-2026/).
+
+<Callout type="resumo" title="Resposta rápida">
+  <ul>
+    <li><strong>Cadastro da entidade:</strong> por e-mail à DELEARM da circunscrição, em até 30 dias da vigência da portaria (art. 14).</li>
+    <li><strong>Usuários:</strong> cadastrados por servidor da PF ou por um administrador da própria entidade; acesso pelo gov.br.</li>
+    <li><strong>Três caminhos:</strong> carga de .CSV, lançamento manual e gestão de filiados.</li>
+    <li><strong>Prazo:</strong> até 30 dias após cada treino ou competição (art. 9º).</li>
+    <li><strong>Empresa de TI:</strong> o guia vale também para quem gera o arquivo; cadastro da empresa em 15 dias da vigência (art. 15).</li>
+  </ul>
+</Callout>
+
+## Quem acessa o sistema pelo clube?
+
+O guia da PF cobre dois públicos: os funcionários do próprio clube e os funcionários das empresas de tecnologia que atendem clubes. Os dois entram pela conta gov.br.
+
+O usuário da entidade é cadastrado por um servidor da PF ou por outro usuário da entidade que tenha permissão de administrador. Se a entidade (ou a empresa) já está cadastrada, basta a PF ou o administrador incluir o CPF do novo usuário. Se as funções não aparecerem no menu da esquerda, a orientação é procurar a CGARM, a DELEARM ou outra unidade de controle de armas da PF para corrigir o cadastro.
+
+Antes disso vem o cadastro da própria entidade: o pedido vai por e-mail à DELEARM da circunscrição, em até 30 dias da entrada em vigor da portaria, com o CR válido para a atividade e os dados da pessoa responsável pelos lançamentos (art. 14).
+
+## Como cadastrar e manter os filiados?
+
+Em "Administrar filiados" dá para pesquisar, criar e editar:
+
+1. informe o CPF e o nome completo e confirme em "Criar" (ou "Aplicar alterações");
+2. para corrigir nome ou CPF, use o botão de edição do filiado;
+3. nas abas, use o "+" para incluir endereços, telefones e períodos de filiação;
+4. em "Fim da filiação", deixe em branco enquanto o vínculo estiver vigente.
+
+## Como carregar o arquivo .CSV de habitualidade?
+
+1. Gere o arquivo .CSV do período no sistema do clube ou da empresa de TI.
+2. Abra a função de carga de habitualidade.
+3. Arraste o arquivo para a tela ou use o botão "Escolher Arquivo".
+
+## Como lançar uma prática à mão?
+
+Para o clube sem sistema próprio:
+
+1. clique em "Criar", no canto superior direito (ou pesquise uma prática na planilha e clique em editar);
+2. preencha os campos pedidos;
+3. clique em "Criar" para uma prática nova ou em "Aplicar alterações" numa edição.
+
+## Qual é o layout do arquivo .CSV?
+
+**Formato:** UTF-8, campos separados por vírgula e entre aspas duplas, nenhum campo com apóstrofo, cabeçalhos na primeira linha. Os campos vão nesta ordem:
+
+| # | Campo | O que preencher |
+| --- | --- | --- |
+| 1 | CPF | CPF do atirador, só números |
+| 2 | NUMERO_CR | Certificado de registro do atirador |
+| 3 | VALIDADE_CR | Validade do CR (DD/MM/AAAA) |
+| 4 | NUMERO_REGISTRO_ARMA | Registro da arma |
+| 5 | ORGAO_EMISSOR_REGISTRO_ARMA | Órgão emissor do registro |
+| 6 | NUMERO_SERIE_ARMA | Número de série |
+| 7 | MARCA_FABRICANTE | Marca ou fabricante |
+| 8 | NUMERO_CRAF | Certificado de registro da arma |
+| 9 | GRUPO_ARMA | Código do grupo legal (tabela abaixo) |
+| 10 | LIVRO_SISTEMA | Livro ou sistema de origem |
+| 11 | FOLHA_NUMERO | Folha ou identificador |
+| 12 | DATA_HORA_LANCAMENTO | DD/MM/AAAA HH24:MI:SS |
+| 13 | DATA_HORA_PARTICIPACAO | DD/MM/AAAA HH24:MI:SS |
+| 14 | TOTAL_DISPAROS | Quantidade de disparos |
+| 15 | TIPO_EVENTO | Treinamento ou Competição |
+| 16 | NIVEL | Municipal, Regional, Nacional ou Internacional |
+| 17 | CNPJ_ENTIDADE_EVENTO | Entidade promotora da competição, só números |
+| 18 | CNPJ_CLUBE | CNPJ do clube, só números |
+| 19 | CR_CLUBE | Certificado de registro do clube |
+| 20 | VALIDADE_CR_CLUBE | Validade do CR do clube (DD/MM/AAAA) |
+
+**Códigos de GRUPO_ARMA** (Decreto nº 11.615/2023):
+
+| Código | Dispositivo |
+| --- | --- |
+| ACLP | art. 11, I |
+| ALRP | art. 11, II |
+| ALLP | art. 11, III |
+| ALRSP | art. 11, IV |
+| ACRR | art. 12, III |
+| ALRR | art. 12, IV |
+| ALLR | art. 12, V |
+
+## O que o atirador (CAC) precisa saber?
+
+Cada linha de habitualidade leva o CPF, o número e a validade do CR, o CRAF e o número de série da arma, a data e hora da prática, os disparos, o tipo e o nível do evento. Manter esses dados atualizados no clube é a melhor forma de ajudar o lançamento a sair certo, para o clube e para você.
+
+Se você compete em eventos de outras entidades, o lançamento da competição cabe a quem promoveu o evento (art. 9º). A quantidade de habitualidades exigida não mudou: a portaria remete ao art. 35 do Decreto nº 11.615/2023.
+
+<Faq items={[
+  { q: "O clube precisa contratar um sistema para usar o DPA-BASE?", a: "Não. O guia da PF prevê o lançamento manual, prática por prática, para o clube que não usa sistema. Quem tem sistema pode gerar o .CSV e carregar o arquivo." },
+  { q: "Qual o prazo para lançar um treino ou competição?", a: "Até 30 dias após a realização, pelo art. 9º da Portaria PF 19.109/2026." },
+  { q: "Quem cadastra os usuários do clube?", a: "Um servidor da PF ou um usuário da própria entidade com permissão de administrador." },
+  { q: "Que dados do atirador vão no arquivo?", a: "CPF, número e validade do CR, dados da arma (registro, série, marca, CRAF e grupo), data e hora da prática, total de disparos, tipo e nível do evento." },
+  { q: "Como informar que a filiação continua vigente?", a: "Deixando em branco o campo 'Fim da filiação' no período de filiação do atirador." },
+  { q: "O sistema já está liberado?", a: "A PF publicou o guia em 12/11, mas ainda não anunciou a data em que o acesso será liberado. A portaria entra em vigor em 27/11/2026." },
+]} />
+
+## Fontes consultadas
+
+- DPA Base, guia rápido para entidades de tiro — Polícia Federal, publicado em 12/11/2026: usuários, filiados, carga de .CSV, lançamento manual e layout do arquivo. Página oficial: https://www.gov.br/pf/pt-br/assuntos/armas/dpa-base-2013-guia-rapido-2013-entidade-de-tiro
+- Portaria DG/PF nº 19.109, de 22 de outubro de 2026 — DOU de 28/10/2026, edição 204-A, Seção 1 - Extra A: arts. 8º, 9º, 14 e 15.
+- Decreto nº 11.615/2023: arts. 11, 12 e 35.
+- Guia de Defesa: [DPA-BASE e a Portaria PF 19.109/2026](/dpa-base-portaria-pf-19109-2026/).
