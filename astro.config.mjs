@@ -35,7 +35,8 @@ export default defineConfig({
     mdx(),
     sitemap({
       // Hub de perguntas frequentes: página de navegação (noindex), fora do sitemap.
-      filter: (page) => !page.includes('/perguntas-frequentes'),
+      // Listas de compra de artigo (/<artigo>/monte-seu-kit/, src/data/listas-de-compra.ts): noindex, fora do sitemap.
+      filter: (page) => !page.includes('/perguntas-frequentes') && !/\/[^/]+\/(monte-seu-kit|lista-de-compras)\/$/.test(page),
       // Preenche <lastmod> por URL de post, a partir das datas do frontmatter.
       serialize(item) {
         const slug = item.url.match(/\/([^/]+)\/$/)?.[1];
