@@ -1,0 +1,192 @@
+---
+// Subpágina "lista de compras" de um artigo (ex.: /kit-72-horas-mochila-emergencia/monte-seu-kit/).
+// Regras em src/data/listas-de-compra.ts: noindex, follow; fora do sitemap; item com o porquê.
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCategory, STORES } from '../../consts';
+import { LISTAS, type ListaDeCompra } from '../../data/listas-de-compra';
+import { PRODUTOS, DATA_CONSULTA, type ProdutoAfiliado } from '../../data/produtos-afiliados';
+
+export function getStaticPaths() {
+  return LISTAS.map((l) => ({ params: { slug: l.artigo, lista: l.segmento }, props: { lista: l } }));
+}
+
+const { lista } = Astro.props as { lista: ListaDeCompra };
+const post = await getEntry('posts', lista.artigo);
+if (!post) throw new Error(`Lista "${lista.segmento}": artigo "${lista.artigo}" não existe.`);
+const cat = getCategory(post.data.category);
+const path = `/${lista.artigo}/${lista.segmento}/`;
+const loja = STORES.mercadolivre;
+
+type Sugestao = { p: ProdutoAfiliado; avulso: boolean };
+const resolver = (x: string | ProdutoAfiliado): Sugestao => {
+  if (typeof x !== 'string') return { p: x, avulso: true };
+  const p = PRODUTOS[x];
+  if (!p) throw new Error(`Lista "${lista.segmento}": código de produto desconhecido "${x}".`);
+  return { p, avulso: false };
+};
+const criterio = ({ p, avulso }: Sugestao) => {
+  const quando = avulso ? '' : ` em ${p.consulta ?? DATA_CONSULTA}`;
+  return p.nota
+    ? `Nota ${p.nota}${p.vendas ? `, ${p.vendas} vendidos` : ''}${quando}. Sem uso próprio.`
+    : `Escolhida por preço e avaliação${quando}. Sem uso próprio.`;
+};
+// [texto](/caminho/) → link interno; o resto é texto escapado.
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const md = (s: string) => esc(s).replace(/\[([^\]]+)\]\((\/[^)\s]*)\)/g, '<a href="$2">$1</a>');
+
+const breadcrumbs = [
+  { name: 'Início', path: '/' },
+  { name: cat?.name ?? '', path: `/categoria/${cat?.slug}/` },
+  { name: post.data.title, path: `/${post.slug}/` },
+  { name: lista.rotulo, path },
+];
+let n = 0;
+---
+<BaseLayout
+  title={lista.titulo}
+  description={lista.description}
+  path={path}
+  type="website"
+  breadcrumbs={breadcrumbs}
+  noindex
+>
+  <div class="wrap lista">
+    <nav class="voltar" aria-label="Voltar ao artigo">
+      <a href={`/${post.slug}/`}>← {post.data.title}</a>
+    </nav>
+    <p class="eyebrow">Lista de compras</p>
+    <h1>{lista.titulo}</h1>
+    {lista.intro.map((t) => <p class="lead" set:html={md(t)} />)}
+    <p class="aviso-topo">Esta página tem links de afiliado: se você comprar por eles, o Guia de Defesa pode receber uma comissão, sem custo extra para você.</p>
+
+    {lista.secoes.map((s) => (
+      <section class="secao">
+        <h2>{s.titulo}</h2>
+        {s.intro && <p class="secao-intro">{s.intro}</p>}
+        <ul class="itens">
+          {s.itens.map((it) => {
+            const id = `item-${++n}`;
+            const sug = (it.produtos ?? []).map(resolver);
+            return (
+              <li class="item">
+                <div class="item-head">
+                  <input type="checkbox" id={id} data-lista-item={id} />
+                  <label for={id}><strong>{it.item}</strong><span>{it.porque}</span></label>
+                </div>
+                {sug.length > 0 ? (
+                  <ul class="sugs">
+                    {sug.map((sg) => (
+                      <li>
+                        <a class="sug" href={sg.p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={sg.p.id} data-aff-pos="lista">
+                          {sg.p.imagem
+                            ? <img src={sg.p.imagem} alt={sg.p.nome} loading="lazy" width="72" height="72" />
+                            : <span class="sem-img" aria-hidden="true">ML</span>}
+                          <span class="sug-txt">
+                            <span class="sug-nome">{sg.p.nome}</span>
+                            <span class="sug-crit">{criterio(sg)}</span>
+                          </span>
+                          <span class="sug-btn" style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="sem-link">Sem sugestão de compra: mercado, farmácia ou o que você já tem em casa.</p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+
+    <section class="secao fechamento">
+      <h2>Antes de fechar a mochila</h2>
+      {lista.fechamento.map((t) => <p set:html={md(t)} />)}
+      <p>A explicação de cada escolha, a conta da água e os erros comuns estão no guia completo: <a href={`/${post.slug}/`}>{post.data.title}</a>.</p>
+    </section>
+
+    <aside class="disclosure-lista" role="note">
+      <p><strong>Transparência.</strong> As sugestões desta lista foram escolhidas por avaliação e preço no Mercado Livre na data indicada em cada uma, sem uso próprio. Preço e estoque mudam: confira no anúncio antes de comprar. Se você comprar pelos links, o Guia de Defesa pode receber uma comissão, sem custo extra.</p>
+    </aside>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var chave = 'lista:' + location.pathname;
+      var marcados = {};
+      try { marcados = JSON.parse(localStorage.getItem(chave) || '{}') || {}; } catch (e) {}
+      document.querySelectorAll('[data-lista-item]').forEach(function (cb) {
+        if (marcados[cb.id]) cb.checked = true;
+        cb.addEventListener('change', function () {
+          marcados[cb.id] = cb.checked;
+          try { localStorage.setItem(chave, JSON.stringify(marcados)); } catch (e) {}
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .lista { max-width: 760px; padding-top: 1.4rem; padding-bottom: 3rem; }
+  .voltar { font-family: var(--font-mono); font-size: 0.78rem; margin-bottom: 1.2rem; }
+  .voltar a { color: var(--steel); text-decoration: none; }
+  .voltar a:hover { color: var(--brass); }
+  h1 { margin: 0.3rem 0 1rem; line-height: 1.15; }
+  .lead { font-size: 1.02rem; line-height: 1.6; color: var(--ink-soft); }
+  .aviso-topo {
+    font-size: 0.8rem; line-height: 1.45; color: var(--steel);
+    border-left: 3px solid var(--olive); padding: 0.4rem 0 0.4rem 0.7rem; margin: 1.2rem 0 0;
+  }
+  .secao { margin-top: 2.2rem; }
+  .secao h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.3rem; margin-bottom: 0.6rem; }
+  .secao-intro { color: var(--ink-soft); margin: 0 0 0.8rem; }
+  .itens { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+  .item {
+    margin: 0; padding: 0.85rem 0.9rem; background: var(--paper-2);
+    border: 1px solid var(--line); border-radius: var(--radius, 4px);
+  }
+  .item-head { display: flex; gap: 0.7rem; align-items: flex-start; }
+  .item-head input { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin: 0.2rem 0 0; accent-color: var(--olive); }
+  .item-head label { display: flex; flex-direction: column; gap: 0.2rem; cursor: pointer; }
+  .item-head label strong { font-family: var(--font-display); font-weight: 600; line-height: 1.3; }
+  .item-head label span { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
+  .item-head input:checked + label strong { text-decoration: line-through; color: var(--steel); }
+  .sugs { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+  .sugs li { margin: 0; }
+  .sug {
+    display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 0.7rem; row-gap: 0.45rem;
+    align-items: center; padding: 0.55rem; background: var(--paper, #fff);
+    border: 1px solid var(--line); border-radius: 3px; text-decoration: none; color: inherit;
+  }
+  .sug img, .sem-img {
+    width: 56px; height: 56px; object-fit: contain; background: #fff;
+    border: 1px solid var(--line); border-radius: 3px; margin: 0;
+  }
+  .sem-img {
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel);
+  }
+  .sug-txt { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .sug-nome { font-size: 0.88rem; line-height: 1.3; color: var(--ink); }
+  .sug:hover .sug-nome { color: var(--brass); }
+  .sug-crit { font-size: 0.72rem; line-height: 1.35; color: var(--steel); }
+  .sug-btn {
+    grid-column: 1 / -1; display: block; text-align: center; padding: 0.42rem 0.5rem; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  }
+  .sug:hover .sug-btn { filter: brightness(0.94); }
+  .sem-link { font-size: 0.78rem; color: var(--steel); margin: 0.55rem 0 0 1.85rem; }
+  .fechamento p { line-height: 1.6; }
+  .disclosure-lista {
+    margin-top: 2rem; padding: 0.9rem 1.1rem; background: var(--paper-2);
+    border: 1px solid var(--line); border-radius: var(--radius, 4px);
+  }
+  .disclosure-lista p { margin: 0; font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
+
+  @media (min-width: 640px) {
+    .sug { grid-template-columns: 56px minmax(0, 1fr) auto; }
+    .sug-btn { grid-column: auto; white-space: nowrap; padding: 0.42rem 0.8rem; }
+  }
+</style>
