@@ -1,0 +1,82 @@
+---
+// Bloco ÚNICO de produtos de afiliado do artigo (no máximo 3, um link por produto).
+// Fica no fim do artigo (celular) e é levado para a coluna lateral em telas largas pelo script
+// de [slug].astro. Como existe uma vez só no HTML, a página nunca tem os links em dobro.
+import { STORES } from '../consts';
+import type { ProdutoAfiliado } from '../data/produtos-afiliados';
+
+interface Props {
+  produtos: ProdutoAfiliado[];
+}
+const { produtos } = Astro.props;
+const loja = STORES.mercadolivre;
+---
+{produtos.length > 0 && (
+  <aside id="vitrine-artigo" class="vitrine" aria-label="Sugestões de produto" data-pagefind-ignore>
+    <p class="vt-label">Sugestões · links de afiliado</p>
+    <ul class="vt-lista" style={`--vt-n:${produtos.length}`}>
+      {produtos.map((p) => (
+        <li>
+          <a class="vt-item" href={p.href} target="_blank" rel="sponsored nofollow noopener" data-aff-id={p.id} data-aff-pos="vitrine">
+            <img src={p.imagem} alt={p.nome} loading="lazy" width="96" height="96" />
+            <span class="vt-nome">{p.curto ?? p.nome}</span>
+            <span class="vt-btn" style={`background:${loja.color}; color:${loja.text}`}>Ver no {loja.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="vt-nota">Sugestões por avaliação no Mercado Livre, sem uso próprio. Se você comprar por estes links, o Guia de Defesa pode receber uma comissão, sem custo extra.</p>
+  </aside>
+)}
+
+<style is:global>
+  .vitrine {
+    margin: 1.6rem 0;
+    padding: 0.9rem 0.9rem 0.8rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--olive);
+    border-radius: var(--radius, 4px);
+  }
+  .vt-label {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--steel); margin: 0 0 0.7rem;
+  }
+  .vt-lista {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(var(--vt-n, 3), minmax(0, 1fr)); gap: 0.6rem;
+  }
+  .vt-lista li { margin: 0; }
+  .vt-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem; height: 100%;
+    text-align: center; text-decoration: none; color: inherit;
+  }
+  .vt-item img {
+    width: 100%; max-width: 96px; height: auto; aspect-ratio: 1; object-fit: contain;
+    background: #fff; border: 1px solid var(--line); border-radius: 3px; margin: 0;
+  }
+  .vt-nome {
+    font-family: var(--font-display); font-size: 0.82rem; line-height: 1.25; color: var(--ink);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .vt-item:hover .vt-nome { color: var(--brass); }
+  .vt-btn {
+    margin-top: auto; display: block; width: 100%; padding: 0.4rem 0.3rem; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; line-height: 1.2;
+  }
+  .vt-item:hover .vt-btn { filter: brightness(0.94); }
+  .vt-nota { font-size: 0.68rem; line-height: 1.4; color: var(--steel); margin: 0.7rem 0 0; }
+
+  /* Na coluna lateral (telas largas): um produto por linha, em formato baixo (foto pequena ao
+     lado do nome, botão embaixo) para os 3 caberem na tela junto com o sumário. */
+  .post-rail .vitrine { margin: 0; padding: 0.7rem; flex: 0 0 auto; }
+  .post-rail .vt-lista { grid-template-columns: 1fr; gap: 0.8rem; }
+  .post-rail .vt-item {
+    display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: center;
+    column-gap: 0.55rem; row-gap: 0.35rem; text-align: left;
+  }
+  .post-rail .vt-item img { max-width: 52px; }
+  .post-rail .vt-nome { font-size: 0.78rem; }
+  .post-rail .vt-btn { grid-column: 1 / -1; text-align: center; margin-top: 0; }
+  .post-rail .vt-nota { font-size: 0.64rem; }
+</style>

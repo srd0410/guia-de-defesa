@@ -71,15 +71,8 @@ const breadcrumbs = [
           category={p.data.category}
           pubDate={p.data.pubDate} cover={p.data.cover} coverAlt={p.data.coverAlt}
         />
-        {/* Categoria — intercalado: depois do 3º artigo (ou do 1º, em seção curta) */}
-        {i === (posts.length > 3 ? 2 : 0) && (
-          <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={1} extra />
-        )}
       </>
     ))}
-
-    {/* Categoria — fim da lista */}
-    {posts.length > 0 && <EspacoPublicitario posicao="categoria" seed={`categoria-${category.slug}`} indice={3} extra />}
   </div>
 </BaseLayout>
 

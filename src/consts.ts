@@ -31,19 +31,24 @@ export const SITE = {
   // Dá para misturar à vontade (ex.: topo do artigo = 'adsense', fim = 'afiliados'). O script do
   // AdSense, o ads.txt e o campo `ads` dos artigos ficam configurados em qualquer combinação.
   // Artigo com `ads: false` nunca recebe anúncio do Google (mostra o patrocínio/afiliado).
-  // Vitrine de afiliados (só vale para 'afiliados'): em categorias de assunto sensível para o
-  // leitor (lei, CAC, saúde, fundamentos) o topo do artigo fica sem produto, e nenhum artigo passa
-  // de `maxBlocosAfiliado` blocos de produto (os cards próprios do autor contam).
-  semVitrineNoTopo: ['legislacao', 'cac-tiro-desportivo', 'primeiros-socorros', 'ciencia-do-treinamento', 'fundamentos', 'noticias'],
-  maxBlocosAfiliado: 4,
+  // Vitrine de afiliados no artigo (só vale para 'afiliados'): UM bloco só por página, nunca no
+  // meio do texto. No computador ele fica na coluna lateral; no celular, no fim do artigo (antes de
+  // "Leia também"). Nenhuma página passa de `maxBlocosAfiliado` links de produto, contando os que
+  // ainda estiverem escritos no corpo do artigo. Em assunto sensível para o leitor (lei, CAC,
+  // notícias, saúde) o teto é `maxBlocosAfiliadoSensivel`. Os produtos do artigo vêm do campo
+  // `produtos` do frontmatter; sem ele, entram até `rotacaoPadrao` itens gerais da rotação.
+  // O espaço 'artigo-topo' (após o 1º parágrafo) só existe no modo 'adsense'.
+  categoriasSensiveis: ['legislacao', 'cac-tiro-desportivo', 'primeiros-socorros', 'noticias'],
+  maxBlocosAfiliado: 3,
+  maxBlocosAfiliadoSensivel: 1,
+  rotacaoPadrao: 2,
   espacos: {
-    'artigo-topo': 'afiliados',     // logo após o 1º parágrafo do artigo
-    'artigo-fim': 'afiliados',      // depois do conteúdo, antes das tags
-    'artigo-lateral': 'afiliados',  // coluna da direita (telas largas)
+    'artigo-topo': 'afiliados',     // só usado no modo 'adsense' (logo após o 1º parágrafo)
+    'artigo-fim': 'afiliados',      // celular: fim do artigo, antes de "Leia também"
+    'artigo-lateral': 'afiliados',  // computador: coluna da direita
     categoria: 'afiliados',         // topo da página de categoria
-    'categoria-extra': 'afiliados', // blocos intercalados na lista de categoria (só afiliados; no AdSense ficam ocultos)
     home: 'afiliados',              // lateral da home
-  } as Record<'artigo-topo' | 'artigo-fim' | 'artigo-lateral' | 'categoria' | 'categoria-extra' | 'home', 'afiliados' | 'adsense'>,
+  } as Record<'artigo-topo' | 'artigo-fim' | 'artigo-lateral' | 'categoria' | 'home', 'afiliados' | 'adsense'>,
 };
 
 // Autor padrão dos artigos (sinal forte de E-E-A-T para Google e IAs).

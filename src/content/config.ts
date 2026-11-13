@@ -41,6 +41,10 @@ const posts = defineCollection({
       tags: z.array(z.string()).default([]),
       // Marque true para não publicar ainda (não aparece no site nem no build).
       draft: z.boolean().default(false),
+      // Produtos de afiliado ligados ao artigo (códigos de src/data/produtos-afiliados.ts), no
+      // máximo 3. Aparecem num bloco único: lateral no computador, fim do artigo no celular.
+      // Nunca dentro do texto. Sem este campo, o layout usa itens gerais da rotação.
+      produtos: z.array(z.string()).max(3).default([]),
       // true quando o post contém links de afiliado (mostra o aviso automático).
       affiliate: z.boolean().default(false),
       // false desativa AdSense no artigo (categorias restritas pelo Google: armas,

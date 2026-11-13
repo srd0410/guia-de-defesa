@@ -5,8 +5,6 @@
 //   'adsense'   → <AdSlot> com os blocos de anúncio abaixo. Artigos com `ads: false` (categorias
 //                 restritas pelo Google: armas, munição, acessórios) mostram <SponsorSlot>,
 //                 como antes — nunca anúncio do Google.
-// As posições "extra" (blocos a mais na página de categoria) só existem quando 'categoria-extra' = 'afiliados':
-// no AdSense a página mantém um único bloco, como era.
 import { SITE } from '../consts';
 import AdSlot from './AdSlot.astro';
 import ProductSlot from './ProductSlot.astro';
@@ -32,21 +30,17 @@ interface Props {
   ads?: boolean;
   /** produto do próprio artigo (sponsorAffiliateHref), que tem prioridade sobre a vitrine */
   patrocinio?: { affiliateLabel?: string; affiliateHref?: string };
-  /** bloco adicional: só aparece quando 'categoria-extra' = 'afiliados' */
-  extra?: boolean;
   /** false = esconde a vitrine de afiliados neste espaço (limites de densidade); não afeta o AdSense */
   mostrar?: boolean;
 }
-const { posicao, seed, indice = 0, compact = false, ads = true, patrocinio = {}, extra = false, mostrar = true } = Astro.props;
-const modoAdsense = SITE.espacos[extra ? 'categoria-extra' : posicao] === 'adsense';
+const { posicao, seed, indice = 0, compact = false, ads = true, patrocinio = {}, mostrar = true } = Astro.props;
+const modoAdsense = SITE.espacos[posicao] === 'adsense';
 const temPatrocinioProprio = Boolean(patrocinio.affiliateHref);
 ---
 {modoAdsense
-  ? (extra
-      ? null
-      : ads
-        ? <AdSlot slot={SLOTS[posicao]} />
-        : <SponsorSlot compact={compact} {...patrocinio} />)
+  ? (ads
+      ? <AdSlot slot={SLOTS[posicao]} />
+      : <SponsorSlot compact={compact} {...patrocinio} />)
   : !mostrar
     ? null
     : (temPatrocinioProprio
