@@ -29,6 +29,13 @@ A **Portaria DG/PF nº 19.109/2026** torna obrigatório o DPA-BASE para registra
   </ul>
 </Callout>
 
+**Guias rápidos do DPA-BASE no Guia de Defesa**, com o passo a passo de cada perfil:
+
+- [Psicólogos: agendamento, testes e laudo](/dpa-base-guia-rapido-psicologos/)
+- [Instrutores de tiro: agendar e lançar o teste de capacidade técnica](/dpa-base-guia-rapido-instrutores/)
+- [Armeiros: entrada e saída das armas](/dpa-base-guia-rapido-armeiros/)
+- [Clubes de tiro: habitualidade por CSV ou manual](/dpa-base-guia-rapido-entidades-de-tiro/)
+
 <LegalSource
   norms={["Portaria DG/PF nº 19.109/2026, arts. 1º a 16", "Instrução Normativa nº 111/2017-DG/PF, art. 2º, § 8º", "Lei nº 9.784/1999, art. 66", "Lei Complementar nº 95/1998, art. 8º, § 1º"]}
   verifiedAt="2026-11-13"
@@ -74,7 +81,7 @@ Aplicando a regra do art. 8º, § 1º, da LC nº 95/1998, os 30 dias de vacânci
 
 A portaria e a página da PF falam em "três dias" antes do teste. Para o instrutor, a regra dos três dias úteis de antecedência já vinha da IN 111/2017 (art. 2º, § 8º) e continua valendo: o sistema muda o canal do aviso, não o prazo. A portaria não traz regra própria de contagem, e a PF segue a da administração pública em geral, a da Lei nº 9.784/1999 (art. 66), que exclui o dia do começo. Por isso o dia em que o agendamento é lançado não entra na conta: lançado numa sexta, o 1º dia útil é a segunda, e o teste do instrutor só pode ser feito a partir da quarta, se não houver feriado.
 
-**Situação em 13/11/2026.** Em 12/11, a PF atualizou a página [Registrar DPA Base](https://www.gov.br/pf/pt-br/assuntos/armas/registrar-dpa-base), publicou o guia das entidades de tiro, que é novo, e atualizou os guias de psicólogos e instrutores (lançados em 05/11) e de armeiros (04/11). O acesso será pelo gov.br, e o perfil de cada profissional é atribuído por um servidor da PF depois da verificação do credenciamento ou da licença. **A PF publicou os guias, mas ainda não anunciou a data em que o acesso será liberado aos profissionais**: por enquanto, os guias servem para cada um conhecer as telas e organizar a rotina.
+**Situação em 13/11/2026.** Em 12/11, a PF atualizou a página "Registrar DPA Base", publicou o guia das entidades de tiro, que é novo, e atualizou os guias de psicólogos e instrutores (lançados em 05/11) e de armeiros (04/11). O acesso será pelo gov.br, e o perfil de cada profissional é atribuído por um servidor da PF depois da verificação do credenciamento ou da licença. **A PF publicou os guias, mas ainda não anunciou a data em que o acesso será liberado aos profissionais**: por enquanto, os guias servem para cada um conhecer as telas e organizar a rotina.
 
 ## O que muda para psicólogos e instrutores de tiro?
 
@@ -90,6 +97,8 @@ Os guias, atualizados em 12/11, mostram o fluxo de cada um:
 A mudança que altera a ordem do atendimento está no guia dos instrutores: **o IAT só consegue agendar o teste de capacidade técnica se o requerente já tiver laudo psicológico APTO no sistema**. Sem ele, o sistema mostra uma mensagem de erro e não deixa agendar. Na prática, o psicológico vem antes, com tempo para o laudo ser lançado.
 
 A antecedência em si não é novidade; o que muda é que o agendamento passa a ser feito no sistema. Para o profissional, vale reservar na agenda o tempo do lançamento depois de cada teste, e manter o login individual: a portaria exige acesso pessoal e intransferível.
+
+Passo a passo completo: [guia do DPA-BASE para psicólogos](/dpa-base-guia-rapido-psicologos/) e [guia do DPA-BASE para instrutores](/dpa-base-guia-rapido-instrutores/).
 
 Para quem vai se submeter às avaliações, explicamos a preparação e as diferenças entre os documentos no artigo sobre [psicotécnico e teste de tiro na renovação do CRAF](/psicotecnico-e-teste-de-tiro-craf/).
 
@@ -115,35 +124,7 @@ Cada linha do arquivo traz os dados do atirador e da arma usados na prática. Os
 | TIPO_EVENTO e NIVEL | Treinamento ou competição; municipal, regional, nacional ou internacional |
 | CNPJ_ENTIDADE_EVENTO | Quem promoveu a competição |
 
-<details>
-<summary>Layout completo do arquivo .CSV (para clubes e empresas de TI)</summary>
-
-Formato: UTF-8, campos separados por vírgula e entre aspas duplas, nenhum campo com apóstrofo, cabeçalhos na primeira linha. Campos, nesta ordem:
-
-1. CPF do atirador (só números)
-2. NUMERO_CR
-3. VALIDADE_CR (DD/MM/AAAA)
-4. NUMERO_REGISTRO_ARMA
-5. ORGAO_EMISSOR_REGISTRO_ARMA
-6. NUMERO_SERIE_ARMA
-7. MARCA_FABRICANTE
-8. NUMERO_CRAF
-9. GRUPO_ARMA (código do grupo legal)
-10. LIVRO_SISTEMA
-11. FOLHA_NUMERO
-12. DATA_HORA_LANCAMENTO (DD/MM/AAAA HH24:MI:SS)
-13. DATA_HORA_PARTICIPACAO (DD/MM/AAAA HH24:MI:SS)
-14. TOTAL_DISPAROS
-15. TIPO_EVENTO (Treinamento ou Competição)
-16. NIVEL (Municipal, Regional, Nacional ou Internacional)
-17. CNPJ_ENTIDADE_EVENTO (só números, em competições)
-18. CNPJ_CLUBE (só números)
-19. CR_CLUBE
-20. VALIDADE_CR_CLUBE (DD/MM/AAAA)
-
-Códigos de GRUPO_ARMA, conforme o Decreto nº 11.615/2023: ACLP (art. 11, I), ALRP (art. 11, II), ALLP (art. 11, III), ALRSP (art. 11, IV), ACRR (art. 12, III), ALRR (art. 12, IV) e ALLR (art. 12, V).
-
-</details>
+O layout completo do arquivo, com os 20 campos e os códigos de grupo de arma, e o passo a passo das telas estão no [guia do DPA-BASE para clubes de tiro](/dpa-base-guia-rapido-entidades-de-tiro/).
 
 Para o clube, a rotina que facilita é simples: definir quem lança, lançar com folga em relação aos 30 dias e manter o cadastro dos filiados em dia. Uma plataforma contratada ajuda na tarefa, e o art. 9º, § 4º, mantém com a entidade a responsabilidade pelos dados que envia.
 
@@ -155,13 +136,13 @@ Os arts. 10 e 11 da portaria exigem informações sobre armas recebidas, reparad
 
 O guia dos armeiros, atualizado em 12/11, mostra a tela. Na **entrada** de cada arma na oficina, o armeiro informa a data de entrada, o CPF ou CNPJ do proprietário, o número de série, o CRAF e a guia de tráfego ou o porte. Na **saída**, no dia da entrega, abre o registro, informa o serviço feito e a data de saída. O próprio guia orienta: **"O armeiro não deve ter em posse armamentos não registrados no sistema"**.
 
-O perfil depende do licenciamento vigente e é atribuído por servidor da PF. Para o proprietário, a dica é levar o CRAF e a guia junto com a arma, porque esses dados entram no registro da entrada.
+O perfil depende do licenciamento vigente e é atribuído por servidor da PF. Para o proprietário, a dica é levar o CRAF e a guia junto com a arma, porque esses dados entram no registro da entrada. Passo a passo completo: [guia do DPA-BASE para armeiros](/dpa-base-guia-rapido-armeiros/).
 
 ### Empresas de tecnologia: o layout já foi publicado
 
 O art. 15 determina que empresas de tecnologia da informação devidamente habilitadas requeiram por e-mail seu cadastro à **DCAC/CGARM/DPA/PF**, em até 15 dias da entrada em vigor. Esse destinatário é diferente da DELEARM indicada para os clubes.
 
-A portaria não trazia formato de arquivo, mas o guia das entidades de 12/11 publicou o **layout do .CSV**, com os 20 campos acima. Com isso, a empresa já pode ajustar a exportação do sistema do clube. Pelo art. 9º, §§ 1º a 3º, a PF também pode requisitar informações diretamente às prestadoras contratadas pelas entidades.
+A portaria não trazia formato de arquivo, mas o guia das entidades de 12/11 publicou o **layout do .CSV**, com 20 campos, detalhado no nosso [guia do DPA-BASE para clubes de tiro](/dpa-base-guia-rapido-entidades-de-tiro/). Com isso, a empresa já pode ajustar a exportação do sistema do clube. Pelo art. 9º, §§ 1º a 3º, a PF também pode requisitar informações diretamente às prestadoras contratadas pelas entidades.
 
 ## Como o CAC se prepara?
 
